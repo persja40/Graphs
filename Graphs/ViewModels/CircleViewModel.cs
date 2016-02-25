@@ -13,6 +13,7 @@ namespace Graphs.ViewModels
 
         public double Radius { get; set; }
         public Color Color { get; set; } = Colors.Black;
+        public Color BorderColor { get; set; } = Colors.Red;
         public double X
         {
             get

@@ -45,6 +45,8 @@ namespace Graphs
            
             GraphViewModel vm = new GraphViewModel();
             double r = Math.Sqrt(Math.Pow(MyGraphControl.ActualHeight,1.8) + Math.Pow(MyGraphControl.ActualWidth, 1.8)) / 20;
+
+
             for (int i = 0; i < 10; ++i)
             {
                 double arc = Math.PI / 5 * i;

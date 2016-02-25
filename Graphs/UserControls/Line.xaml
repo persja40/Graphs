@@ -13,10 +13,7 @@
 
     <Line X1="{Binding X1}" X2="{Binding X2}" Y1="{Binding Y1}" Y2="{Binding Y2}">
         <Line.Stroke>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Black" Offset="0"/>
-                <GradientStop Color="#FFFF5D00" Offset="1"/>
-            </LinearGradientBrush>
+            <SolidColorBrush Color="{Binding Color}"/>
         </Line.Stroke>
 
     </Line>

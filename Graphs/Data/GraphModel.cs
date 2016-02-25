@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,7 @@ namespace Graphs.Data
 
         public void AddConnection(int node1, int node2)
         {
+            Contract.Ensures(node1 != node2);
             connections[node1, node2] = 1;
             connections[node2, node1] = 1;
         }
