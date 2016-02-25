@@ -1,0 +1,20 @@
+﻿<Window x:Class="Graphs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Graphs.UserControls"
+        xmlns:local="clr-namespace:Graphs"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="{Binding Path=ActualWidth, ElementName=MyGraphControl}"></Label>
+        <controls:GraphControl x:Name="MyGraphControl" Loaded="Loaded" Grid.Row="1" SizeChanged="CanvasResize">
+            
+        </controls:GraphControl>
+    </Grid>
+</Window>
