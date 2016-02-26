@@ -45,6 +45,6 @@ namespace Graphs.Data
         {
             return connections[node1, node2] == 1;
         }
+
     }
 }
-//Ernest tescik gita

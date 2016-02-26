@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\GraphMatrix.cs" />
     <Compile Include="Data\GraphModel.cs" />
     <Compile Include="UserControls\Circle.xaml.cs">
       <DependentUpon>Circle.xaml</DependentUpon>
