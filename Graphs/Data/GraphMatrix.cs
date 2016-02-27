@@ -9,6 +9,15 @@ namespace Graphs.Data
 {
     public class GraphMatrix
     {
+        public GraphMatrix(int nodes)
+        {
+            nodesNr = nodes;
+        }
+        public GraphMatrix(int nodes, int[,] array)
+        {
+            nodesNr = nodes;
+            connect = array;//UWAGA CZY TAK MOZNA???
+        }
         public void generatorGER(int nodes, int branches)//generator Erdoesa-Renyiego
         {
             nodesNr = nodes;
@@ -49,6 +58,8 @@ namespace Graphs.Data
                     if (r.NextDouble() < prob)
                         connect[i, j] = connect[j, i] = 1;
         }
+        public int[,] Connect { get; set; }
+        public int NodesNr { get; set; }
         private int[,] connect;
         private int nodesNr;
     }

@@ -59,7 +59,9 @@
     <Compile Include="Authors.xaml.cs">
       <DependentUpon>Authors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\GraphList.cs" />
     <Compile Include="Data\GraphMatrix.cs" />
+    <Compile Include="Data\GraphMatrixInc.cs" />
     <Compile Include="Data\GraphModel.cs" />
     <Compile Include="Actions\GraphLoad.cs" />
     <Compile Include="Helpers.cs" />
