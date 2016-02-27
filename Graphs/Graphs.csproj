@@ -55,8 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Authors.xaml.cs">
+      <DependentUpon>Authors.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data\GraphMatrix.cs" />
     <Compile Include="Data\GraphModel.cs" />
+    <Compile Include="Actions\GraphLoad.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="Project1Window.xaml.cs">
+      <DependentUpon>Project1Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Circle.xaml.cs">
       <DependentUpon>Circle.xaml</DependentUpon>
     </Compile>
@@ -69,6 +77,10 @@
     <Compile Include="ViewModels\CircleViewModel.cs" />
     <Compile Include="ViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
+    <Page Include="Authors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -81,6 +93,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Project1Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

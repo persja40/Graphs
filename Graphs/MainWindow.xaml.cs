@@ -43,7 +43,7 @@ namespace Graphs
         private void Do()
         {
            
-            GraphViewModel vm = new GraphViewModel();
+           /* GraphViewModel vm = new GraphViewModel();
             double r = Math.Sqrt(Math.Pow(MyGraphControl.ActualHeight,1.8) + Math.Pow(MyGraphControl.ActualWidth, 1.8)) / 20;
 
 
@@ -81,17 +81,27 @@ namespace Graphs
                     vm.Connections.Add(lineVM);
                 }
 
-            MyGraphControl.VM = vm;
+            MyGraphControl.VM = vm;*/
         }
 
-        private void Loaded(object sender, RoutedEventArgs e)
+        private void ButtonClick(object sender, RoutedEventArgs e)
         {
-            Do();
+            if(sender == Project1Button)
+            {
+                var window = new Project1Window();
+                this.Close();
+                window.Show();
+                return;
+            }
         }
 
-        private void CanvasResize(object sender, SizeChangedEventArgs e)
+        private void ShowAuthors(object sender, RoutedEventArgs e)
         {
-            Do();
+            if(!Helpers.IsWindowOpen<Authors>())
+            {
+                var authorsWindows = new Authors();
+                authorsWindows.Show();
+            }
         }
     }
 }

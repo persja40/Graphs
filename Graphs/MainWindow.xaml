@@ -7,14 +7,34 @@
         xmlns:local="clr-namespace:Graphs"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Label Content="{Binding Path=ActualWidth, ElementName=MyGraphControl}"></Label>
-        <controls:GraphControl x:Name="MyGraphControl" Loaded="Loaded" Grid.Row="1" SizeChanged="CanvasResize">
-            
-        </controls:GraphControl>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Info">
+                <MenuItem Header="_Autorzy" Click="ShowAuthors" />
+            </MenuItem>
+        </Menu>
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0" Margin="0,0,0,10">
+                <Button x:Name="Project1Button" Click="ButtonClick">Projekt 1</Button>
+            </DockPanel>
+            <DockPanel Grid.Row="1" Margin="0,0,0,10">
+                <Button x:Name="Project2Button" Click="ButtonClick">Projekt 2</Button>
+            </DockPanel>
+            <DockPanel Grid.Row="2" Margin="0,0,0,10">
+                <Button x:Name="Project3Button" Click="ButtonClick">Projekt 3</Button>
+            </DockPanel>
+            <DockPanel Grid.Row="3" Margin="0,0,0,10">
+                <Button x:Name="Project4Button" Click="ButtonClick" >Projekt 4</Button>
+            </DockPanel>
+        </Grid>
+    </DockPanel>
 </Window>
