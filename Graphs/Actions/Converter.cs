@@ -13,7 +13,7 @@ namespace Graphs.Actions
         {
             int max = from.NodesNr;
             int[,] tab = new int[max, max];
-            Pair<int, int> a = new Pair<int, int>;
+            Pair<int, int> a = new Pair<int, int>();
             for (int j = 0; j < from.ConnectNr; j++)
             {
                 a.First = a.Second = -1;

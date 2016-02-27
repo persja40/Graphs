@@ -16,6 +16,11 @@ namespace Graphs.Data
             connect = new int[nodesNr, nodesNr];
         }
 
+        public GraphMatrix(int nodes, int[,] connections)
+        {
+            NodesNr = nodes;
+            connect = connections;
+        }
         public void MakeConnection(int node1, int node2)
         {
             connect[node1, node2] = connect[node2, node1] = 1;
