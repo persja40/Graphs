@@ -12,12 +12,20 @@ namespace Graphs.Data
         public GraphMatrix(int nodes)
         {
             nodesNr = nodes;
+
+            connect = new int[nodesNr, nodesNr];
         }
-        public GraphMatrix(int nodes, int[,] array)
+
+        public void MakeConnection(int node1, int node2)
         {
-            nodesNr = nodes;
-            connect = array;//UWAGA CZY TAK MOZNA???
+            connect[node1, node2] = connect[node2, node1] = 1;
         }
+
+        public bool GetConnection(int node1, int node2)
+        {
+            return connect[node1, node2] >= 1;
+        }
+
         public void generatorGER(int nodes, int branches)//generator Erdoesa-Renyiego
         {
             nodesNr = nodes;
@@ -42,7 +50,7 @@ namespace Graphs.Data
                 {
                     for (int k = 0; k < branches; k++)
                         if (ar[k] == counter)
-                            connect[i, j] = connect[j, i] = 1;
+                            MakeConnection(i, j);
                     counter++;
                 }
         }
@@ -56,7 +64,7 @@ namespace Graphs.Data
             for (int i = 1; i < nodesNr; i++)
                 for (int j = 1; j < i; j++)
                     if (r.NextDouble() < prob)
-                        connect[i, j] = connect[j, i] = 1;
+                        MakeConnection(i, j);
         }
         public int[,] Connect { get; set; }
         public int NodesNr { get; set; }
