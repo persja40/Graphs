@@ -49,6 +49,25 @@ namespace Graphs.Data
                     if (r.NextDouble() < prob)
                         connect[i, j] = connect[j, i] = 1;
         }
+        public int[,] Connect {
+            get {
+                return connect;
+            }
+            set {
+                connect = value;
+            }
+        }
+        public int NodesNr
+        {
+            get
+            {
+                return nodesNr;
+            }
+            set
+            {
+                nodesNr = value;
+            }
+        }
         private int[,] connect;
         private int nodesNr;
     }

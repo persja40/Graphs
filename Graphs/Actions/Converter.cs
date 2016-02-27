@@ -9,11 +9,11 @@ namespace Graphs.Actions
 {
     public static class Converter
     {
-        public static GraphMatrix ConvertToMatrix(object from)
+        public static GraphMatrix ConvertToMatrix(GraphMatrixInc from)
         {
             throw new NotImplementedException();
         }
-        public static object ConvertToX(object from)
+        public static GraphMatrixInc ConvertToMatricInc(object from)
         {
             throw new NotImplementedException();
         }
