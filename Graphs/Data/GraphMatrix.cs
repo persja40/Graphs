@@ -72,7 +72,7 @@ namespace Graphs.Data
                         MakeConnection(i, j);
         }
         public int[,] Connect { get; set; }
-        public int NodesNr { get; set; }
+        public int NodesNr { get { return nodesNr; } }
         private int[,] connect;
         private int nodesNr;
     }
