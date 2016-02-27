@@ -31,9 +31,9 @@ namespace Graphs.Data
             for (int i = 1; i < nodesNr; i++)//wpisywanie wylosowanych liczb
                 for (int j = 1; j < i; j++)
                 {
-                    for (int k = 0; k < branches; k++)                    
+                    for (int k = 0; k < branches; k++)
                         if (ar[k] == counter)
-                            connect[i, j] = connect[j, i] = 1;                    
+                            connect[i, j] = connect[j, i] = 1;
                     counter++;
                 }
         }
@@ -46,7 +46,7 @@ namespace Graphs.Data
             Random r = new Random();
             for (int i = 1; i < nodesNr; i++)
                 for (int j = 1; j < i; j++)
-                    if (r.Next(10000000) / 10000000 < prob)
+                    if (r.NextDouble() < prob)
                         connect[i, j] = connect[j, i] = 1;
         }
         private int[,] connect;
