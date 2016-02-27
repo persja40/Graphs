@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Graphs.Actions
 {
-    public static class FileLoad
+    public static class GraphLoad
     {
         /// <summary>
         /// Laduje graf w postaci macierzy z podanego pliku

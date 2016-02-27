@@ -49,10 +49,6 @@ namespace Graphs.Data
                     if (r.Next(10000000) / 10000000 < prob)
                         connect[i, j] = connect[j, i] = 1;
         }
-        public void readFromFile()
-        {
-            //???
-        }
         private int[,] connect;
         private int nodesNr;
     }
