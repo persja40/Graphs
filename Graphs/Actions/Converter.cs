@@ -13,12 +13,12 @@ namespace Graphs.Actions
         {
             throw new NotImplementedException();
         }
-        public static GraphMatrixInc ConvertToMatricInc(object from)
+        public static GraphMatrixInc ConvertToMatricInc(GraphList from)
         {
             throw new NotImplementedException();
         }
    
-        public static object ConvertToY(object from)
+        public static GraphList ConvertToList(GraphMatrix from)
         {
             throw new NotImplementedException();
         }
