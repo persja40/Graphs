@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Graphs.Data;
+using Graphs.ViewModels;
 
 namespace Graphs
 {
@@ -19,9 +21,77 @@ namespace Graphs
     /// </summary>
     public partial class Project1Window : Window
     {
+        public GraphMatrix Graph { get; set; }
+        GraphModel model;
+
         public Project1Window()
         {
             InitializeComponent();
+
+            model = new GraphModel(10);
+            Random rand = new Random();
+            for (int i = 0; i < 25; ++i)
+            {
+                int node1 = rand.Next(0, 10);
+                int node2 = rand.Next(0, 10);
+
+                model.AddConnection(node1, node2);
+            }
+
+            CreateGraph();
+        }
+
+        public void CreateGraph()
+        {
+            GraphViewModel vm = new GraphViewModel();
+            double r = Math.Sqrt(Math.Pow(MyGraphControl.ActualHeight, 1.8) + Math.Pow(MyGraphControl.ActualWidth, 1.8)) / 20;
+
+
+            for (int i = 0; i < 10; ++i)
+            {
+                double arc = Math.PI / 5 * i;
+                double x = MyGraphControl.ActualWidth / 2 + (MyGraphControl.ActualWidth / 2 - r / 2) * Math.Cos(arc);
+                double y = MyGraphControl.ActualHeight / 2 + (MyGraphControl.ActualHeight / 2 - r / 2) * Math.Sin(arc);
+
+                vm.Nodes.Add(new CircleViewModel() { X = x, Y = y, Radius = r, Color = Colors.Yellow });
+            }
+
+            for (int y = 0; y < 10; ++y)
+                for (int x = 0; x < 10; ++x)
+                {
+                    if (model.HasConnection(x, y) == false)
+                        continue;
+                    double arc1 = Math.PI / 5 * y;
+                    double arc2 = Math.PI / 5 * x;
+
+                    double x1 = MyGraphControl.ActualWidth / 2 + (MyGraphControl.ActualWidth / 2 - r / 2) * Math.Cos(arc1);
+                    double y1 = MyGraphControl.ActualHeight / 2 + (MyGraphControl.ActualHeight / 2 - r / 2) * Math.Sin(arc1);
+
+                    double x2 = MyGraphControl.ActualWidth / 2 + (MyGraphControl.ActualWidth / 2 - r / 2) * Math.Cos(arc2);
+                    double y2 = MyGraphControl.ActualHeight / 2 + (MyGraphControl.ActualHeight / 2 - r / 2) * Math.Sin(arc2);
+
+                    LineViewModel lineVM = new LineViewModel()
+                    {
+                        X1 = x1,
+                        Y1 = y1,
+                        X2 = x2,
+                        Y2 = y2
+                    };
+
+                    vm.Connections.Add(lineVM);
+                }
+
+            MyGraphControl.VM = vm;
+        }
+
+        private void GraphControlResize(object sender, SizeChangedEventArgs e)
+        {
+            CreateGraph();
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

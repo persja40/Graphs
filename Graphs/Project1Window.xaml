@@ -7,14 +7,25 @@
         xmlns:controls="clr-namespace:Graphs.UserControls"
         mc:Ignorable="d"
         Title="Project1Window" Height="640" Width="800">
-    <Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" />
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />
+                <Separator />
+                <MenuItem Header="_Exit" Click="Exit" />
+            </MenuItem>
+        </Menu>
+    
+    <Grid DockPanel.Dock="Top">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="3*" />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -31,9 +42,10 @@
             <Separator></Separator>
         </StackPanel>
 
-        <controls:GraphControl x:Name="MyGraphControl">
+        <controls:GraphControl Grid.RowSpan="3" x:Name="MyGraphControl" SizeChanged="GraphControlResize">
             
         </controls:GraphControl>
         
     </Grid>
+    </DockPanel>
 </Window>
