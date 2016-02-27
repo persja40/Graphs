@@ -8,39 +8,9 @@ namespace Graphs.Data
 {
     public class GraphMatrixInc
     {
-        public int[,] Connect
-        {
-            get
-            {
-                return connect;
-            }
-            set
-            {
-                connect = value;
-            }
-        }
-        public int NodesNr
-        {
-            get
-            {
-                return nodesNr;
-            }
-            set
-            {
-                nodesNr = value;
-            }
-        }
-        public int ConnectNr
-        {
-            get
-            {
-                return connectNr;
-            }
-            set
-            {
-                connectNr = value;
-            }
-        }
+        public int[,] Connect { get; set; }
+        public int NodesNr { get; set; }
+        public int ConnectNr { get; set; }
         private int[,] connect;//uwaga tablica x*y przy czym x-wezly, y-polaczenia
         private int nodesNr;
         private int connectNr;
