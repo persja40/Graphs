@@ -20,7 +20,7 @@ namespace Graphs.Actions
                 int i = 0;
                 while (a.Second == -1)
                 {
-                    if (from.Connect[i, j] == 1)
+                    if (from.GetConnection(i, j))
                     {
                         if (a.First == -1)
                             a.First = 1;

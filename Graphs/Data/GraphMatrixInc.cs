@@ -8,9 +8,25 @@ namespace Graphs.Data
 {
     public class GraphMatrixInc
     {
-        public int[,] Connect { get; set; }
-        public int NodesNr { get; set; }
-        public int ConnectNr { get; set; }
+        public bool GetConnection(int node1, int node2) {
+            return false;//UZUPELNIC
+        }
+        public int NodesNr
+        {
+            get
+            {
+                int x = nodesNr;
+                return x;
+            }
+        }
+        public int ConnectNr
+        {
+            get
+            {
+                int x = connectNr;
+                return x;
+            }
+        }
         private int[,] connect;//uwaga tablica x*y przy czym x-wezly, y-polaczenia
         private int nodesNr;
         private int connectNr;

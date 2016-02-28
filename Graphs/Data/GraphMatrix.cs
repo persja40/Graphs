@@ -15,22 +15,19 @@ namespace Graphs.Data
 
             connect = new int[nodesNr, nodesNr];
         }
-
         public GraphMatrix(int nodes, int[,] connections)
         {
-            NodesNr = nodes;
+            nodesNr = nodes;
             connect = connections;
         }
         public void MakeConnection(int node1, int node2)
         {
             connect[node1, node2] = connect[node2, node1] = 1;
         }
-
         public bool GetConnection(int node1, int node2)
         {
             return connect[node1, node2] >= 1;
         }
-
         public void generatorGER(int nodes, int branches)//generator Erdoesa-Renyiego
         {
             nodesNr = nodes;
@@ -71,8 +68,14 @@ namespace Graphs.Data
                     if (r.NextDouble() < prob)
                         MakeConnection(i, j);
         }
-        public int[,] Connect { get; set; }
-        public int NodesNr { get { return nodesNr; } }
+        public int NodesNr
+        {
+            get
+            {
+                int x = nodesNr;
+                return x;
+            }
+        }
         private int[,] connect;
         private int nodesNr;
     }
