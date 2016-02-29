@@ -23,10 +23,10 @@ namespace Graphs.Actions
                     if (from.GetConnection(i, j))
                     {
                         if (a.First == -1)
-                            a.First = 1;
+                            a.First = i;
                         else
                         {
-                            a.Second = 1;
+                            a.Second = i;
                             break;
                         }
                     }
