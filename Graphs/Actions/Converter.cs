@@ -39,12 +39,33 @@ namespace Graphs.Actions
         }
         public static GraphMatrixInc ConvertToMatrixInc(GraphList from)
         {
-            throw new NotImplementedException();
+            int sumc = 0;
+            for (int i = 0; i < from.NodesNr; i++)
+            {
+                sumc += from.CountElem(i);
+            }
+            sumc = sumc / 2;
+            GraphMatrixInc q = new GraphMatrixInc(from.NodesNr, sumc);
+            int c = 0;
+            for (int i = 0; i < from.NodesNr; i++)//pobiera po kolei elementy, dodaje do matrixinc i usuwa z listy
+                for (int j = 0; j < from.NodesNr; j++)
+                    if (from.GetConnection(i, j))
+                    {
+                        q.MakeConnection(i, j, c);
+                        c++;
+                        from.RemoveConnection(i, j);
+                    }
+            return q;
         }
 
         public static GraphList ConvertToList(GraphMatrix from)
         {
-            throw new NotImplementedException();
+            GraphList q = new GraphList(from.NodesNr);
+            for (int i = 0; i < from.NodesNr; i++)
+                for (int j = 0; j < i; j++)
+                    if (from.GetConnection(i, j))
+                        q.MakeConnection(i, j);
+            return q;
         }
 
 
