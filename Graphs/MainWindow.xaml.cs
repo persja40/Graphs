@@ -26,16 +26,6 @@ namespace Graphs
         public MainWindow()
         {
             InitializeComponent();
-
-            
-
-        }
-
-
-        private void Do()
-        {
-           
-           /* */
         }
 
         private void ButtonClick(object sender, RoutedEventArgs e)
