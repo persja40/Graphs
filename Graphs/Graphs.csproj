@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -77,9 +79,13 @@
     <Compile Include="UserControls\Line.xaml.cs">
       <DependentUpon>Line.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Triangle.xaml.cs">
+      <DependentUpon>Triangle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CircleViewModel.cs" />
     <Compile Include="ViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
+    <Compile Include="ViewModels\TriangleViewModel.cs" />
     <Page Include="Authors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -113,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Line.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Triangle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
