@@ -28,6 +28,24 @@ namespace Graphs.Actions
             throw new NotImplementedException();
         }
 
-        //i 2 inne metody do ladowania 2 innych typow grafow
+        public static void SaveMatrix(GraphMatrixInc graph, string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static GraphMatrixInc LoadMatrix(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void SaveMatrix(GraphList graph, string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static GraphList LoadMatrix(string path)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
