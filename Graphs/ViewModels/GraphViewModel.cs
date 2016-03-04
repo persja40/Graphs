@@ -13,6 +13,7 @@ namespace Graphs.ViewModels
         public GraphViewModel()
         {
             Nodes = new List<CircleViewModel>();
+
             Connections = new List<LineViewModel>();
         }
     }
