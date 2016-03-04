@@ -28,22 +28,22 @@ namespace Graphs.Actions
             throw new NotImplementedException();
         }
 
-        public static void SaveMatrix(GraphMatrixInc graph, string path)
+        public static void SaveInc(GraphMatrixInc graph, string path)
         {
             throw new NotImplementedException();
         }
 
-        public static GraphMatrixInc LoadMatrix(string path)
+        public static GraphMatrixInc LoadInc(string path)
         {
             throw new NotImplementedException();
         }
 
-        public static void SaveMatrix(GraphList graph, string path)
+        public static void SaveList(GraphList graph, string path)
         {
             throw new NotImplementedException();
         }
 
-        public static GraphList LoadMatrix(string path)
+        public static GraphList LoadList(string path)
         {
             throw new NotImplementedException();
         }
