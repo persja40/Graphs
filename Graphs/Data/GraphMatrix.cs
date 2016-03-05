@@ -30,6 +30,12 @@ namespace Graphs.Data
             if (OnChange != null)
                 OnChange();
         }
+        public void RemoveConnection(int node1, int node2)
+        {
+            connect[node1, node2] = connect[node2, node1] = 0;
+            if (OnChange != null)
+                OnChange();
+        }
         public bool GetConnection(int node1, int node2)
         {
             return connect[node1, node2] >= 1;
