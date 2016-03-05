@@ -38,7 +38,7 @@ namespace Graphs.Data
             int max = (nodesNr * nodesNr - nodesNr) / 2;
             int[] ar = new int[branches];
             Random r = new Random();
-            for (int i = 0; i < nodesNr; i++)//losowanie wezlow
+            for (int i = 0; i < branches; i++)//losowanie wezlow
                 while (true)//sprawdzanie czy sie nie powtarzaja
                 {
                     ar[i] = r.Next(max);
