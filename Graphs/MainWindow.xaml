@@ -50,18 +50,7 @@
         </Menu>
         <ToolBarTray  DockPanel.Dock="Top" AllowDrop="True">
             <ToolBar>
-                <Button Content="Example" />
-                <Button Content="Test" />
-                <Button Content="Xexe" />
-            </ToolBar>
-            <ToolBar>
-                <Button Content="Easdas" />
-                <Button Content="sdsd" />
-                <Button Content="dsd" />
-            </ToolBar><ToolBar>
-                <Button Content="12312321" />
-                <Button Content="Te312312st" />
-                <Button Content="Xe123123xe" />
+                <Button Content="Stworz Losowy węzeł" Click="GenerateRandomConnection" />
             </ToolBar>
 
         </ToolBarTray>

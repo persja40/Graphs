@@ -74,11 +74,7 @@ namespace Graphs
         private void ShowAuthors(object sender, RoutedEventArgs e)
         {
             openWindow<Authors>();
-            Random rand = new Random();
-            int node1 = rand.Next(0, 5);
-            int node2 = rand.Next(0, 5);
-            if (node1 != node2)
-                Graph.MakeConnection(node1, node2);
+           
         }
 
         private void OpenGraphListItemTest(object sender, RoutedEventArgs e)
@@ -116,6 +112,15 @@ namespace Graphs
                
             }
 
+        }
+
+        private void GenerateRandomConnection(object sender, RoutedEventArgs e)
+        {
+            Random rand = new Random();
+            int node1 = rand.Next(0, 5);
+            int node2 = rand.Next(0, 5);
+            if (node1 != node2)
+                Graph.MakeConnection(node1, node2);
         }
     }
 }
