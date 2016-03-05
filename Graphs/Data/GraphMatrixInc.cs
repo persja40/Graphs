@@ -57,8 +57,23 @@ namespace Graphs.Data
             }
         }
         public OnChange OnChange { get; set; }
-        private int[,] connect;//uwaga tablica x*y przy czym x-wezly, y-polaczenia
-        private int nodesNr;
-        private int connectNr;
+        internal int[,] connect;//uwaga tablica x*y przy czym x-wezly, y-polaczenia
+        internal int nodesNr;
+        internal int connectNr;
+
+        public override string ToString()
+        {
+            var str= 
+                "NodesNr = " + NodesNr + Environment.NewLine +
+                 "ConnectNr = " + ConnectNr + Environment.NewLine +
+                 "connect = " + Environment.NewLine;
+
+            for (int i = 0; i < nodesNr; ++i)
+                for (int j = 0; j < ConnectNr; ++j)
+                    str += string.Format("[{0},{1}] = {2}{3}", i, j, connect[i, j], Environment.NewLine);
+
+            return str;
+
+        }
     }
 }
