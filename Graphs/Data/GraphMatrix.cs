@@ -19,7 +19,10 @@ namespace Graphs.Data
         public GraphMatrix(int nodes, int[,] connections)
         {
             nodesNr = nodes;
-            connect = connections;
+            connect = new int[nodesNr, nodesNr];
+            for (int i = 0; i < nodesNr; i++)
+                for (int j = 0; j < nodesNr; j++)
+                    connect[i, j] = connections[i, j];
         }
         public void MakeConnection(int node1, int node2)
         {
@@ -86,6 +89,6 @@ namespace Graphs.Data
         private int nodesNr;
 
 
-       
+
     }
 }

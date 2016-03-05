@@ -13,7 +13,6 @@ namespace Graphs.Data
         {
             nodesNr = nodes;
             connect = new List<int>[nodes];
-
             for (int i = 0; i < connect.Length; ++i)
                 connect[i] = new List<int>();
         }
@@ -22,7 +21,7 @@ namespace Graphs.Data
             List<int> _return = new List<int>();
             foreach (var item in connect[node])
                 _return.Add(item);
-            return _return; 
+            return _return;
         }
         public void MakeConnection(int node1, int node2)//tworzy w dwie strony
         {

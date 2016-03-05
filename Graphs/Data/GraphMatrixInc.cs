@@ -19,12 +19,14 @@ namespace Graphs.Data
         {
             nodesNr = nodes;
             connectNr = cons;
-            connect = arr;
-            
+            connect = new int[nodesNr, connectNr];
+            for (int i = 0; i < nodesNr; i++)
+                for (int j = 0; j < connectNr; j++)
+                    connect[i, j] = arr[i, j];
         }
         public void MakeConnection(int node1, int node2, int con1)
         {
-            connect[node1,con1]=connect[node2,con1]=1;
+            connect[node1, con1] = connect[node2, con1] = 1;
             if (OnChange != null)
                 OnChange();
         }
