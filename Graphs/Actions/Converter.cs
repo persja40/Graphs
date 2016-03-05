@@ -19,19 +19,12 @@ namespace Graphs.Actions
                 a.First = a.Second = -1;
                 int i = 0;
                 while (a.Second == -1)
-                {
                     if (from.GetConnection(i, j))
-                    {
                         if (a.First == -1)
                             a.First = i;
                         else
-                        {
-                            a.Second = i;
-                            break;
-                        }
-                    }
-                    i++;
-                }
+                            a.Second = i;                
+                i++;
                 tab[a.First, a.Second] = tab[a.Second, a.First] = 1;
             }
             GraphMatrix x = new GraphMatrix(max, tab);
