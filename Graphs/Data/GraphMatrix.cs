@@ -75,10 +75,7 @@ namespace Graphs.Data
                     temp.MakeConnection(a[0], a[3]);
                     temp.MakeConnection(a[1], a[2]);
                 }
-                if (x % 10 == 0)
-                    Console.WriteLine(i);
             }
-            Console.WriteLine("doszlo");
             return Converter.ConvertToMatrix(temp);
         }
         public OnChange OnChange { get; set; }

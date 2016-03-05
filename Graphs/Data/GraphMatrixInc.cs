@@ -31,13 +31,19 @@ namespace Graphs.Data
             if (OnChange != null)
                 OnChange();
         }
-        public bool GetConnection(int node1, int node2)
+        public bool GetConnection(int node1, int node2)//czy n1 i n2 sa polaczone
         {
             if (node1 == node2)
                 return false;
             for (int i = 0; i < connectNr; i++)
                 if ((connect[node1, i] == 1) && (connect[node2, i] == 1))
                     return true;
+            return false;
+        }
+        public bool GetConnectionArray(int node1, int conn)//zwraca element tablicy
+        {
+            if (connect[node1, conn] == 1)
+                return true;
             return false;
         }
         public int NodesNr

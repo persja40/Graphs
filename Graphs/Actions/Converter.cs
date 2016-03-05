@@ -32,13 +32,14 @@ namespace Graphs.Actions
             int c = 0;
             for (int i = 0; i < from.NodesNr; i++)//pobiera po kolei elementy, dodaje do matrixinc i usuwa z listy
                 for (int j = 0; j < from.NodesNr; j++)
+                {
                     if (from.GetConnection(i, j))
                     {
                         q.MakeConnection(i, j, c);
                         c++;
                         from.RemoveConnection(i, j);
-                        break;
                     }
+                }
             return q;
         }
 
