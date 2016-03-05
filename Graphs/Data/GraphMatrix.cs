@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Graphs.Misc;
+using Graphs.Actions;
 
 namespace Graphs.Data
 {
@@ -13,7 +14,6 @@ namespace Graphs.Data
         public GraphMatrix(int nodes)
         {
             nodesNr = nodes;
-
             connect = new int[nodesNr, nodesNr];
         }
         public GraphMatrix(int nodes, int[,] connections)
@@ -38,14 +38,12 @@ namespace Graphs.Data
         {
             return connect[node1, node2] >= 1;
         }
-        
         public void Clear()
         {
             for (int i = 0; i < nodesNr; ++i)
                 for (int j = 0; j < nodesNr; ++j)
                     connect[i, j] = 0;
         }
-
         public void Set(GraphMatrix other)
         {
 
@@ -59,56 +57,27 @@ namespace Graphs.Data
                         MakeConnection(x, y);
                 }
         }
-
-        public void generatorGER(int nodes, int branches)//generator Erdoesa-Renyiego
+        public GraphMatrix Randomize(int x = 100)
         {
-            Clear();
-            nodesNr = nodes;
-            connect = new int[nodesNr, nodesNr];//default =0
-            int max = (nodesNr * nodesNr - nodesNr) / 2;
-            int[] ar = new int[branches];
+            int[] a = new int[nodesNr];
             Random r = new Random();
-            for (int i = 0; i < branches; i++)//losowanie wezlow
-                while (true)//sprawdzanie czy sie nie powtarzaja
+            for (int i = 0; i < x; i++)
+            {
+                a[0] = a[1] = a[2] = 0;
+                a[3] = 1;
+                while (a[0] == a[1] && a[1] == a[2] && a[2] == a[3])
                 {
-                    ar[i] = r.Next(max);
-                    bool q = false;
-                    for (int k = 0; k < i; k++)
-                        if (ar[k] == ar[i])
-                            q = true;
-                    if (!q)
-                        break;
+                    a[0] = r.Next(nodesNr);
+                    a[1] = r.Next(nodesNr);
+                    a[2] = r.Next(nodesNr);
+                    a[3] = r.Next(nodesNr);
                 }
-            int counter = 0;
-            for (int i = 1; i < nodesNr; i++)//wpisywanie wylosowanych liczb
-                for (int j = 0; j < i; j++)
-                {
-                    for (int k = 0; k < branches; k++)
-                        if (ar[k] == counter)
-                            MakeConnection(i, j);
-                    counter++;
-                }
-        }
-        public void generatorGnp(int nodes, double prob)//generator G(n,p)
-        {
-            if (0 <= prob || prob <= 1 || nodes < 2)
-                return;
-            nodesNr = nodes;
-            connect = new int[nodes, nodes];//default =0
-            Random r = new Random();
-            for (int i = 1; i < nodesNr; i++)
-                for (int j = 1; j < i; j++)
-                    if (r.NextDouble() < prob)
-                        MakeConnection(i, j);
-        }
+                
 
-        public GraphMatrix Randomize()
-        {
+            }
             throw new NotImplementedException();
         }
-
         public OnChange OnChange { get; set; }
-
         public int ConnectionCount
         {
             get
@@ -119,10 +88,9 @@ namespace Graphs.Data
                         if (GetConnection(i, j))
                             _ret++;
                 return _ret;
-                                
+
             }
         }
-
         public int NodesNr
         {
             get
@@ -133,8 +101,5 @@ namespace Graphs.Data
         }
         private int[,] connect;
         private int nodesNr;
-
-
-
     }
 }

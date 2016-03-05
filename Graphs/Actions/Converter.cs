@@ -38,14 +38,12 @@ namespace Graphs.Actions
         {
             int sumc = 0;
             for (int i = 0; i < from.NodesNr; i++)
-            {
                 sumc += from.CountElem(i);
-            }
             sumc = sumc / 2;
             GraphMatrixInc q = new GraphMatrixInc(from.NodesNr, sumc);
             int c = 0;
             for (int i = 0; i < from.NodesNr; i++)//pobiera po kolei elementy, dodaje do matrixinc i usuwa z listy
-                for (int j = 0; j < from.NodesNr; j++)
+                for (int j = 0; j < sumc; j++)
                     if (from.GetConnection(i, j))
                     {
                         q.MakeConnection(i, j, c);

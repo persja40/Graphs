@@ -18,7 +18,7 @@ namespace Tests
                 for(int j = 1; j <= i; ++j)
                 {
                     GraphMatrix graph = new GraphMatrix(i);
-                    graph.generatorGER(i, j);
+                    //graph.generatorGER(i, j);
                     Assert.IsTrue(graph.ConnectionCount == j, string.Format("Nodes : {0}, Connections : {1}, Have : {2}", i, j, graph.ConnectionCount));
                 }
         }

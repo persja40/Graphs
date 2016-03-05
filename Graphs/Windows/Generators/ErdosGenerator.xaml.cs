@@ -44,7 +44,7 @@ namespace Graphs.Windows.Generators
             connectionCount = Int32.Parse(ConnectionCount.Text);
 
             GraphMatrix graph = new GraphMatrix(nodesCount);
-            graph.generatorGER(nodesCount, connectionCount);
+            //graph.generatorGER(nodesCount, connectionCount);
 
             return graph;
         }

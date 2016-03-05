@@ -13,9 +13,18 @@ namespace Piaskownica
         static void Main(string[] args)
         {
             GraphMatrix q = new GraphMatrix(1);
-            q.generatorGER(5,4);
             GraphMatrix w = Converter.ConvertToMatrix(Converter.ConvertToMatrixInc(Converter.ConvertToList(q)));
-            Console.WriteLine(por(q,w));
+            //Console.WriteLine(por(q,w));
+            int[,] connect = new int[5, 6];
+            for (int i = 0; i < 5; i++) {//wpisywanie wylosowanych liczb
+                for (int j = 0; j < 6; j++)
+                {
+                    Console.Write(connect[i,j]);
+                    Console.Write(" ; ");
+
+                }
+                Console.WriteLine("");
+            }
             Console.Write(5>3);
             Console.Read();
         }
