@@ -14,7 +14,7 @@
     <ListView ItemsSource="{Binding Items}">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <controls:GraphListControlItem />
+                <controls:GraphListControlItem OnChange="ChildChanged" />
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

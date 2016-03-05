@@ -19,10 +19,10 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Label>Liczba Krawędzi</Label>
+        <Label>Liczba wierzchołków</Label>
         <TextBox Grid.Column="1" x:Name="NodeCount"></TextBox>
 
-        <Label Grid.Row="1">Liczba wierzchołków</Label>
+        <Label Grid.Row="1">Liczba Krawędzi</Label>
         <TextBox  Grid.Row="1" Grid.Column="1" x:Name="ConnectionCount"></TextBox>
         <Button Click="Generate" Grid.Row="2" Grid.Column="1">Generuj</Button>
     </Grid>

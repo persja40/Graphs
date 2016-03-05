@@ -10,7 +10,7 @@
              xmlns:vc="clr-namespace:Graphs.ValueConverters"
              xmlns:val="clr-namespace:Graphs.Validations"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" DataContextChanged="dataContextChanged">
     <UserControl.Resources>
         <vc:GraphListValueConverter x:Key="NodesConverter"/>
     </UserControl.Resources>
@@ -18,7 +18,7 @@
     <DockPanel>
 
         <Label Content="{Binding NodeNumberForHuman}" DockPanel.Dock="Left" />
-        <TextBox DockPanel.Dock="Left">
+        <TextBox DockPanel.Dock="Left" PreviewTextInput="TextChange">
             <TextBox.Text>
                 <Binding Path="ConnectedNodes">
                     <Binding.Converter>

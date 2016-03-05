@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Graphs.Data;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +15,18 @@ namespace Graphs.ViewModels
         public GraphListViewModel()
         {
             Items = new ObservableCollection<GraphListItemViewModel>();
+        }
+
+        public GraphList GetList()
+        {
+            GraphList List = new GraphList(Items.Count);
+            foreach(var item in Items)
+            {
+                var i = item.NodeNumber;
+                foreach (var connection in item.ConnectedNodes)
+                    List.MakeConnection(i, connection);
+            }
+            return List;
         }
     }
 }

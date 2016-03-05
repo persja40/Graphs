@@ -20,9 +20,16 @@ namespace Graphs.UserControls
     /// </summary>
     public partial class GraphListControl : UserControl
     {
+        public EventHandler<RoutedEventArgs> OnChange { get; set; }
         public GraphListControl()
         {
             InitializeComponent();
+        }
+
+        private void ChildChanged(object sender, RoutedEventArgs args)
+        {
+            if (OnChange != null)
+                OnChange(sender, args);
         }
     }
 }
