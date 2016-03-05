@@ -15,7 +15,7 @@ namespace Piaskownica
             GraphMatrix q = new GraphMatrix(1);
             q.generatorGER(5,4);
             GraphMatrix w = Converter.ConvertToMatrix(Converter.ConvertToMatrixInc(Converter.ConvertToList(q)));
-            Console.WriteLine(por(q,w));
+            //Console.WriteLine(por(q,w));
             Console.Write(5>3);
             Console.Read();
         }
