@@ -32,7 +32,7 @@ namespace Graphs.Data
         }
         public bool GetConnection(int node1, int node2)
         {
-            return connect[node1, node2] >= 1;
+            return (connect[node1, node2] >= 1);
         }
         public int NodesNr
         {
