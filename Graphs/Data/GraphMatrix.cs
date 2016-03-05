@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Graphs.Misc;
+using Graphs.Actions;
 
 namespace Graphs.Data
 {
@@ -13,7 +14,6 @@ namespace Graphs.Data
         public GraphMatrix(int nodes)
         {
             nodesNr = nodes;
-
             connect = new int[nodesNr, nodesNr];
         }
         public GraphMatrix(int nodes, int[,] connections)
@@ -59,8 +59,22 @@ namespace Graphs.Data
         }
         public GraphMatrix Randomize(int x = 100)
         {
+            int[] a = new int[nodesNr];
             Random r = new Random();
-            int nr = r.Next(x);
+            for (int i = 0; i < x; i++)
+            {
+                a[0] = a[1] = a[2] = 0;
+                a[3] = 1;
+                while (a[0] == a[1] && a[1] == a[2] && a[2] == a[3])
+                {
+                    a[0] = r.Next(nodesNr);
+                    a[1] = r.Next(nodesNr);
+                    a[2] = r.Next(nodesNr);
+                    a[3] = r.Next(nodesNr);
+                }
+                
+
+            }
             throw new NotImplementedException();
         }
         public OnChange OnChange { get; set; }
