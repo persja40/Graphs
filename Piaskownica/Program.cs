@@ -12,7 +12,7 @@ namespace Piaskownica
     {
         static void Main(string[] args)
         {
-            GraphMatrix q = GraphGenerator.generatorGER(5,4);
+            GraphMatrix q = GraphGenerator.generatorGER(5,7);
             //GraphMatrix w = Converter.ConvertToMatrix(Converter.ConvertToMatrixInc(Converter.ConvertToList(q)));
             //Console.WriteLine(por(q,w));
             //int[,] connect = new int[5, 6];
@@ -49,7 +49,7 @@ namespace Piaskownica
             {//wpisywanie wylosowanych liczb
                 for (int j = 0; j < e.ConnectNr; j++)
                 {
-                    if (e.GetConnection(i, j))
+                    if (e.GetConnectionArray(i, j))
                         Console.Write(1);
                     else
                         Console.Write(0);
@@ -57,6 +57,7 @@ namespace Piaskownica
                 }
                 Console.WriteLine("");
             }
+            
             Console.WriteLine("-------------------------------------------------------------");
             GraphMatrix r = Converter.ConvertToMatrix(e);
             for (int i = 0; i < r.NodesNr; i++)
