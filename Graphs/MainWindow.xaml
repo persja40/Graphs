@@ -72,7 +72,7 @@
 
                 </TabItem>
                 <TabItem Header="List">
-                    <controls:GraphListControl x:Name="GraphListControl" />
+                    <controls:GraphListControl x:Name="GraphListControl" OnChange="ListChanged" />
                 </TabItem>
             </TabControl>
         </Grid>

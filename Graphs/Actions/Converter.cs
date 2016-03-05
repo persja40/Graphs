@@ -37,6 +37,10 @@ namespace Graphs.Actions
             GraphMatrix x = new GraphMatrix(max, tab);
             return x;
         }
+        public static GraphMatrix ConvertToMatrix(GraphList from)
+        {
+            return ConvertToMatrix(ConvertToMatrixInc(from));
+        }
         public static GraphMatrixInc ConvertToMatrixInc(GraphList from)
         {
             int sumc = 0;

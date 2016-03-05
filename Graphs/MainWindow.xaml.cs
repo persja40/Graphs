@@ -34,12 +34,16 @@ namespace Graphs
         {
             InitializeComponent();
 
-            Graph = new GraphMatrix(55);
+            Graph = new GraphMatrix(5);
+
             GraphRenderer = new GraphRenderer(Graph, GraphControl);
 
             GraphListControl.DataContext = new GraphListViewModel();
 
+            
+
             Graph.OnChange += onGraphChange;
+            onGraphChange();
         }
 
         private void onGraphChange()
@@ -116,6 +120,13 @@ namespace Graphs
                
             }
 
+        }
+
+        private void ListChanged(object sender, RoutedEventArgs args)
+        {
+            var vm = GraphListControl.DataContext as GraphListViewModel;
+            var matrix = Converter.ConvertToMatrix(vm.GetList());
+            Graph.Set(matrix);
         }
 
         private void GenerateRandomConnection(object sender, RoutedEventArgs e)

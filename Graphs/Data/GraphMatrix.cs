@@ -46,6 +46,9 @@ namespace Graphs.Data
             for (int i = 0; i < nodesNr; ++i)
                 for (int j = 0; j < nodesNr; ++j)
                     connect[i, j] = 0;
+
+            if (OnChange != null)
+                OnChange();
         }
 
         public void Set(GraphMatrix other)
@@ -62,6 +65,9 @@ namespace Graphs.Data
                     if (other.GetConnection(x, y))
                         MakeConnection(x, y);
                 }
+
+            if (OnChange != null)
+                OnChange();
         }
 
         public void generatorGER(int nodes, int branches)//generator Erdoesa-Renyiego
@@ -119,7 +125,7 @@ namespace Graphs.Data
             {
                 int _ret = 0;
                 for (int i = 0; i < nodesNr; ++i)
-                    for (int j = 0; j < nodesNr; ++j)
+                    for (int j = i; j < nodesNr; ++j)
                         if (GetConnection(i, j))
                             _ret++;
                 return _ret;

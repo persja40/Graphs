@@ -1,4 +1,5 @@
-﻿using Graphs.ViewModels;
+﻿using Graphs.Misc;
+using Graphs.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Collections.Specialized;
 
 namespace Graphs.UserControls
 {
@@ -21,22 +24,41 @@ namespace Graphs.UserControls
     /// </summary>
     public partial class GraphListControlItem : UserControl
     {
+
+        public EventHandler<RoutedEventArgs> OnChange { get; set; }
         public GraphListControlItem()
         {
             InitializeComponent();
         }
 
-        private void AddNewItem(object sender, RoutedEventArgs e)
-        {
-            GraphListItemViewModel vm = DataContext as GraphListItemViewModel;
+        private void TextChange(object sender, TextCompositionEventArgs e)
+         {
+            /*Application.Current.Dispatcher.BeginInvoke(
+              DispatcherPriority.Background,
+              new Action(() =>
+              {
 
-            vm.ConnectedNodes.Add(-1);
+
+                  if (OnChange != null)
+                      OnChange(sender, e);
+              }));
+            */
+
         }
 
-        private void DeleteItem(object sender, RoutedEventArgs e)
+        private void dataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            ListViewItem local = ((sender as Button).Tag as ListViewItem);
-            var dc = DataContext;
+            if(DataContext is GraphListItemViewModel)
+            {
+                var dc = DataContext as GraphListItemViewModel;
+
+                dc.OnChange += OnVMChange;
+            }
+        }
+
+        private void OnVMChange()
+        {
+            OnChange(null, null);
         }
     }
 }
