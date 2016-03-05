@@ -26,13 +26,19 @@ namespace Graphs.Data
         }
         public void MakeConnection(int node1, int node2, int con1)
         {
-            connect[node1, con1] = connect[node2, con1] = 1;
+            connect[node1, con1] = 1;
+            connect[node2, con1] = 1;
             if (OnChange != null)
                 OnChange();
         }
         public bool GetConnection(int node1, int node2)
         {
-            return (connect[node1, node2] >= 1);
+            if (node1 == node2)
+                return false;
+            for (int i = 0; i < connectNr; i++)
+                if ((connect[node1, i] == 1) && (connect[node2, i] == 1))
+                    return true;
+            return false;
         }
         public int NodesNr
         {

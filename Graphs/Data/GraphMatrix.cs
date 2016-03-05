@@ -61,21 +61,25 @@ namespace Graphs.Data
         {
             int[] a = new int[nodesNr];
             Random r = new Random();
+            GraphList temp = Converter.ConvertToList(this);
             for (int i = 0; i < x; i++)
             {
-                a[0] = a[1] = a[2] = 0;
-                a[3] = 1;
-                while (a[0] == a[1] && a[1] == a[2] && a[2] == a[3])
+                a[0] = r.Next(nodesNr);
+                a[1] = r.Next(nodesNr);
+                a[2] = r.Next(nodesNr);
+                a[3] = r.Next(nodesNr);
+                if (temp.GetConnection(a[0], a[1]) && temp.GetConnection(a[2], a[3]) && !(temp.GetConnection(a[0], a[3])) && !(temp.GetConnection(a[1], a[2])))
                 {
-                    a[0] = r.Next(nodesNr);
-                    a[1] = r.Next(nodesNr);
-                    a[2] = r.Next(nodesNr);
-                    a[3] = r.Next(nodesNr);
+                    temp.RemoveConnection(a[0], a[1]);
+                    temp.RemoveConnection(a[2], a[3]);
+                    temp.MakeConnection(a[0], a[3]);
+                    temp.MakeConnection(a[1], a[2]);
                 }
-                
-
+                if (x % 10 == 0)
+                    Console.WriteLine(i);
             }
-            throw new NotImplementedException();
+            Console.WriteLine("doszlo");
+            return Converter.ConvertToMatrix(temp);
         }
         public OnChange OnChange { get; set; }
         public int ConnectionCount

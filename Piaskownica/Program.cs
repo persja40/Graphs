@@ -12,20 +12,83 @@ namespace Piaskownica
     {
         static void Main(string[] args)
         {
-            GraphMatrix q = new GraphMatrix(1);
-            GraphMatrix w = Converter.ConvertToMatrix(Converter.ConvertToMatrixInc(Converter.ConvertToList(q)));
+            GraphMatrix q = GraphGenerator.generatorGER(5,4);
+            //GraphMatrix w = Converter.ConvertToMatrix(Converter.ConvertToMatrixInc(Converter.ConvertToList(q)));
             //Console.WriteLine(por(q,w));
-            int[,] connect = new int[5, 6];
-            for (int i = 0; i < 5; i++) {//wpisywanie wylosowanych liczb
-                for (int j = 0; j < 6; j++)
+            //int[,] connect = new int[5, 6];
+            for (int i = 0; i < q.NodesNr; i++) {//wpisywanie wylosowanych liczb
+                for (int j = 0; j < q.NodesNr; j++)
                 {
-                    Console.Write(connect[i,j]);
+                    if(q.GetConnection(i, j))
+                        Console.Write(1);
+                    else
+                        Console.Write(0);
                     Console.Write(" ; ");
-
                 }
                 Console.WriteLine("");
             }
-            Console.Write(5>3);
+            Console.WriteLine("-------------------------------------------------------------");
+            GraphList w = Converter.ConvertToList(q);
+            for (int i = 0; i < w.NodesNr; i++)
+            {
+                Console.Write(i + ":");
+                for (int j = 0; j < w.NodesNr; j++)
+                {
+                    if (w.GetConnection(i, j))
+                    {
+                        Console.Write(j);
+                        Console.Write(" ; ");
+                    }
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine("-------------------------------------------------------------");
+            
+            GraphMatrixInc e= Converter.ConvertToMatrixInc(w);
+            for (int i = 0; i < e.NodesNr; i++)
+            {//wpisywanie wylosowanych liczb
+                for (int j = 0; j < e.ConnectNr; j++)
+                {
+                    if (e.GetConnection(i, j))
+                        Console.Write(1);
+                    else
+                        Console.Write(0);
+                    Console.Write(" ; ");
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine("-------------------------------------------------------------");
+            GraphMatrix r = Converter.ConvertToMatrix(e);
+            for (int i = 0; i < r.NodesNr; i++)
+            {//wpisywanie wylosowanych liczb
+                for (int j = 0; j < r.NodesNr; j++)
+                {
+                    if (r.GetConnection(i, j))
+                        Console.Write(1);
+                    else
+                        Console.Write(0);
+                    Console.Write(" ; ");
+                }
+                Console.WriteLine("");
+            }
+            
+            /*
+            q = q.Randomize();
+            Console.WriteLine("jest");
+            for (int i = 0; i < 5; i++)
+            {//wpisywanie wylosowanych liczb
+                for (int j = 0; j < 5; j++)
+                {
+                    if (q.GetConnection(i, j))
+                        Console.Write(1);
+                    else
+                        Console.Write(0);
+                    Console.Write(" ; ");
+                }
+                Console.WriteLine("");
+            }
+            */
+            //Console.Write(5>3);
             Console.Read();
         }
         static bool por(GraphMatrix a, GraphMatrix b) {
