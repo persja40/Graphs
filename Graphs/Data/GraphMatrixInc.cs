@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Graphs.Misc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,13 @@ namespace Graphs.Data
             nodesNr = nodes;
             connectNr = cons;
             connect = arr;
+            
         }
         public void MakeConnection(int node1, int node2, int con1)
         {
             connect[node1,con1]=connect[node2,con1]=1;
+            if (OnChange != null)
+                OnChange();
         }
         public bool GetConnection(int node1, int node2)
         {
@@ -44,6 +48,7 @@ namespace Graphs.Data
                 return x;
             }
         }
+        public OnChange OnChange { get; set; }
         private int[,] connect;//uwaga tablica x*y przy czym x-wezly, y-polaczenia
         private int nodesNr;
         private int connectNr;

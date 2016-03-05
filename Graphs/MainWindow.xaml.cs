@@ -1,7 +1,11 @@
-﻿using Graphs.Data;
+﻿using Graphs.Actions;
+using Graphs.Data;
+using Graphs.TestWindows;
 using Graphs.ViewModels;
+using Graphs.Windows.Generators;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,32 +26,96 @@ namespace Graphs
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        public GraphMatrix Graph { get; set; }
+        public GraphRenderer GraphRenderer { get; set; }
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Graph = new GraphMatrix(5);
+            GraphRenderer = new GraphRenderer(Graph, GraphControl);
+
+            GraphListControl.DataContext = new GraphListViewModel();
+
+            Graph.OnChange += onGraphChange;
         }
 
-        private void ButtonClick(object sender, RoutedEventArgs e)
+        private void onGraphChange()
         {
-            if(sender == Project1Button)
+            var vm = GraphListControl.DataContext as GraphListViewModel;
+            vm.Items.Clear();
+            var graphList = Converter.ConvertToList(Graph);
+
+            for(int i = 0; i < graphList.NodesNr; ++i)
             {
-                if (!Helpers.IsWindowOpen<Project1Window>())
+                var connections = new ObservableCollection<int>(graphList.GetConnections(i));
+                var nodeVM = new GraphListItemViewModel()
                 {
-                    var window = new Project1Window();
-                    window.Show();
-                    return;
-                }
+                    ConnectedNodes = connections,
+                    NodeNumer = i
+                };
+                vm.Items.Add(nodeVM);
             }
         }
+
+        private void openWindow<T>()
+            where T : Window, new()
+        {
+            if (!Helpers.IsWindowOpen<T>())
+            {
+                var window = new T();
+                window.Show();
+            }
+        }
+
 
         private void ShowAuthors(object sender, RoutedEventArgs e)
         {
-            if(!Helpers.IsWindowOpen<Authors>())
+            openWindow<Authors>();
+            Random rand = new Random();
+            int node1 = rand.Next(0, 5);
+            int node2 = rand.Next(0, 5);
+            if (node1 != node2)
+                Graph.MakeConnection(node1, node2);
+        }
+
+        private void OpenGraphListItemTest(object sender, RoutedEventArgs e)
+        {
+            openWindow<GraphListItemTest>();
+        }
+
+        private void OpenGraphListTest(object sender, RoutedEventArgs e)
+        {
+            openWindow<GraphListTest>();
+        }
+
+        private void GraphControlResize(object sender, SizeChangedEventArgs e)
+        {
+            GraphRenderer.Render();
+        }
+
+        private void GenerateGraph(object sender, RoutedEventArgs e)
+        {
+            if(sender == ErdosRenyiMenuItem)
             {
-                var authorsWindows = new Authors();
-                authorsWindows.Show();
+                var w = new ErdosGenerator();
+                try
+                {
+                    w.ShowDialog();
+                    Graph = w.DataContext as GraphMatrix;
+                    GraphRenderer.Graph = Graph;
+                }
+                catch(Exception)
+                {
+                    MessageBoxResult result = MessageBox.Show("Coś poszło nie tak");
+                }
+
+
+               
             }
+
         }
     }
 }

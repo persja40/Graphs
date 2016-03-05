@@ -58,6 +58,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\Converter.cs" />
+    <Compile Include="Actions\GraphRenderer.cs" />
+    <Compile Include="Actions\Misc.cs" />
     <Compile Include="Authors.xaml.cs">
       <DependentUpon>Authors.xaml</DependentUpon>
     </Compile>
@@ -67,8 +69,15 @@
     <Compile Include="Data\GraphModel.cs" />
     <Compile Include="Actions\GraphLoad.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Misc\Delegates.cs" />
     <Compile Include="Project1Window.xaml.cs">
       <DependentUpon>Project1Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestWindows\GraphListItemTest.xaml.cs">
+      <DependentUpon>GraphListItemTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestWindows\GraphListTest.xaml.cs">
+      <DependentUpon>GraphListTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Circle.xaml.cs">
       <DependentUpon>Circle.xaml</DependentUpon>
@@ -76,16 +85,32 @@
     <Compile Include="UserControls\GraphControl.xaml.cs">
       <DependentUpon>GraphControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\GraphListControl.xaml.cs">
+      <DependentUpon>GraphListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GraphListControlItem.xaml.cs">
+      <DependentUpon>GraphListControlItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Line.xaml.cs">
       <DependentUpon>Line.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Test.xaml.cs">
+      <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Triangle.xaml.cs">
       <DependentUpon>Triangle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Validations\GraphListValidationRule.cs" />
+    <Compile Include="ValueConverters\GraphListValueConverter.cs" />
     <Compile Include="ViewModels\CircleViewModel.cs" />
+    <Compile Include="ViewModels\GraphListItemViewModel.cs" />
+    <Compile Include="ViewModels\GraphListViewModel.cs" />
     <Compile Include="ViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
     <Compile Include="ViewModels\TriangleViewModel.cs" />
+    <Compile Include="Windows\Generators\ErdosGenerator.xaml.cs">
+      <DependentUpon>ErdosGenerator.xaml</DependentUpon>
+    </Compile>
     <Page Include="Authors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,6 +131,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TestWindows\GraphListItemTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestWindows\GraphListTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -118,11 +151,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\GraphListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\GraphListControlItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Line.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Triangle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Generators\ErdosGenerator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,7 +203,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\new.png" />
+    <Resource Include="Images\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dice.png" />
+    <Content Include="Images\exit.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

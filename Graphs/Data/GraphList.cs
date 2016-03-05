@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Graphs.Misc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,15 +17,26 @@ namespace Graphs.Data
             for (int i = 0; i < connect.Length; ++i)
                 connect[i] = new List<int>();
         }
+        public List<int> GetConnections(int node)
+        {
+            List<int> _return = new List<int>();
+            foreach (var item in connect[node])
+                _return.Add(item);
+            return _return; 
+        }
         public void MakeConnection(int node1, int node2)//tworzy w dwie strony
         {
             connect[node1].Add(node2);
             connect[node2].Add(node1);
+            if (OnChange != null)
+                OnChange();
         }
         public void RemoveConnection(int node1, int node2)//usuwa w dwie strony
         {
             connect[node1].Remove(node2);
             connect[node2].Remove(node1);
+            if (OnChange != null)
+                OnChange();
         }
         public bool GetConnection(int node1, int node2)
         {
@@ -42,6 +54,7 @@ namespace Graphs.Data
         {
             return connect[x].Count;
         }
+        public OnChange OnChange { get; set; }
         private List<int>[] connect;
         private int nodesNr;
     }

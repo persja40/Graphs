@@ -60,14 +60,6 @@ namespace Graphs.UserControls
             }
         }
 
-        private void Resize(object sender, SizeChangedEventArgs e)
-        {
-            if (VM != null)
-            {
-                Draw();
-            }
-        }
-
         private void Draw()
         {
             Clear();

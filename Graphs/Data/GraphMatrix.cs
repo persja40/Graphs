@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using Graphs.Misc;
 
 namespace Graphs.Data
 {
@@ -23,6 +24,8 @@ namespace Graphs.Data
         public void MakeConnection(int node1, int node2)
         {
             connect[node1, node2] = connect[node2, node1] = 1;
+            if (OnChange != null)
+                OnChange();
         }
         public bool GetConnection(int node1, int node2)
         {
@@ -68,6 +71,9 @@ namespace Graphs.Data
                     if (r.NextDouble() < prob)
                         MakeConnection(i, j);
         }
+
+        public OnChange OnChange { get; set; }
+
         public int NodesNr
         {
             get
@@ -78,5 +84,8 @@ namespace Graphs.Data
         }
         private int[,] connect;
         private int nodesNr;
+
+
+       
     }
 }
