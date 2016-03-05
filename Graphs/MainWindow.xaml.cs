@@ -107,6 +107,7 @@ namespace Graphs
                     w.ShowDialog();
                     Graph.Clear();
                     Graph.Set(w.DataContext as GraphMatrix);
+                    Graph.OnChange();
                 }
                 catch(Exception e)
                 {
@@ -115,9 +116,6 @@ namespace Graphs
                         + e.Message
                         );
                 }
-
-
-               
             }
 
         }
@@ -127,6 +125,7 @@ namespace Graphs
             var vm = GraphListControl.DataContext as GraphListViewModel;
             var matrix = Converter.ConvertToMatrix(vm.GetList());
             Graph.Set(matrix);
+            Graph.OnChange();
         }
 
         private void GenerateRandomConnection(object sender, RoutedEventArgs e)
@@ -136,6 +135,7 @@ namespace Graphs
             int node2 = rand.Next(0, Graph.NodesNr);
             if (node1 != node2)
                 Graph.MakeConnection(node1, node2);
+            Graph.OnChange();
         }
     }
 }
