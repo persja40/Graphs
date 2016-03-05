@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Graphs.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,16 @@ namespace Graphs.Actions
         /// <param name="degrees">lista ze stopniami wierzchołków</param>
         /// <returns>true jesli istnieje</returns>
         public static bool Exists(List<int> degrees)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Konstruuje graf prosty
+        /// </summary>
+        /// <param name="degrees">Lista ze stopniami wierzchołków</param>
+        /// <returns>Graf</returns>
+        public static GraphMatrix Construct(List<int> degrees)
         {
             throw new NotImplementedException();
         }

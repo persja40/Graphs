@@ -34,8 +34,33 @@ namespace Graphs.Data
         {
             return connect[node1, node2] >= 1;
         }
+        
+        public void Clear()
+        {
+            for (int i = 0; i < nodesNr; ++i)
+                for (int j = 0; j < nodesNr; ++j)
+                    connect[i, j] = 0;
+        }
+
+        public void Set(GraphMatrix other)
+        {
+
+            Clear();
+
+            nodesNr = other.nodesNr;
+            connect = new int[nodesNr, nodesNr];
+
+            for (int y = 0; y < NodesNr; ++y)
+                for (int x = 0; x < NodesNr; ++x)
+                {
+                    if (other.GetConnection(x, y))
+                        MakeConnection(x, y);
+                }
+        }
+
         public void generatorGER(int nodes, int branches)//generator Erdoesa-Renyiego
         {
+            Clear();
             nodesNr = nodes;
             connect = new int[nodesNr, nodesNr];//default =0
             int max = (nodesNr * nodesNr - nodesNr) / 2;
@@ -75,7 +100,26 @@ namespace Graphs.Data
                         MakeConnection(i, j);
         }
 
+        public GraphMatrix Randomize()
+        {
+            throw new NotImplementedException();
+        }
+
         public OnChange OnChange { get; set; }
+
+        public int ConnectionCount
+        {
+            get
+            {
+                int _ret = 0;
+                for (int i = 0; i < nodesNr; ++i)
+                    for (int j = 0; j < nodesNr; ++j)
+                        if (GetConnection(i, j))
+                            _ret++;
+                return _ret;
+                                
+            }
+        }
 
         public int NodesNr
         {

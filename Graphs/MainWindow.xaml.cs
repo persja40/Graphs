@@ -92,20 +92,24 @@ namespace Graphs
             GraphRenderer.Render();
         }
 
-        private void GenerateGraph(object sender, RoutedEventArgs e)
+        private void GenerateGraph(object sender, RoutedEventArgs args)
         {
             if(sender == ErdosRenyiMenuItem)
             {
                 var w = new ErdosGenerator();
                 try
                 {
+
                     w.ShowDialog();
-                    Graph = w.DataContext as GraphMatrix;
-                    GraphRenderer.Graph = Graph;
+                    Graph.Clear();
+                    Graph.Set(w.DataContext as GraphMatrix);
                 }
-                catch(Exception)
+                catch(Exception e)
                 {
-                    MessageBoxResult result = MessageBox.Show("Coś poszło nie tak");
+                    MessageBoxResult result = MessageBox.Show("Coś poszło nie tak"
+                        + System.Environment.NewLine
+                        + e.Message
+                        );
                 }
 
 

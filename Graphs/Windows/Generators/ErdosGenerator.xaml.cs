@@ -51,6 +51,8 @@ namespace Graphs.Windows.Generators
 
         private void OnClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            int temp;
+            if(Int32.TryParse(NodeCount.Text, out temp) && Int32.TryParse(ConnectionCount.Text, out temp))
             DataContext = Generate();
         }
     }

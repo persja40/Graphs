@@ -22,6 +22,8 @@ namespace Graphs.Actions
             }
             set
             {
+                if (_graph != null)
+                    _graph.OnChange -= onGraphChange;
                 _graph = value;
                 _graph.OnChange += onGraphChange;
             }
@@ -48,8 +50,8 @@ namespace Graphs.Actions
             for (int i = 0; i < Graph.NodesNr; ++i)
             {
                 double arc = 2 * Math.PI / Graph.NodesNr * i;
-                double x = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r / 2) * Math.Cos(arc);
-                double y = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r / 2) * Math.Sin(arc);
+                double x = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r ) * Math.Cos(arc);
+                double y = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r ) * Math.Sin(arc);
 
                 vm.Nodes.Add(new CircleViewModel() { X = x, Y = y, Radius = r, Color = Colors.Yellow, Number = i + 1 });
             }
@@ -62,11 +64,11 @@ namespace Graphs.Actions
                     double arc1 = 2 * Math.PI / Graph.NodesNr * y;
                     double arc2 = 2 * Math.PI / Graph.NodesNr * x;
 
-                    double x1 = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r / 2) * Math.Cos(arc1);
-                    double y1 = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r / 2) * Math.Sin(arc1);
+                    double x1 = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r ) * Math.Cos(arc1);
+                    double y1 = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r) * Math.Sin(arc1);
 
-                    double x2 = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r / 2) * Math.Cos(arc2);
-                    double y2 = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r / 2) * Math.Sin(arc2);
+                    double x2 = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r) * Math.Cos(arc2);
+                    double y2 = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r) * Math.Sin(arc2);
 
                     LineViewModel lineVM = new LineViewModel()
                     {
