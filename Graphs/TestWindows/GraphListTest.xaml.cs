@@ -30,7 +30,7 @@ namespace Graphs.TestWindows
             {
                 var model = new GraphListItemViewModel()
                 {
-                    NodeNumer = i * 3
+                    NodeNumber = i * 3
                 };
 
                 for(int j = 0;j < i*2;++j)

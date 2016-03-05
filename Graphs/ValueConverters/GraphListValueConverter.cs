@@ -18,7 +18,7 @@ namespace Graphs.ValueConverters
                 string _return = "";
                 foreach(var item in value as ObservableCollection<int>)
                 {
-                    _return += item + " ";
+                    _return += (item + 1) + " ";
                 }
                 return _return.Trim();
             }
@@ -35,7 +35,7 @@ namespace Graphs.ValueConverters
                 {
                     if (string.IsNullOrWhiteSpace(item))
                         continue;
-                    int parsed = Int32.Parse(item.Trim());
+                    int parsed = Int32.Parse(item.Trim()) - 1;
                     list.Add(parsed);
                 }
             }

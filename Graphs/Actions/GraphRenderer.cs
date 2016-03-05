@@ -51,7 +51,7 @@ namespace Graphs.Actions
                 double x = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r / 2) * Math.Cos(arc);
                 double y = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r / 2) * Math.Sin(arc);
 
-                vm.Nodes.Add(new CircleViewModel() { X = x, Y = y, Radius = r, Color = Colors.Yellow });
+                vm.Nodes.Add(new CircleViewModel() { X = x, Y = y, Radius = r, Color = Colors.Yellow, Number = i + 1 });
             }
 
             for (int y = 0; y < Graph.NodesNr; ++y)

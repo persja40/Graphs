@@ -34,7 +34,7 @@ namespace Graphs
         {
             InitializeComponent();
 
-            Graph = new GraphMatrix(5);
+            Graph = new GraphMatrix(55);
             GraphRenderer = new GraphRenderer(Graph, GraphControl);
 
             GraphListControl.DataContext = new GraphListViewModel();
@@ -54,7 +54,7 @@ namespace Graphs
                 var nodeVM = new GraphListItemViewModel()
                 {
                     ConnectedNodes = connections,
-                    NodeNumer = i
+                    NodeNumber = i
                 };
                 vm.Items.Add(nodeVM);
             }
@@ -117,8 +117,8 @@ namespace Graphs
         private void GenerateRandomConnection(object sender, RoutedEventArgs e)
         {
             Random rand = new Random();
-            int node1 = rand.Next(0, 5);
-            int node2 = rand.Next(0, 5);
+            int node1 = rand.Next(0, Graph.NodesNr);
+            int node2 = rand.Next(0, Graph.NodesNr);
             if (node1 != node2)
                 Graph.MakeConnection(node1, node2);
         }

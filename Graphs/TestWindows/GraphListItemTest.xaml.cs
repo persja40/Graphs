@@ -27,7 +27,7 @@ namespace Graphs.TestWindows
 
             Model = new GraphListItemViewModel()
             {
-                NodeNumer = 69
+                NodeNumber = 69
             };
 
             for(int i = 0;i < 22; ++i)

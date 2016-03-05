@@ -17,7 +17,7 @@
 
     <DockPanel>
 
-        <Label Content="{Binding NodeNumber}" DockPanel.Dock="Left" />
+        <Label Content="{Binding NodeNumberForHuman}" DockPanel.Dock="Left" />
         <TextBox DockPanel.Dock="Left">
             <TextBox.Text>
                 <Binding Path="ConnectedNodes">
