@@ -24,7 +24,8 @@ namespace Graphs.ViewModels
             {
                 var i = item.NodeNumber;
                 foreach (var connection in item.ConnectedNodes)
-                    List.MakeConnection(i, connection);
+                    if(List.GetConnection(connection, i))
+                        List.MakeConnection(i, connection);
             }
             return List;
         }

@@ -46,7 +46,6 @@ namespace Graphs.Data
         }
         public void Set(GraphMatrix other)
         {
-
             nodesNr = other.nodesNr;
             connect = new int[nodesNr, nodesNr];
 
