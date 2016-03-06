@@ -12,8 +12,7 @@ namespace Piaskownica
     {
         static void Main(string[] args)
         {
-            int cc = 3;
-            GraphMatrix q = GraphGenerator.generatorGER(10,cc);
+            GraphMatrix q = GraphGenerator.generatorGnp(10,0);
 
             for (int i = 0; i < q.NodesNr; i++)
             {//wpisywanie wylosowanych liczb
@@ -28,7 +27,7 @@ namespace Piaskownica
                 Console.WriteLine("");
             }
             Console.WriteLine("-------------------------------------------------------------");
-            
+            /*
             for (int i = 0; i < 1000; i++)
             {
                 if (q.ConnectionCount != cc)
@@ -57,7 +56,7 @@ namespace Piaskownica
             //GraphMatrix w = Converter.ConvertToMatrix(Converter.ConvertToMatrixInc(Converter.ConvertToList(q)));
             //Console.WriteLine(por(q,w));
             //int[,] connect = new int[5, 6];
-            /*
+            
             for (int i = 0; i < q.NodesNr; i++) {//wpisywanie wylosowanych liczb
                 for (int j = 0; j < q.NodesNr; j++)
                 {

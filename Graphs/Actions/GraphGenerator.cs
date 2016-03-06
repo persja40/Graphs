@@ -48,7 +48,7 @@ namespace Graphs.Actions
             GraphMatrix w = new GraphMatrix(nodes);
             Random r = new Random();
             for (int i = 1; i < w.NodesNr; i++)
-                for (int j = 1; j < i; j++)
+                for (int j = 0; j < i; j++)
                     if (r.NextDouble() < prob)
                         w.MakeConnection(i, j);
             return w;
