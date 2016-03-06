@@ -46,6 +46,10 @@ namespace Graphs.Data
                 return true;
             return false;
         }
+        public void ClearConnection(int n1, int n2, int con)//czysci polaczenia UWAGA MYSLEC!!! zostaje puste polaczenie
+        {
+            connect[n1, con] = connect[n2, con] = 0;
+        }
         public int NodesNr
         {
             get
@@ -69,7 +73,7 @@ namespace Graphs.Data
 
         public override string ToString()
         {
-            var str= 
+            var str =
                 "NodesNr = " + NodesNr + Environment.NewLine +
                  "ConnectNr = " + ConnectNr + Environment.NewLine +
                  "connect = " + Environment.NewLine;
