@@ -12,10 +12,13 @@ namespace Piaskownica
     {
         static void Main(string[] args)
         {
-            GraphMatrix q = GraphGenerator.generatorGER(8,7);
+            GraphMatrix q = GraphGenerator.generatorGER(25,39);
+
+
             //GraphMatrix w = Converter.ConvertToMatrix(Converter.ConvertToMatrixInc(Converter.ConvertToList(q)));
             //Console.WriteLine(por(q,w));
             //int[,] connect = new int[5, 6];
+            /*
             for (int i = 0; i < q.NodesNr; i++) {//wpisywanie wylosowanych liczb
                 for (int j = 0; j < q.NodesNr; j++)
                 {
@@ -72,7 +75,7 @@ namespace Piaskownica
                 }
                 Console.WriteLine("");
             }
-            
+            */
             /*
             q = q.Randomize();
             Console.WriteLine("jest");
