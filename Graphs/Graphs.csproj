@@ -117,6 +117,9 @@
     <Compile Include="Windows\Generators\ErdosGenerator.xaml.cs">
       <DependentUpon>ErdosGenerator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Generators\SecondGenerator.xaml.cs">
+      <DependentUpon>SecondGenerator.xaml</DependentUpon>
+    </Compile>
     <Page Include="Authors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Generators\ErdosGenerator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Generators\SecondGenerator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

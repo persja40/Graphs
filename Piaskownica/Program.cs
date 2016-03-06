@@ -91,6 +91,9 @@ namespace Piaskownica
             */
             //Console.Write(5>3);
             Console.Read();
+
+            int dupa = 21312312;
+
         }
         static bool por(GraphMatrix a, GraphMatrix b) {
             for (int i = 1; i < b.NodesNr; i++)//wpisywanie wylosowanych liczb

@@ -17,12 +17,11 @@ using System.Windows.Shapes;
 namespace Graphs.Windows.Generators
 {
     /// <summary>
-    /// Interaction logic for ErdosGenerator.xaml
+    /// Interaction logic for SecondGenerator.xaml
     /// </summary>
-    public partial class ErdosGenerator : Window
+    public partial class SecondGenerator : Window
     {
-
-        public ErdosGenerator()
+        public SecondGenerator()
         {
             InitializeComponent();
         }
@@ -32,19 +31,19 @@ namespace Graphs.Windows.Generators
             Close();
         }
 
-        
+
 
         private GraphMatrix Generate()
         {
-            int nodesCount,
-                connectionCount;
+            int nodesCount;
+            double propability;
 
 
 
-            nodesCount = Int32.Parse(NodeCount.Text);
-            connectionCount = Int32.Parse(ConnectionCount.Text);
+            nodesCount = int.Parse(NodeCount.Text);
+            propability = double.Parse(Propability.Text) * 100.0;
 
-            GraphMatrix graph = GraphGenerator.generatorGER(nodesCount, connectionCount);
+            GraphMatrix graph = GraphGenerator.generatorGnp(nodesCount, propability);
             //graph.generatorGER(nodesCount, connectionCount);
 
             return graph;
@@ -53,8 +52,9 @@ namespace Graphs.Windows.Generators
         private void OnClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
             int temp;
-            if(Int32.TryParse(NodeCount.Text, out temp) && Int32.TryParse(ConnectionCount.Text, out temp))
-            DataContext = Generate();
+            double temp2;
+            if (int.TryParse(NodeCount.Text, out temp) && double.TryParse(Propability.Text, out temp2))
+                DataContext = Generate();
         }
     }
 }

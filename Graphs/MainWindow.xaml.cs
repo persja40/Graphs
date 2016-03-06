@@ -117,6 +117,25 @@ namespace Graphs
                         );
                 }
             }
+            else if(sender == SecondGeneratorMenuItem)
+            {
+                var w = new SecondGenerator();
+                try
+                {
+
+                    w.ShowDialog();
+                    Graph.Clear();
+                    Graph.Set(w.DataContext as GraphMatrix);
+                    Graph.OnChange();
+                }
+                catch (Exception e)
+                {
+                    MessageBoxResult result = MessageBox.Show("Coś poszło nie tak"
+                        + System.Environment.NewLine
+                        + e.Message
+                        );
+                }
+            }
 
         }
 

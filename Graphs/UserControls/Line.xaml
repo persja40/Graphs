@@ -11,10 +11,10 @@
         <vm:LineViewModel></vm:LineViewModel>
     </UserControl.DataContext>
 
-    <Line X1="{Binding X1}" X2="{Binding X2}" Y1="{Binding Y1}" Y2="{Binding Y2}">
+    <Line X1="{Binding X1}" X2="{Binding X2}" Y1="{Binding Y1}" Y2="{Binding Y2}" StrokeThickness="1">
         <Line.Stroke>
             <SolidColorBrush Color="{Binding Color}"/>
         </Line.Stroke>
-
     </Line>
+
 </UserControl>

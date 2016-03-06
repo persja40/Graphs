@@ -75,7 +75,9 @@ namespace Graphs.Actions
                         X1 = x1,
                         Y1 = y1,
                         X2 = x2,
-                        Y2 = y2
+                        Y2 = y2,
+                        Node1 = x,
+                        Node2 = y
                     };
 
                     vm.Connections.Add(lineVM);
