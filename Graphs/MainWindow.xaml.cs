@@ -48,11 +48,27 @@ namespace Graphs
 
         private void onGraphChange()
         {
+            prepareGraphList();
+
+            MatrixViewModel vm = new MatrixViewModel(Graph.NodesNr);
+
+            for(int y = 0;y < vm.Count; ++y)
+                for(int x = 0;x < vm.Count; ++x)
+                {
+                    vm.Connections[x, y] = Graph.GetConnection(x, y) ? 1 : 0;
+                }
+
+            MatrixControl.DataContext = vm;
+
+        }
+
+        private void prepareGraphList()
+        {
             var vm = GraphListControl.DataContext as GraphListViewModel;
             vm.Items.Clear();
             var graphList = Converter.ConvertToList(Graph);
 
-            for(int i = 0; i < graphList.NodesNr; ++i)
+            for (int i = 0; i < graphList.NodesNr; ++i)
             {
                 var connections = new ObservableCollection<int>(graphList.GetConnections(i));
                 var nodeVM = new GraphListItemViewModel()

@@ -100,6 +100,12 @@
     <Compile Include="UserControls\Line.xaml.cs">
       <DependentUpon>Line.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MatrixControl.xaml.cs">
+      <DependentUpon>MatrixControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MatrixControlItem.xaml.cs">
+      <DependentUpon>MatrixControlItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
@@ -108,11 +114,14 @@
     </Compile>
     <Compile Include="Validations\GraphListValidationRule.cs" />
     <Compile Include="ValueConverters\GraphListValueConverter.cs" />
+    <Compile Include="ValueConverters\IntBoolValueConverter.cs" />
     <Compile Include="ViewModels\CircleViewModel.cs" />
     <Compile Include="ViewModels\GraphListItemViewModel.cs" />
     <Compile Include="ViewModels\GraphListViewModel.cs" />
     <Compile Include="ViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
+    <Compile Include="ViewModels\MatrixItemViewModel.cs" />
+    <Compile Include="ViewModels\MatrixViewModel.cs" />
     <Compile Include="ViewModels\TriangleViewModel.cs" />
     <Compile Include="Windows\Generators\ErdosGenerator.xaml.cs">
       <DependentUpon>ErdosGenerator.xaml</DependentUpon>
@@ -169,6 +178,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Line.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MatrixControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MatrixControlItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -41,7 +41,7 @@ namespace Graphs.Windows.Generators
 
 
             nodesCount = int.Parse(NodeCount.Text);
-            propability = double.Parse(Propability.Text) * 100.0;
+            propability = double.Parse(Propability.Text) / 100.0;
 
             GraphMatrix graph = GraphGenerator.generatorGnp(nodesCount, propability);
             //graph.generatorGER(nodesCount, connectionCount);
