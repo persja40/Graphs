@@ -78,9 +78,9 @@ namespace Graphs.Data
                  "ConnectNr = " + ConnectNr + Environment.NewLine +
                  "connect = " + Environment.NewLine;
 
-            for (int i = 0; i < nodesNr; ++i)
-                for (int j = 0; j < ConnectNr; ++j)
-                    str += string.Format("[{0},{1}] = {2}{3}", i, j, connect[i, j], Environment.NewLine);
+            for (int node = 0; node < nodesNr; ++node)
+                for (int connection = 0; connection < ConnectNr; ++connection)
+                    str += string.Format("[{0},{1}] = {2}{3}", node, connection, connect[node, connection], Environment.NewLine);
 
             return str;
 
