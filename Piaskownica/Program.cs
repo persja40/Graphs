@@ -12,7 +12,7 @@ namespace Piaskownica
     {
         static void Main(string[] args)
         {
-            GraphMatrix q = GraphGenerator.generatorGER(5,7);
+            GraphMatrix q = GraphGenerator.generatorGER(8,7);
             //GraphMatrix w = Converter.ConvertToMatrix(Converter.ConvertToMatrixInc(Converter.ConvertToList(q)));
             //Console.WriteLine(por(q,w));
             //int[,] connect = new int[5, 6];
