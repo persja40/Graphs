@@ -56,24 +56,59 @@ namespace Graphs.Data
                         MakeConnection(x, y);
                 }
         }
-        public GraphMatrix Randomize(int x = 100)
+        public GraphMatrix Randomize(int x = 1000)
         {
-            int[] a = new int[nodesNr];
             Random r = new Random();
-            GraphList temp = Converter.ConvertToList(this);
+            /*for (int i = 0; i < this.NodesNr; i++)
+            {//wpisywanie wylosowanych liczb
+                for (int j = 0; j < this.NodesNr; j++)
+                {
+                    if (this.GetConnection(i, j))
+                        Console.Write(1);
+                    else
+                        Console.Write(0);
+                    Console.Write(" ; ");
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine("-------------------------------------------------------------");
+            */
+            GraphMatrixInc temp = Converter.ConvertToMatrixInc(Converter.ConvertToList(this));
+            int[] q = new int[2];
+            int[] w = new int[2];
             for (int i = 0; i < x; i++)
             {
-                a[0] = r.Next(nodesNr);
-                a[1] = r.Next(nodesNr);
-                a[2] = r.Next(nodesNr);
-                a[3] = r.Next(nodesNr);
-                if (temp.GetConnection(a[0], a[1]) && temp.GetConnection(a[2], a[3]) && !(temp.GetConnection(a[0], a[3])) && !(temp.GetConnection(a[1], a[2])))
+                q[0] = q[1] = -1;
+                w[0] = w[1] = -1;
+                int a = r.Next(temp.ConnectNr);
+                int b = r.Next(temp.ConnectNr);
+                while (a == b)
                 {
-                    temp.RemoveConnection(a[0], a[1]);
-                    temp.RemoveConnection(a[2], a[3]);
-                    temp.MakeConnection(a[0], a[3]);
-                    temp.MakeConnection(a[1], a[2]);
+                    a = r.Next(temp.ConnectNr);
+                    b = r.Next(temp.ConnectNr);
                 }
+                for (int j = 0; j < temp.NodesNr; j++)
+                {
+                    if (temp.GetConnectionArray(j, a))
+                        if (q[0] == -1)
+                            q[0] = j;
+                        else
+                            q[1] = j;
+                    if (temp.GetConnectionArray(j, b))
+                        if (w[0] == -1)
+                            w[0] = j;
+                        else
+                            w[1] = j;
+                }
+                Console.WriteLine(q[0] + "   " + q[1] + "   " + w[0] + "   " + w[1]);
+                if (temp.GetConnection(q[0], w[1]) || temp.GetConnection(q[1], w[0]))
+                    continue;
+                //Console.WriteLine("issssssssssss");
+                temp.ClearConnection(q[0],q[1],a);
+                temp.ClearConnection(w[0], w[1], b);
+                temp.MakeConnection(q[0], w[1], a);
+                temp.MakeConnection(q[1], w[0], b);
+
             }
             return Converter.ConvertToMatrix(temp);
         }

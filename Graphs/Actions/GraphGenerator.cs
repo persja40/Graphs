@@ -11,6 +11,12 @@ namespace Graphs.Actions
     {
         public static GraphMatrix generatorGER(int nodes, int branches)
         {
+            if ((nodes < 1) || branches > ((nodes * nodes - nodes) / 2))
+            {
+                Console.WriteLine(nodes+"   "+branches);
+                Console.Read();
+                throw new Exception("Incorrect parameters");
+            }
             GraphMatrix w = new GraphMatrix(nodes);
             int max = (nodes * nodes - nodes) / 2;
             int[] ar = new int[branches];
@@ -35,14 +41,14 @@ namespace Graphs.Actions
                             w.MakeConnection(i, j);
                     counter++;
                 }
-            return w;  
+            return w;
         }
         public static GraphMatrix generatorGnp(int nodes, double prob)
         {
             GraphMatrix w = new GraphMatrix(nodes);
             Random r = new Random();
             for (int i = 1; i < w.NodesNr; i++)
-                for (int j = 1; j < i; j++)
+                for (int j = 0; j < i; j++)
                     if (r.NextDouble() < prob)
                         w.MakeConnection(i, j);
             return w;
