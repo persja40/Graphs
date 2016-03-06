@@ -18,18 +18,20 @@
     <DockPanel>
 
         <Label Content="{Binding NodeNumberForHuman}" DockPanel.Dock="Left" />
-        <TextBox DockPanel.Dock="Left" PreviewTextInput="TextChange">
-            <TextBox.Text>
+        <Frame Width="10" Height="Auto" Background="#548B8B8B"/>
+        <!--PreviewTextInput="TextChange"-->
+        <Label DockPanel.Dock="Left" >
+            <Label.Content>
                 <Binding Path="ConnectedNodes">
                     <Binding.Converter>
                         <vc:GraphListValueConverter/>
                     </Binding.Converter>
-                    <Binding.ValidationRules>
+                    <!--<Binding.ValidationRules>
                         <val:GraphListValidationRule/>
-                    </Binding.ValidationRules>
+                    </Binding.ValidationRules>-->
                 </Binding>
-            </TextBox.Text>
-            <TextBox.Style>
+            </Label.Content>
+            <!--<Label.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Style.Triggers>
                         <Trigger Property="Validation.HasError" Value="True">
@@ -38,8 +40,8 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </TextBox.Style>
-        </TextBox>
+            </Label.Style>-->
+        </Label>
 
 
     </DockPanel>
