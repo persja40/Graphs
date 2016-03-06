@@ -16,7 +16,7 @@ namespace Tests
         public void ErdosGenerator()
         {
             for(int i = 1; i < 100; ++i)
-                for(int j = 1; j <= i; ++j)
+                for(int j = 1; j < i; ++j)
                 {
                     GraphMatrix graph = GraphGenerator.generatorGER(i,j);
                     Assert.IsTrue(graph.ConnectionCount == j, string.Format("Nodes : {0}, Connections : {1}, Have : {2}", i, j, graph.ConnectionCount));
