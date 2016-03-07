@@ -37,7 +37,7 @@ namespace Graphs
 
             Graph = new GraphMatrix(5);
 
-            GraphRenderer = new GraphRenderer(new GraphMatrix(1), GraphControl);
+            GraphRenderer = new GraphRenderer(Graph, GraphControl);
 
             GraphListControl.DataContext = new GraphListViewModel();
 
@@ -50,8 +50,8 @@ namespace Graphs
         private void onGraphChange()
         {
             prepareGraphList();
-            //prepareMatrix();
-            //prepareMatrixInc();
+            prepareMatrix();
+            prepareMatrixInc();
         }
 
         private void prepareMatrixInc()
