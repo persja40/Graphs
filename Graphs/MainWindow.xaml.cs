@@ -6,6 +6,7 @@ using Graphs.Windows.Generators;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace Graphs
 
             Graph = new GraphMatrix(5);
 
-            GraphRenderer = new GraphRenderer(Graph, GraphControl);
+            GraphRenderer = new GraphRenderer(new GraphMatrix(1), GraphControl);
 
             GraphListControl.DataContext = new GraphListViewModel();
 
@@ -49,17 +50,35 @@ namespace Graphs
         private void onGraphChange()
         {
             prepareGraphList();
+            //prepareMatrix();
+            //prepareMatrixInc();
+        }
 
+        private void prepareMatrixInc()
+        {
+            MatrixIncViewModel vm = new MatrixIncViewModel(Graph.NodesNr, Graph.ConnectionCount);
+
+            var matrixInc = Converter.ConvertToMatrixInc(Graph);
+            for (int connection = 0; connection < matrixInc.ConnectNr; ++connection)
+                for (int node = 0; node < matrixInc.NodesNr; ++node)
+                {
+                    vm.Connections[node, connection] = matrixInc.GetConnectionArray(node, connection) ? 1 : 0;
+                }
+
+            MatrixIncControl.DataContext = vm;
+        }
+
+        private void prepareMatrix()
+        {
             MatrixViewModel vm = new MatrixViewModel(Graph.NodesNr);
 
-            for(int y = 0;y < vm.Count; ++y)
-                for(int x = 0;x < vm.Count; ++x)
+            for (int y = vm.NodeCount - 1; y  >= 0; --y)
+                for (int x = 0; x < vm.NodeCount; ++x)
                 {
                     vm.Connections[x, y] = Graph.GetConnection(x, y) ? 1 : 0;
                 }
 
             MatrixControl.DataContext = vm;
-
         }
 
         private void prepareGraphList()
@@ -114,16 +133,21 @@ namespace Graphs
 
         private void GenerateGraph(object sender, RoutedEventArgs args)
         {
-            if(sender == ErdosRenyiMenuItem)
+            Stopwatch watch = null;
+            long before = 0, after = 0;
+            if (sender == ErdosRenyiMenuItem)
             {
                 var w = new ErdosGenerator();
                 try
                 {
-
                     w.ShowDialog();
+                    watch = Stopwatch.StartNew();
                     Graph.Clear();
                     Graph.Set(w.DataContext as GraphMatrix);
+                    //before = watch.ElapsedMilliseconds;
                     Graph.OnChange();
+                    watch.Stop();
+                    after = watch.ElapsedMilliseconds;
                 }
                 catch(Exception e)
                 {
@@ -140,9 +164,13 @@ namespace Graphs
                 {
 
                     w.ShowDialog();
+                    watch = Stopwatch.StartNew();
                     Graph.Clear();
                     Graph.Set(w.DataContext as GraphMatrix);
+                    //before = watch.ElapsedMilliseconds;
                     Graph.OnChange();
+                    watch.Stop();
+                    after = watch.ElapsedMilliseconds;
                 }
                 catch (Exception e)
                 {
@@ -151,6 +179,16 @@ namespace Graphs
                         + e.Message
                         );
                 }
+            }
+
+            if (watch != null)
+            {
+
+
+                //MessageBox.Show(
+                //    "Before = " + (double)(before / 1000.0) +
+                //    System.Environment.NewLine +
+                //    "After = " + (double)(after / 1000.0));
             }
 
         }

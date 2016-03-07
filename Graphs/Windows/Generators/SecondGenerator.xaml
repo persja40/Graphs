@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Graphs.Windows.Generators"
         mc:Ignorable="d"
         Title="Drugi generator :D" Width="300"
-        SizeToContent="Height" Closing="OnClose">
+        SizeToContent="Height" Closing="OnClose"
+        WindowStyle="None"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>

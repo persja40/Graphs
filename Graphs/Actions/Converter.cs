@@ -22,6 +22,12 @@ namespace Graphs.Actions
         {
             return ConvertToMatrix(ConvertToMatrixInc(from));
         }
+
+        public static GraphMatrixInc ConvertToMatrixInc(GraphMatrix from)
+        {
+            return ConvertToMatrixInc(ConvertToList(from));
+        }
+
         public static GraphMatrixInc ConvertToMatrixInc(GraphList from)
         {
             int sumc = 0;

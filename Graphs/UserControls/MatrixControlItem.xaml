@@ -14,7 +14,7 @@
 
     <DockPanel Background="{Binding Background}" Name="Panel" ToolTip="{Binding Hint}" >
         <Border BorderBrush="#7F000000" DockPanel.Dock="Top" BorderThickness="1">
-            <Label Name="asdf" Content="{Binding Connections}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Visibility}">
+            <Label Name="asdf" Content="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Visibility}">
             </Label>
         </Border>
         <!--<DockPanel.Resources>

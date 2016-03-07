@@ -22,6 +22,7 @@ namespace Graphs.UserControls
     public partial class GraphControl : UserControl
     {
         public GraphViewModel _vm;
+        private const int NewCanvasPer = 150;
         public GraphViewModel VM
         {
             set
@@ -42,17 +43,34 @@ namespace Graphs.UserControls
 
         public void DrawNodes()
         {
-            foreach(var node in VM.Nodes)
+            int i = 0;
+            Canvas canvas = MyCanvas;
+            bool add = false;
+            foreach (var node in VM.Nodes)
             {
                 Circle circle = new Circle();
                 circle.DataContext = node;
-                MyCanvas.Children.Add(circle);
+                canvas.Children.Add(circle);
+
+                if (i >= NewCanvasPer)
+                {
+                    if (add)
+                        MyCanvas.Children.Add(canvas);
+
+                    canvas = new Canvas();
+                    i = 0;
+                    add = true;
+                }
+                i++;
             }
+
+            if (add)
+                MyCanvas.Children.Add(canvas);
         }
 
         public void DrawConnections()
         {
-            foreach(var connection in VM.Connections)
+            foreach (var connection in VM.Connections)
             {
                 Line line = new Line();
                 line.DataContext = connection;
@@ -65,6 +83,48 @@ namespace Graphs.UserControls
             Clear();
             DrawConnections();
             DrawNodes();
+
+            //Image test = new Image();
+            //DrawingGroup tmpDrawing = new DrawingGroup();
+            //GeometryGroup lineGroup = new GeometryGroup();
+            //GeometryGroup circleGroup = new GeometryGroup();
+            //circleGroup.FillRule = FillRule.Nonzero;
+
+            //LineGeometry[] lines = new LineGeometry[VM.Connections.Count];
+            //EllipseGeometry[] circles = new EllipseGeometry[VM.Nodes.Count];
+            //int i = 0;
+            //foreach (var c in VM.Connections)
+            //{
+            //    lines[i] = new LineGeometry
+            //        (
+            //        new Point(c.X1, c.Y1),
+            //        new Point(c.X2, c.Y2)
+            //        );
+            //    lineGroup.Children.Add(lines[i]);
+            //     ++ i;
+            //}
+            //i = 0;
+            //foreach (var n in VM.Nodes)
+            //{
+            //    circles[i] = new EllipseGeometry
+            //        (
+            //         new Point(n.X, n.Y),
+            //         n.Radius,
+            //         n.Radius
+            //        );
+                
+            //    circleGroup.Children.Add(circles[i]);
+            //    ++i;
+            //}
+
+            //tmpDrawing.Children.Add(new GeometryDrawing(new SolidColorBrush(Colors.Black), new Pen(new SolidColorBrush(Colors.Black), 1), lineGroup));
+            //tmpDrawing.Children.Add(new GeometryDrawing(new SolidColorBrush(Colors.Black), new Pen(new SolidColorBrush(Colors.Black), 1), circleGroup));
+            //LineImage.Source = new DrawingImage(tmpDrawing);
+
+
+           
+            //// MyCanvas.Drawing = tmpDrawing;
+
         }
 
         private void Clear()

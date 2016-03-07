@@ -17,7 +17,7 @@
 
     <DockPanel>
 
-        <Label Content="{Binding NodeNumberForHuman}" DockPanel.Dock="Left" />
+        <Label Content="{Binding NodeNumberForHuman}" DockPanel.Dock="Left" MinWidth="30" />
         <Frame Width="10" Height="Auto" Background="#548B8B8B"/>
         <!--PreviewTextInput="TextChange"-->
         <Label DockPanel.Dock="Left" >

@@ -6,7 +6,9 @@
         xmlns:controls="clr-namespace:Graphs.UserControls"
         xmlns:local="clr-namespace:Graphs"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        WindowState="Maximized"
+        >
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -69,7 +71,7 @@
                     <controls:MatrixControl x:Name="MatrixControl" />
                 </TabItem>
                 <TabItem Header="Incidention Matrix">
-
+                    <controls:MatrixIncControl x:Name="MatrixIncControl" />
                 </TabItem>
                 <TabItem Header="List">
                     <controls:GraphListControl x:Name="GraphListControl" OnChange="ListChanged" />

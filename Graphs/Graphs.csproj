@@ -106,6 +106,9 @@
     <Compile Include="UserControls\MatrixControlItem.xaml.cs">
       <DependentUpon>MatrixControlItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MatrixIncControl.xaml.cs">
+      <DependentUpon>MatrixIncControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,7 @@
     <Compile Include="ViewModels\GraphListViewModel.cs" />
     <Compile Include="ViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
+    <Compile Include="ViewModels\MatrixIncViewModel.cs" />
     <Compile Include="ViewModels\MatrixItemViewModel.cs" />
     <Compile Include="ViewModels\MatrixViewModel.cs" />
     <Compile Include="ViewModels\TriangleViewModel.cs" />
@@ -186,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\MatrixControlItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MatrixIncControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
