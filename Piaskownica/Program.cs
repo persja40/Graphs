@@ -14,19 +14,19 @@ namespace Piaskownica
         {
             GraphMatrix q = GraphGenerator.generatorGnp(10,0);
 
-            for (int i = 0; i < q.NodesNr; i++)
-            {//wpisywanie wylosowanych liczb
-                for (int j = 0; j < q.NodesNr; j++)
-                {
-                    if (q.GetConnection(i, j))
-                        Console.Write(1);
-                    else
-                        Console.Write(0);
-                    Console.Write(" ; ");
-                }
-                Console.WriteLine("");
-            }
-            Console.WriteLine("-------------------------------------------------------------");
+            /* for (int i = 0; i < q.NodesNr; i++)
+             {//wpisywanie wylosowanych liczb
+                 for (int j = 0; j < q.NodesNr; j++)
+                 {
+                     if (q.GetConnection(i, j))
+                         Console.Write(1);
+                     else
+                         Console.Write(0);
+                     Console.Write(" ; ");
+                 }
+                 Console.WriteLine("");
+             }
+             Console.WriteLine("-------------------------------------------------------------");*/
             /*
             for (int i = 0; i < 1000; i++)
             {
@@ -131,10 +131,12 @@ namespace Piaskownica
             }
             */
             //Console.Write(5>3);
-            Console.Read();
+            //Console.Read();
 
             int dupa = 21312312;
-
+            List<int> lista1 = new List<int>() { 6, 4, 3, 3, 2 };
+            Console.WriteLine(Misc.Exists(lista1));
+            Console.Read();
         }
         static bool por(GraphMatrix a, GraphMatrix b) {
             for (int i = 1; i < b.NodesNr; i++)//wpisywanie wylosowanych liczb
