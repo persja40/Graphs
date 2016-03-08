@@ -104,7 +104,7 @@ namespace Graphs.Data
                 if (temp.GetConnection(q[0], w[1]) || temp.GetConnection(q[1], w[0]))
                     continue;
                 //Console.WriteLine("issssssssssss");
-                temp.ClearConnection(q[0],q[1],a);
+                temp.ClearConnection(q[0], q[1], a);
                 temp.ClearConnection(w[0], w[1], b);
                 temp.MakeConnection(q[0], w[1], a);
                 temp.MakeConnection(q[1], w[0], b);
@@ -125,6 +125,18 @@ namespace Graphs.Data
                 return _ret;
 
             }
+        }
+        public bool Equals(GraphMatrix x)
+        {
+            if (x == null)
+                return false;
+            if (this.NodesNr != x.NodesNr)
+                return false;
+            for (int i = 0; i < nodesNr; i++)
+                for (int j = 0; j < nodesNr; j++)
+                    if (this.GetConnection(i, j) != x.GetConnection(i,j))
+                        return false;
+            return true;
         }
         public int NodesNr
         {

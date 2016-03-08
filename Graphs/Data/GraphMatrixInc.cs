@@ -66,6 +66,18 @@ namespace Graphs.Data
                 return x;
             }
         }
+        public bool Equals(GraphMatrixInc x)
+        {
+            if (x == null)
+                return false;
+            if ((this.NodesNr != x.NodesNr) || (this.ConnectNr != x.ConnectNr))
+                return false;
+            for (int i = 0; i < nodesNr; i++)
+                for (int j = 0; j < ConnectNr; j++)
+                    if (this.GetConnectionArray(i, j) != x.GetConnectionArray(i,j))
+                        return false;
+            return true;
+        }
         public OnChange OnChange { get; set; }
         internal int[,] connect;//uwaga tablica x*y przy czym x-wezly, y-polaczenia
         internal int nodesNr;
