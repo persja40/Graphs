@@ -75,6 +75,10 @@ namespace Graphs.Actions
         {
             throw new NotImplementedException();
         }
+        public static GraphMatrix Connectivity(GraphMatrix from)
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }

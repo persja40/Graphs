@@ -30,7 +30,7 @@ namespace Graphs.Actions
             }
             return Misc.Construct(x);
         }
-        public static List<int> EulerianPath(GraphMatrix from, int node = 0)//node wezel poczatkowy
+        public static List<int> EulerianPath(GraphMatrix from, int node = 0)//node wezel poczatkowy ; uwaga wymagany GRAF SPOJNY !!!
         {
             GraphList temp = Converter.ConvertToList(from);
             List<Tuple<int, int>> path = new List<Tuple<int, int>>();
