@@ -53,6 +53,17 @@ namespace Graphs.Data
         {
             return connect[x].Count;
         }
+        public bool Equals(GraphList x)
+        {
+            if (x == null)
+                return false;
+            if (this.NodesNr != x.NodesNr)
+                return false;
+            for (int i = 0; i < nodesNr; i++)
+                if (!this.GetConnections(i).Equals(x.GetConnections(i)))
+                    return false;
+            return true;
+        }
         public OnChange OnChange { get; set; }
         private List<int>[] connect;
         private int nodesNr;
