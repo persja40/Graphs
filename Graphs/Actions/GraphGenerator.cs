@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Graphs.Data;
+using Graphs.Actions;
 
 namespace Graphs.Actions
 {
@@ -13,7 +14,7 @@ namespace Graphs.Actions
         {
             if ((nodes < 1) || branches > ((nodes * nodes - nodes) / 2))
             {
-                Console.WriteLine(nodes+"   "+branches);
+                Console.WriteLine(nodes + "   " + branches);
                 Console.Read();
                 throw new Exception("Incorrect parameters");
             }
@@ -52,6 +53,36 @@ namespace Graphs.Actions
                     if (r.NextDouble() < prob)
                         w.MakeConnection(i, j);
             return w;
+        }
+        public static GraphMatrix generatorRegular(int k, int nodes = 0)//jesli nie podacie nodes to beda sie losowaly
+        {
+            List<int> q = new List<int>();
+            if (nodes != 0)
+            {
+                for (int i = 0; i < nodes; i++)
+                    q.Add(k);
+                if (Misc.Exists(q))
+                    return Misc.Construct(q);
+                throw new Exception("Incorrect parameters");
+            }
+            Random r = new Random();
+            int n = -1;
+            int c;
+            for (int i = 0; i < 100; i++)//liczba podaje ile bedzie prob wygenerowania
+            {
+                while (n > 0)
+                    n = r.Next(16);//max liczba wzlow
+                c = q.Count;
+                if (c > n)
+                    for (int j = 0; j <= (c - n); j++)
+                        q.Remove(k);
+                else
+                    for (int j = 0; j <= (n - c); j++)
+                        q.Add(k);
+                if (Misc.Exists(q))
+                    return Misc.Construct(q);
+            }
+            return null;
         }
     }
 }
