@@ -3,10 +3,12 @@ using Graphs.Data;
 using Graphs.TestWindows;
 using Graphs.ViewModels;
 using Graphs.Windows.Generators;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -209,6 +211,93 @@ namespace Graphs
             if (node1 != node2)
                 Graph.MakeConnection(node1, node2);
             Graph.OnChange();
+        }
+
+        private void CreateNew(object sender, RoutedEventArgs e)
+        {
+            GraphMatrix newGraph = new GraphMatrix(1);
+            Graph.Set(newGraph);
+            Graph.OnChange();
+        }
+
+        public string AppDataDirectory
+        {
+            get
+            {
+                string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+                string myFolder = System.IO.Path.Combine(folder, "AghGraphs");
+
+                return myFolder;
+            }
+        }
+
+        private void createAppdataFolder()
+        {
+            
+
+            if (!Directory.Exists(AppDataDirectory))
+                Directory.CreateDirectory(AppDataDirectory);
+        }
+
+        private void SaveGraph(object sender, RoutedEventArgs e)
+        {
+            createAppdataFolder();
+
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.FileName = "Graph";
+            dlg.DefaultExt = ".matrix";
+            dlg.Filter = "Matrix|*.matrix|List|*.list|Incidency|*.inc";
+            dlg.InitialDirectory = AppDataDirectory;
+
+            bool? result = dlg.ShowDialog();
+            
+            if(result == true)
+            {
+                if (dlg.FileName.ToLower().EndsWith("matrix"))
+                    GraphLoad.SaveMatrix(Graph, dlg.FileName);
+
+                else if (dlg.FileName.ToLower().EndsWith("list"))
+                    GraphLoad.SaveList(Converter.ConvertToList(Graph), dlg.FileName);
+
+                else if (dlg.FileName.ToLower().EndsWith("inc"))
+                    GraphLoad.SaveMatrixInc(Converter.ConvertToMatrixInc(Graph), dlg.FileName);
+                
+            }
+        }
+
+        private void LoadGraph(object sender, RoutedEventArgs e)
+        {
+            createAppdataFolder();
+
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = ".matrix";
+            dlg.Filter = "Matrix|*.matrix|List|*.list|Incidency|*.inc";
+            dlg.InitialDirectory = AppDataDirectory;
+
+            bool? result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                if (dlg.FileName.ToLower().EndsWith("matrix"))
+                    Graph.Set(GraphLoad.LoadMatrix(dlg.FileName));
+
+                else if (dlg.FileName.ToLower().EndsWith("list"))
+                    Graph.Set(
+                        Converter.ConvertToMatrix(GraphLoad.LoadList(dlg.FileName))
+                        );
+
+                else if (dlg.FileName.ToLower().EndsWith("inc"))
+                    Graph.Set(
+                        Converter.ConvertToMatrix(GraphLoad.LoadMatrixInc(dlg.FileName))
+                        );
+            }
+            Graph.OnChange();
+        }
+
+        private void ExitApplication(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

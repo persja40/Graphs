@@ -125,6 +125,16 @@ namespace Graphs.Actions
             sr.Close();
             return graph;
         }
+
+        public static GraphList LoadList(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void SaveList(GraphList list, string path)
+        {
+            throw new NotImplementedException();
+        }
       
     }
 }

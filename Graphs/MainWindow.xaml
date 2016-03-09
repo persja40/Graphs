@@ -12,19 +12,19 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_New">
+                <MenuItem Header="_New" Click="CreateNew">
                     <MenuItem.Icon>
                         <Image Source="Images/new.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Open" />
-                <MenuItem Header="_Save" >
+                <MenuItem Header="_Save" Click="SaveGraph" >
                     <MenuItem.Icon>
                         <Image Source="Images/save.png" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="_Load" Click="LoadGraph" />
                 <Separator />
-                <MenuItem Header="_Exit" >
+                <MenuItem Header="_Exit" Click="ExitApplication" >
                     <MenuItem.Icon>
                         <Image Source="Images/exit.png" />
                     </MenuItem.Icon>
