@@ -58,15 +58,18 @@ namespace Graphs.Actions
         {
             List<int> q = new List<int>();
             Random r = new Random();
-            int n = -1;
+            int n;
             int c;
-            for (int i = 0; i < 10000000; i++)//liczba podaje ile bedzie prob wygenerowania
+            const int MAX = 21;
+            List<int> p = new List<int>();
+            for (int i = 1; i <= MAX; i++)
+                p.Add(i);
+            for (int i = 0; i < MAX; i++)//liczba podaje ile bedzie prob wygenerowania
             {
-                while (n <= k)
-                    n = r.Next(21);//max liczba wzlow
+                n = 0;
+                while (n <= 0 || !p.Contains(n))
+                    n = r.Next(MAX);//max liczba wzlow
                 c = q.Count;
-                //Console.WriteLine(n);
-                //Console.WriteLine(c);
                 if (c > n)
                     for (int j = 0; j <= (c - n); j++)
                         q.Remove(k);
