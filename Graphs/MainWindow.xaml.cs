@@ -136,7 +136,8 @@ namespace Graphs
         private void GenerateGraph(object sender, RoutedEventArgs args)
         {
             Stopwatch watch = null;
-            long before = 0, after = 0;
+            //long before = 0;
+            long after = 0;
             if (sender == ErdosRenyiMenuItem)
             {
                 var w = new ErdosGenerator();

@@ -27,7 +27,7 @@ namespace Graphs.UserControls
 
         private void Remove(object sender, RoutedEventArgs e)
         {
-            var test = 2;
+            //var test = 2;
         }
     }
 }

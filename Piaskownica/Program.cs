@@ -133,7 +133,7 @@ namespace Piaskownica
             //Console.Write(5>3);
             //Console.Read();
 
-            int dupa = 21312312;
+            //int dupa = 21312312;
             List<int> lista1 = new List<int>() { 6, 4, 3, 3, 2 };
             Console.WriteLine(Misc.Exists(lista1));
             Console.Read();
