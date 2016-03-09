@@ -65,6 +65,7 @@
     <Compile Include="Actions\EulerGraph.cs" />
     <Compile Include="Actions\GraphGenerator.cs" />
     <Compile Include="Actions\GraphRenderer.cs" />
+    <Compile Include="Actions\Hamilton.cs" />
     <Compile Include="Actions\Misc.cs" />
     <Compile Include="Authors.xaml.cs">
       <DependentUpon>Authors.xaml</DependentUpon>

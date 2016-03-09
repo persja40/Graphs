@@ -30,7 +30,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Project1">
+            <MenuItem Header="Projekt1">
                 <MenuItem Header="_Random" >
                     <MenuItem.Icon>
                         <Image Source="Images/dice.png" />
@@ -40,6 +40,9 @@
 
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="Projekt2"></MenuItem>
+            <MenuItem Header="Projekt3"></MenuItem>
+            <MenuItem Header="_Widok"></MenuItem>
             <MenuItem Header="_Tests">
                 <MenuItem Header="_GraphList">
                     <MenuItem Header="_ItemTest" Click="OpenGraphListItemTest"/>
