@@ -66,8 +66,6 @@ namespace Graphs.Actions
             
 
         }
-
-<<<<<<< HEAD
         //i 2 inne metody do ladowania 2 innych typow grafow
 
         public static void SaveMatrixInc(GraphMatrixInc graph, string path)
@@ -127,31 +125,6 @@ namespace Graphs.Actions
             sr.Close();
             return graph;
         }
-       
-
-
-
-
-=======
-        public static void SaveInc(GraphMatrixInc graph, string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static GraphMatrixInc LoadInc(string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void SaveList(GraphList graph, string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static GraphList LoadList(string path)
-        {
-            throw new NotImplementedException();
-        }
->>>>>>> 9748cf670e88cd0e6a05e9d85720e91bdef549c4
+      
     }
 }
