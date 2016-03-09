@@ -1,4 +1,5 @@
-﻿using Graphs.Misc;
+﻿using Graphs.Actions;
+using Graphs.Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,17 @@ namespace Graphs.Data
         {
             connect[n1, con] = connect[n2, con] = 0;
         }
+
+        public static implicit operator GraphMatrix(GraphMatrixInc inc)
+        {
+            return Converter.ConvertToMatrix(inc);
+        }
+
+        public static implicit operator GraphList(GraphMatrixInc inc)
+        {
+            return Converter.ConvertToList(inc);
+        }
+
         public int NodesNr
         {
             get

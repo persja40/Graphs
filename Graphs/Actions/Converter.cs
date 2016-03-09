@@ -59,6 +59,10 @@ namespace Graphs.Actions
             return q;
         }
 
+        public static GraphList ConvertToList(GraphMatrixInc from)
+        {
+            return Converter.ConvertToList(Converter.ConvertToMatrix(from));
+        }
 
     }
 }

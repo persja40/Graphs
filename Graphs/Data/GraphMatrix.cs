@@ -56,6 +56,17 @@ namespace Graphs.Data
                         MakeConnection(x, y);
                 }
         }
+
+        public static implicit operator GraphList(GraphMatrix matrix)
+        {
+            return Converter.ConvertToList(matrix);
+        }
+
+        public static implicit operator GraphMatrixInc(GraphMatrix matrix)
+        {
+            return Converter.ConvertToMatrixInc(matrix);
+        }
+
         public GraphMatrix Randomize(int x = 1000)
         {
             Random r = new Random();

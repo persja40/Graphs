@@ -1,4 +1,5 @@
-﻿using Graphs.Misc;
+﻿using Graphs.Actions;
+using Graphs.Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,17 @@ namespace Graphs.Data
         {
             return connect[node1].Contains(node2);
         }
+
+        public static implicit operator GraphMatrix(GraphList list)
+        {
+            return Converter.ConvertToMatrix(list);
+        }
+
+        public static implicit operator GraphMatrixInc(GraphList list)
+        {
+            return Converter.ConvertToMatrixInc(list);
+        }
+
         public int NodesNr
         {
             get
@@ -49,6 +61,7 @@ namespace Graphs.Data
                 return x;
             }
         }
+
         public int CountElem(int x)
         {
             return connect[x].Count;
