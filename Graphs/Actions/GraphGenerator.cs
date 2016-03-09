@@ -54,25 +54,19 @@ namespace Graphs.Actions
                         w.MakeConnection(i, j);
             return w;
         }
-        public static GraphMatrix generatorRegular(int k, int nodes = 0)//jesli nie podacie nodes to beda sie losowaly
+        public static GraphMatrix generatorRegular(int k)
         {
             List<int> q = new List<int>();
-            if (nodes != 0)
-            {
-                for (int i = 0; i < nodes; i++)
-                    q.Add(k);
-                if (Misc.Exists(q))
-                    return Misc.Construct(q);
-                throw new Exception("Incorrect parameters");
-            }
             Random r = new Random();
             int n = -1;
             int c;
-            for (int i = 0; i < 100; i++)//liczba podaje ile bedzie prob wygenerowania
+            for (int i = 0; i < 10000000; i++)//liczba podaje ile bedzie prob wygenerowania
             {
-                while (n > 0)
+                while (n <= k)
                     n = r.Next(21);//max liczba wzlow
                 c = q.Count;
+                //Console.WriteLine(n);
+                //Console.WriteLine(c);
                 if (c > n)
                     for (int j = 0; j <= (c - n); j++)
                         q.Remove(k);

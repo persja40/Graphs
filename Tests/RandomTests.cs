@@ -22,5 +22,20 @@ namespace Tests
                     Assert.IsTrue(graph.ConnectionCount == j, string.Format("Nodes : {0}, Connections : {1}, Have : {2}", i, j, graph.ConnectionCount));
                 }
         }
+        [TestMethod]
+        public void RegularGen() {
+            Random r = new Random();
+            int x;
+            for (int i = 1; i < 1000; ++i)
+            {
+                x = 0;
+                while (x == 0)
+                    x = r.Next(8);
+                GraphMatrix q = GraphGenerator.generatorRegular(x);
+                GraphList w = q;
+                for (int j = 0; j < q.NodesNr; ++j)
+                    Assert.IsTrue(w.GetConnections(i).Count==x);
+            }
+        }
     }
 }
