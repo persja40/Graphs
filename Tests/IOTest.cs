@@ -44,7 +44,7 @@ namespace Tests
         public void TestMatrixIO()
         {
             createAppdataFolder();
-            var file = Path.Combine(AppDataDirectory, "tests\test.matrix");
+            var file = Path.Combine(AppDataDirectory, "tests\\test.matrix");
 
            
 
@@ -63,7 +63,7 @@ namespace Tests
         public void TestListIO()
         {
             createAppdataFolder();
-            var file = Path.Combine(AppDataDirectory, "tests\test.list");
+            var file = Path.Combine(AppDataDirectory, "tests\\test.list");
 
             Random rand = new Random();
             for (int i = 0; i < 100; ++i)
@@ -80,7 +80,7 @@ namespace Tests
         public void TestIncIO()
         {
             createAppdataFolder();
-            var file = Path.Combine(AppDataDirectory, "tests\test.inc");
+            var file = Path.Combine(AppDataDirectory, "tests\\test.inc");
 
             Random rand = new Random();
             for (int i = 0; i < 100; ++i)
