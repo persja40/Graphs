@@ -36,7 +36,7 @@
                         <Image Source="Images/dice.png" />
                     </MenuItem.Icon>
                     <MenuItem Header="_Erdos Renyi" Name="ErdosRenyiMenuItem"  Click="GenerateGraph"/>
-                    <MenuItem Header="_Drugi generator XD" Name="SecondGeneratorMenuItem" Click="GenerateGraph"/>
+                    <MenuItem Header="_G(n, p)" Name="SecondGeneratorMenuItem" Click="GenerateGraph"/>
 
                 </MenuItem>
             </MenuItem>

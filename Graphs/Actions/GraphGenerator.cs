@@ -71,7 +71,7 @@ namespace Graphs.Actions
             for (int i = 0; i < 100; i++)//liczba podaje ile bedzie prob wygenerowania
             {
                 while (n > 0)
-                    n = r.Next(16);//max liczba wzlow
+                    n = r.Next(21);//max liczba wzlow
                 c = q.Count;
                 if (c > n)
                     for (int j = 0; j <= (c - n); j++)
@@ -82,7 +82,7 @@ namespace Graphs.Actions
                 if (Misc.Exists(q))
                     return Misc.Construct(q);
             }
-            return null;
+            throw new Exception("Did not found");
         }
     }
 }
