@@ -1,0 +1,30 @@
+﻿<Window x:Class="Graphs.Windows.Generators.ErdosGenerator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Graphs.Windows.Generators"
+        mc:Ignorable="d"
+        Title="Generator Erdosa - Renyiego" Width="300"
+        SizeToContent="Height" Closing="OnClose"
+        WindowStyle="None"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label>Liczba wierzchołków</Label>
+        <TextBox Grid.Column="1" x:Name="NodeCount"></TextBox>
+
+        <Label Grid.Row="1">Liczba Krawędzi</Label>
+        <TextBox  Grid.Row="1" Grid.Column="1" x:Name="ConnectionCount"></TextBox>
+        <Button Click="Generate" Grid.Row="2" Grid.Column="1">Generuj</Button>
+    </Grid>
+</Window>

@@ -15,5 +15,8 @@ namespace Graphs.ViewModels
         public double Y2 { get; set; }
 
         public Color Color { get; set; } = Colors.Black;
+
+        public int Node1 { get; set; }
+        public int Node2 { get; set; }
     }
 }

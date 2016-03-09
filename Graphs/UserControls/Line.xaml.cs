@@ -24,5 +24,10 @@ namespace Graphs.UserControls
         {
             InitializeComponent();
         }
+
+        private void Remove(object sender, RoutedEventArgs e)
+        {
+            var test = 2;
+        }
     }
 }

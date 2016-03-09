@@ -11,50 +11,41 @@ namespace Graphs.Actions
     {
         public static GraphMatrix ConvertToMatrix(GraphMatrixInc from)
         {
-            int max = from.NodesNr;
-            int[,] tab = new int[max, max];
-            Pair<int, int> a = new Pair<int, int>();
-            for (int j = 0; j < from.ConnectNr; j++)
-            {
-                a.First = a.Second = -1;
-                int i = 0;
-                while (a.Second == -1)
-                {
+            GraphMatrix x = new GraphMatrix(from.NodesNr);
+            for (int i = 0; i < from.NodesNr; i++)
+                for (int j = 0; j < from.NodesNr; j++)
                     if (from.GetConnection(i, j))
-                    {
-                        if (a.First == -1)
-                            a.First = i;
-                        else
-                        {
-                            a.Second = i;
-                            break;
-                        }
-                    }
-                    i++;
-                }
-                tab[a.First, a.Second] = tab[a.Second, a.First] = 1;
-            }
-            GraphMatrix x = new GraphMatrix(max, tab);
+                        x.MakeConnection(i, j);
             return x;
         }
+        public static GraphMatrix ConvertToMatrix(GraphList from)
+        {
+            return ConvertToMatrix(ConvertToMatrixInc(from));
+        }
+
+        public static GraphMatrixInc ConvertToMatrixInc(GraphMatrix from)
+        {
+            return ConvertToMatrixInc(ConvertToList(from));
+        }
+
         public static GraphMatrixInc ConvertToMatrixInc(GraphList from)
         {
             int sumc = 0;
             for (int i = 0; i < from.NodesNr; i++)
-            {
                 sumc += from.CountElem(i);
-            }
             sumc = sumc / 2;
             GraphMatrixInc q = new GraphMatrixInc(from.NodesNr, sumc);
             int c = 0;
             for (int i = 0; i < from.NodesNr; i++)//pobiera po kolei elementy, dodaje do matrixinc i usuwa z listy
                 for (int j = 0; j < from.NodesNr; j++)
+                {
                     if (from.GetConnection(i, j))
                     {
                         q.MakeConnection(i, j, c);
                         c++;
                         from.RemoveConnection(i, j);
                     }
+                }
             return q;
         }
 
@@ -69,11 +60,5 @@ namespace Graphs.Actions
         }
 
 
-    }
-
-    class Pair<T1, T2>
-    {
-        public T1 First { get; set; }
-        public T2 Second { get; set; }
     }
 }

@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Graphs.UserControls.MatrixControlItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vc="clr-namespace:Graphs.ValueConverters"
+             xmlns:local="clr-namespace:Graphs.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <vc:IntBoolValueConverter x:Key="converter"/>
+    </UserControl.Resources>
+    <!--"-->
+
+    <DockPanel Background="{Binding Background}" Name="Panel" ToolTip="{Binding Hint}" >
+        <Border BorderBrush="#7F000000" DockPanel.Dock="Top" BorderThickness="1">
+            <Label Name="asdf" Content="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Visibility}">
+            </Label>
+        </Border>
+        <!--<DockPanel.Resources>
+            <Style TargetType="{x:Type DockPanel}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=., Converter={StaticResource converter}}" Value="True">
+                        <Setter Property="Background" >
+                            <Setter.Value>
+                                <SolidColorBrush Color="#5505FF26"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=., Converter={StaticResource converter}}" Value="False">
+                        <Setter Property="Background" Value="Transparent" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </DockPanel.Resources>-->
+    </DockPanel>
+</UserControl>
