@@ -205,12 +205,20 @@ namespace Graphs
 
         private void GenerateRandomConnection(object sender, RoutedEventArgs e)
         {
-            Random rand = new Random();
-            int node1 = rand.Next(0, Graph.NodesNr);
-            int node2 = rand.Next(0, Graph.NodesNr);
-            if (node1 != node2)
-                Graph.MakeConnection(node1, node2);
-            Graph.OnChange();
+            for (int i = 0; i < 1000; ++i)
+            {
+                Random rand = new Random();
+                int node1 = rand.Next(0, Graph.NodesNr);
+                int node2 = rand.Next(0, Graph.NodesNr);
+                if (node1 != node2)
+                {
+                    Graph.MakeConnection(node1, node2);
+                    Graph.OnChange();
+                    break;
+                }
+
+            }
+            
         }
 
         private void CreateNew(object sender, RoutedEventArgs e)
@@ -298,6 +306,15 @@ namespace Graphs
         private void ExitApplication(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void IsHamilton(object sender, RoutedEventArgs e)
+        {
+            bool value = Hamilton.IsHamilton(Graph);
+
+            string message = "Graf " + (value ? "" : "nie") + " jest Hamiltonowski";
+
+            MessageBox.Show(message);
         }
     }
 }

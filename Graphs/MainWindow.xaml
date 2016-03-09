@@ -40,7 +40,9 @@
 
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Projekt2"></MenuItem>
+            <MenuItem Header="Projekt2">
+                <MenuItem Header="Is Hamilton" Click="IsHamilton" />
+            </MenuItem>
             <MenuItem Header="Projekt3"></MenuItem>
             <MenuItem Header="_Widok"></MenuItem>
             <MenuItem Header="_Tests">
