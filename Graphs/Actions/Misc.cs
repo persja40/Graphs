@@ -75,10 +75,35 @@ namespace Graphs.Actions
         {
             throw new NotImplementedException();
         }
-        public static GraphMatrix Connectivity(GraphMatrix from)
+        public static GraphMatrix Spojny(GraphMatrix from)
         {
-            throw new NotImplementedException();
+            GraphList kl = from;
+            List<int> lista = new List<int>();
+            for (int i = 0; i < from.NodesNr; i++)//wszystkie wezly sa poczatkiem
+            {
+                List<int> q = new List<int>();
+                q.Add(i);
+                rek(kl, i, q);
+                if (lista.Count < q.Count)
+                    lista = q;
+            }
+            //stworz graf z listy największej dlugosci
+            GraphList wynik = new GraphList(from.NodesNr);
+            for (int i = 0; i < lista.Count; i++)
+                for (int j = 0; j < lista.Count; j++)
+                    if (from.GetConnection(lista[i], lista[j]))
+                        wynik.MakeConnection(lista[i], lista[j]);
+            return GraphMatrix.Free( wynik);
         }
-
+        private static void rek(GraphList x, int e, List<int> z)//rekurencyjne przeszukiwanie grafu
+        {
+            for (int i = 0; i < x.GetConnections(e).Count; i++)
+                if (!z.Contains(x.GetConnections(e)[i]))
+                {
+                    z.Add(x.GetConnections(e)[i]);
+                    rek(x, x.GetConnections(e)[i], z);
+                }
+        }
     }
 }
+//x.GetConnections(e)[i]

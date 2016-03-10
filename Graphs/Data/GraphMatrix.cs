@@ -124,6 +124,38 @@ namespace Graphs.Data
             return Converter.ConvertToMatrix(temp);
         }
         public OnChange OnChange { get; set; }
+        public static GraphMatrix Free(GraphMatrix f)//czysci wolne wezly
+        {
+            List<int> z = new List<int>();
+            for (int i = 0; i < f.NodesNr; i++)
+            {
+                int suma = 0;
+                for (int j = 0; j < f.NodesNr; j++)
+                    if (f.GetConnection(i, j))
+                        suma++;
+                if (suma == 0)
+                    z.Add(i);
+            }
+            GraphMatrix w = new GraphMatrix(f.NodesNr - z.Count);
+            int k = 0;
+            int l = 0;//litera ;)
+            for (int i = 0; i < f.NodesNr; i++)
+            {
+                if (z.Contains(i))
+                    continue;
+                l = 0;
+                for (int j = 0; j < f.NodesNr; j++)
+                {
+                    if (z.Contains(j))
+                        continue;
+                    if (f.GetConnection(i, j))
+                        w.MakeConnection(k, l);
+                    l++;
+                }
+                k++;
+            }
+            return w;
+        }
         public int ConnectionCount
         {
             get
@@ -145,7 +177,7 @@ namespace Graphs.Data
                 return false;
             for (int i = 0; i < nodesNr; i++)
                 for (int j = 0; j < nodesNr; j++)
-                    if (this.GetConnection(i, j) != x.GetConnection(i,j))
+                    if (this.GetConnection(i, j) != x.GetConnection(i, j))
                         return false;
             return true;
         }

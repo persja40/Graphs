@@ -13,7 +13,32 @@ namespace Piaskownica
         static void Main(string[] args)
         {
             //Console.WriteLine(Misc.Exists(new List<int>() { 4,4,0,4,4}));
-            GraphMatrix q = GraphGenerator.generatorRegular(4);
+            //GraphMatrix q = GraphGenerator.generatorRegular(4);
+            
+            GraphMatrix q = GraphGenerator.generatorGER(8, 8);
+            for (int i = 0; i < q.NodesNr; i++) {
+                for (int j = 0; j < q.NodesNr; j++)
+                {
+                    if(q.GetConnection(i, j))
+                        Console.Write(1+" ; ");
+                    else
+                         Console.Write(0 + " ; ");
+                }
+                Console.WriteLine();
+            }
+            GraphMatrix w = Misc.Spojny(q);
+            Console.WriteLine("------------------------");
+            for (int i = 0; i < w.NodesNr; i++)
+            {
+                for (int j = 0; j < w.NodesNr; j++)
+                {
+                    if (w.GetConnection(i, j))
+                        Console.Write(1 + " ; ");
+                    else
+                        Console.Write(0 + " ; ");
+                }
+                Console.WriteLine();
+            }
             Console.Read();
         }
         static bool por(GraphMatrix a, GraphMatrix b) {
