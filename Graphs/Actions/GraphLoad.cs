@@ -71,7 +71,7 @@ namespace Graphs.Actions
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
-                    if (graph.GetConnection(i, j))
+                    if (graph.GetConnectionArray(i, j))
                         sw.Write('1');
                     else
                         sw.Write('0');
