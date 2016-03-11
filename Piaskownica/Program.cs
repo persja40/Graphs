@@ -14,34 +14,36 @@ namespace Piaskownica
         {
             //Console.WriteLine(Misc.Exists(new List<int>() { 4,4,0,4,4}));
             //GraphMatrix q = GraphGenerator.generatorRegular(4);
-            Console.WriteLine(Misc.Construct(new List<int>() { 4, 3, 3, 2, 2 }));
-
-
-            GraphMatrix q = GraphGenerator.generatorGER(8, 8);
-            for (int i = 0; i < q.NodesNr; i++) {
+            /*
+            Random r = new Random();
+            int x;
+            for (int i = 1; i < 1000; ++i)
+            {
+                x = 0;
+                while (x == 0)
+                    x = r.Next(8);
+                GraphMatrix q = GraphGenerator.generatorRegular(x);
+                GraphList w = q;
+                for (int j = 0; j < q.NodesNr; ++j)
+                    if(w.GetConnections(i).Count != x);
+                throw new Exception("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz");
+            }
+            */
+            List<int> l = new List<int> { 2, 2, 2, 2, 2, 2, 2 };
+            Console.WriteLine(Misc.Exists(l));
+            GraphMatrix q = Misc.Construct(l);
+            for (int i = 0; i < q.NodesNr; i++)
+            {
                 for (int j = 0; j < q.NodesNr; j++)
                 {
                     if(q.GetConnection(i, j))
                         Console.Write(1+" ; ");
                     else
-                         Console.Write(0 + " ; ");
-                }
-                Console.WriteLine();
-            }
-            GraphMatrix w = Misc.Spojny(q);
-            Console.WriteLine("------------------------");
-            for (int i = 0; i < w.NodesNr; i++)
-            {
-                for (int j = 0; j < w.NodesNr; j++)
-                {
-                    if (w.GetConnection(i, j))
-                        Console.Write(1 + " ; ");
-                    else
                         Console.Write(0 + " ; ");
                 }
                 Console.WriteLine();
             }
-            Console.Read();
+                    Console.Read();
         }
         static bool por(GraphMatrix a, GraphMatrix b) {
             for (int i = 1; i < b.NodesNr; i++)//wpisywanie wylosowanych liczb

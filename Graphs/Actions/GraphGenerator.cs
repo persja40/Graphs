@@ -76,6 +76,7 @@ namespace Graphs.Actions
                 else
                     for (int j = 0; j <= (n - c); j++)
                         q.Add(k);
+                Console.WriteLine(q.Count+" :   "+q[0]);
                 if (Misc.Exists(q))
                     return Misc.Construct(q);
             }
