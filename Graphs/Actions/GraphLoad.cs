@@ -117,12 +117,56 @@ namespace Graphs.Actions
 
         public static GraphList LoadList(string path)
         {
-            throw new NotImplementedException();
+            if (!File.Exists(path))
+                throw new Exception("File does not exist");
+            StreamReader sr = new StreamReader(path);
+            string[] s = new string [1000];
+            s[0]= sr.ReadLine();
+            int i=0;
+            while (s[i] != null)
+            {
+                s[i + 1] = sr.ReadLine();
+                i++;
+            }
+
+         
+            GraphList graph = new GraphList(i);
+            for (int j = 0; j < i; j++)
+            {
+                for (int k = 0; k < s[j].Length; k++)
+                {
+                    if (s[j][k] == ';' || s[j][k] == '\n') { }
+                    else
+                        graph.GetNeighbours(j).Add(s[j][k]-48);
+                   
+                }
+            }
+           
+
+            
+            sr.Close();
+            return graph;
+
+            
         }
 
         public static void SaveList(GraphList list, string path)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            StreamWriter sw = new StreamWriter(path);
+            for (int i = 0; i < list.NodesNr; i++)
+            {
+                for (int j = 0; j < list.GetConnections(i).Count; j++)
+                {
+                    sw.Write(list.GetConnections(i)[j]);
+                    sw.Write(';');
+                }
+
+                sw.Write('\n');
+            }
+            sw.Close();
+
+
         }
 
     }
