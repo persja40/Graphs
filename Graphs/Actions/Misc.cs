@@ -73,7 +73,36 @@ namespace Graphs.Actions
         /// <returns>Graf</returns>
         public static GraphMatrix Construct(List<int> degrees)
         {
-            throw new NotImplementedException();
+                int nodes = degrees.Count; // liczba wierzcholkow
+                int[,] connections = new int[nodes, nodes]; // macierz sasiedztwa
+                for(int i = 0; i < nodes; ++i) // wyzerowanie macierzy sasiedztwa
+                {
+                    for (int j = 0; j < nodes; ++j)
+                        connections[i, j] = 0;
+                }
+
+
+                for (int i = 0; i < nodes; ++i)
+                {
+                    for (int j = 0; j < nodes; ++j)
+                    {
+                        if((degrees[i] > 0) && (degrees[j] > 0)) // sprawdzenie czy jest jeszcze mozliwe przylaczenie krawedzi do danego wierzcholka
+                        {
+                            if (i == j) // upewnienie sie zeby nie polaczyc wierzcholka ze soba samym
+                                connections[i, j] = 0; 
+                            else
+                            {
+                                connections[i, j] = 1; // tworzenie polaczenia pomiedzy wierzcholkami o numerach i,j
+                                connections[j, i] = 1;
+                                degrees[i] -= 1; // po utworzeniu polaczenia miedzy wierzcholkami i,j zmniejszamy ich stopnie o 1.
+                                degrees[j] -= 1;
+                            }
+                        }
+                    }
+                }
+                return new GraphMatrix(nodes, connections);
+            
+            //throw new NotImplementedException();
         }
         public static GraphMatrix Spojny(GraphMatrix from)
         {

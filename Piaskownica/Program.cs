@@ -14,7 +14,9 @@ namespace Piaskownica
         {
             //Console.WriteLine(Misc.Exists(new List<int>() { 4,4,0,4,4}));
             //GraphMatrix q = GraphGenerator.generatorRegular(4);
-            
+            Console.WriteLine(Misc.Construct(new List<int>() { 4, 3, 3, 2, 2 }));
+
+
             GraphMatrix q = GraphGenerator.generatorGER(8, 8);
             for (int i = 0; i < q.NodesNr; i++) {
                 for (int j = 0; j < q.NodesNr; j++)
