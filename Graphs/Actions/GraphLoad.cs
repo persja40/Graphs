@@ -131,7 +131,7 @@ namespace Graphs.Actions
 
          
             GraphList graph = new GraphList(i);
-            for (int j = 0; j < i; j++)
+            /*for (int j = 0; j < i; j++)
             {
                 for (int k = 0; k < s[j].Length; k++)
                 {
@@ -140,7 +140,7 @@ namespace Graphs.Actions
                         graph.GetNeighbours(j).Add(s[j][k]-48);
                    
                 }
-            }
+            }*/
            
 
             
