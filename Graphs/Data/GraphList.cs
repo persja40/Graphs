@@ -43,11 +43,6 @@ namespace Graphs.Data
             return connect[node1].Contains(node2);
         }
 
-        public List<int> GetNeighbours(int node)
-        {
-            return connect[node];
-        }
-
         public static implicit operator GraphMatrix(GraphList list)
         {
             return Converter.ConvertToMatrix(list);

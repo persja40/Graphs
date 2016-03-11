@@ -67,8 +67,9 @@ namespace Tests
 
             Random rand = new Random();
             for (int i = 0; i < 100; ++i)
+                for(int j = 0; j <100;++j)
             {
-                GraphMatrix matrix = GraphGenerator.generatorGnp(10 + rand.Next(100), 0.5);
+                GraphMatrix matrix = GraphGenerator.generatorGnp(2 + rand.Next(i), 0.5);
                 GraphList list = Converter.ConvertToList(matrix);
                 GraphLoad.SaveList(list, file);
                 GraphList second = GraphLoad.LoadList(file);

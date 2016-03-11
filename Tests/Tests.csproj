@@ -54,6 +54,7 @@
     <Compile Include="IOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomTests.cs" />
+    <Compile Include="SpojnoscTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Graphs\Graphs.csproj">
