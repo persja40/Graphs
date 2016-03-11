@@ -78,7 +78,13 @@ namespace Graphs.Data
             if (this.NodesNr != x.NodesNr)
                 return false;
             for (int i = 0; i < nodesNr; i++)
-                if (!this.GetConnections(i).Equals(x.GetConnections(i)))
+                if (this.GetConnections(i).Count == x.GetConnections(i).Count)
+                {
+                    for (int k = 0; k < this.GetConnections(i).Count; k++)
+                        if (this.GetConnections(i)[k] != x.GetConnections(i)[k])      
+                            return false;
+                }
+                else
                     return false;
             return true;
         }
