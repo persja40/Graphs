@@ -63,13 +63,27 @@
       <Name>Graphs</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Graphs\Hamilton\False\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="Graphs\Hamilton\False\2 all.matrix" />
+    <None Include="Graphs\Hamilton\False\5 dwa trojkaty.matrix" />
+    <None Include="Graphs\Hamilton\False\6 rozlaczne trojkaty.matrix" />
+    <None Include="Graphs\Hamilton\False\6 trojkaty polaczone mostem.matrix" />
+    <None Include="Graphs\Hamilton\False\6.matrix" />
+    <None Include="Graphs\Hamilton\False\7.matrix" />
     <None Include="Graphs\Hamilton\True\3.matrix">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Graphs\Hamilton\True\4_1.matrix" />
+    <None Include="Graphs\Hamilton\True\4_2.matrix" />
+    <None Include="Graphs\Hamilton\True\4_3.matrix" />
+    <None Include="Graphs\Hamilton\True\5_1.matrix" />
+    <None Include="Graphs\Hamilton\True\5_2 not all edges travelled.matrix" />
+    <None Include="Graphs\Hamilton\True\6 trojkaty dwumostowe.matrix" />
+    <None Include="Graphs\Hamilton\True\6.matrix" />
+    <None Include="Graphs\Hamilton\True\7 full.matrix" />
+    <None Include="Graphs\Hamilton\True\7.matrix" />
+    <None Include="Graphs\Hamilton\True\7_1.matrix" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
