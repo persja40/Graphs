@@ -129,32 +129,23 @@ namespace Graphs.Actions
                 i++;
             }
 
-            int pomoc=0;
-            int liczba = 0;
-            int potega=1;
-            int[] tab=new int[7];
+            
             GraphList graph = new GraphList(i);
+            
+            int[] tab = new int[100];
+            int liczba = 0;
+
             for (int j = 0; j < i; j++)
             {
-                for (int k = 0; k < s[j].Length; k++)
+                for (int k = 0; k < s[j].Length-1; k+=4)
                 {
-                    if (s[j][k] == ';' || s[j][k] == '\n') { }
-                    else{
-                        tab[0]=s[j][k];
-                        while (s[j][k + 1 + pomoc] != ';' || s[j][k + 1 + pomoc] != '\n') 
-						{ 
-							tab[pomoc + 1] = s[j][k + 1 + pomoc]; pomoc++; 
-						}
-                        for (int q = 0; q < pomoc; q++)
-                        {
-                            for (int y = q; y < pomoc - 1; y++) potega *= 10;
-                            liczba += tab[q] * potega;
-                            potega=1;
-                        }
-                        if (!graph.GetConnection(j, liczba))
-                                graph.MakeConnection(j, liczba);
-                        pomoc = 0; liczba = 0; potega = 1;
-                    }
+                    if (s[j][k] == '\n') break;
+                    tab[0] = s[j][k]-48;
+                    tab[1] = s[j][k + 1]-48;
+                    tab[2] = s[j][k + 2]-48;
+                    liczba = 100 * tab[0] + 10 * tab[1] + tab[2];
+                    if (!graph.GetConnection(j, liczba))
+                        graph.MakeConnection(j, liczba);
                    
                 }
             }
@@ -173,12 +164,14 @@ namespace Graphs.Actions
             StreamWriter sw = new StreamWriter(path);
             for (int i = 0; i < list.NodesNr; i++)
             {
-                for (int j = 0; j < list.GetConnections(i).Count; j++)
-                {
-                    sw.Write(list.GetConnections(i)[j]);
+                 foreach (var item in list.GetConnections(i)){
+                    if (item<10)
+                        sw.Write("00"+item);
+                    else if (item<100)
+                        sw.Write("0" + item);
+                    else sw.Write(item);
                     sw.Write(';');
-                }
-
+                 }
                 sw.Write('\n');
             }
             sw.Close();
