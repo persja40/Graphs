@@ -29,10 +29,7 @@ namespace Piaskownica
                 throw new Exception("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz");
             }
             */
-            GraphMatrix x = GraphGenerator.generatorGnp(4, 0.5);
-            GraphList a = Converter.ConvertToList(x);
-            GraphList b = Converter.ConvertToList(x);
-            /*
+
             List<int> l = new List<int> { 2, 2, 2, 2, 2, 2, 2 };
             Console.WriteLine(Misc.Exists(l));
             GraphMatrix q = Misc.Construct(l);
@@ -47,8 +44,7 @@ namespace Piaskownica
                 }
                 Console.WriteLine();
             }
-            */
-            Console.WriteLine(a.Equals(b));
+          
 
             Console.Read();
         }
