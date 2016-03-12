@@ -1,5 +1,6 @@
 ﻿using Graphs.Actions;
 using Graphs.Data;
+using Graphs.Helpers;
 using Graphs.TestWindows;
 using Graphs.ViewModels;
 using Graphs.Windows.Generators;
@@ -43,10 +44,24 @@ namespace Graphs
 
             GraphListControl.DataContext = new GraphListViewModel();
 
-            
+            GraphControl.OnTwoNodeClickEvent += ConnectTwoNodes;
 
             Graph.OnChange += onGraphChange;
             onGraphChange();
+        }
+
+        private void ConnectTwoNodes(int node1, int node2)
+        {
+            if(Graph.GetConnection(node1, node2) == false)
+            {
+                Graph.MakeConnection(node1, node2);
+                Graph.OnChange();
+            }
+            else
+            {
+                Graph.RemoveConnection(node1, node2);
+                Graph.OnChange();
+            }
         }
 
         private void onGraphChange()
@@ -104,7 +119,7 @@ namespace Graphs
         private void openWindow<T>()
             where T : Window, new()
         {
-            if (!Helpers.IsWindowOpen<T>())
+            if (!WindowHelper.IsWindowOpen<T>())
             {
                 var window = new T();
                 window.Show();
@@ -229,39 +244,17 @@ namespace Graphs
             Graph.OnChange();
         }
 
-        public string AppDataDirectory
-        {
-            get
-            {
-                string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-                string myFolder = System.IO.Path.Combine(folder, "AghGraphs");
-
-                return myFolder;
-            }
-        }
-
-        private void createAppdataFolder()
-        {
-            
-
-            if (!Directory.Exists(AppDataDirectory))
-                Directory.CreateDirectory(AppDataDirectory);
-        }
-
         private void SaveGraph(object sender, RoutedEventArgs e)
         {
-            createAppdataFolder();
-
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.FileName = "Graph";
             dlg.DefaultExt = ".matrix";
             dlg.Filter = "Matrix|*.matrix|List|*.list|Incidency|*.inc";
-            dlg.InitialDirectory = AppDataDirectory;
+            dlg.InitialDirectory = SaveLoadWindowHelper.LoadCurrentDialogDirectory();
 
             bool? result = dlg.ShowDialog();
-            
-            if(result == true)
+
+            if (result == true)
             {
                 if (dlg.FileName.ToLower().EndsWith("matrix"))
                     GraphLoad.SaveMatrix(Graph, dlg.FileName);
@@ -271,18 +264,20 @@ namespace Graphs
 
                 else if (dlg.FileName.ToLower().EndsWith("inc"))
                     GraphLoad.SaveMatrixInc(Converter.ConvertToMatrixInc(Graph), dlg.FileName);
-                
+                SaveLoadWindowHelper.SaveCurrentDialogDirectory(System.IO.Path.GetDirectoryName(dlg.FileName));
+            }
+            else
+            {
+                SaveLoadWindowHelper.SaveCurrentDialogDirectory(dlg.InitialDirectory);
             }
         }
 
         private void LoadGraph(object sender, RoutedEventArgs e)
         {
-            createAppdataFolder();
-
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = ".matrix";
             dlg.Filter = "Matrix|*.matrix|List|*.list|Incidency|*.inc";
-            dlg.InitialDirectory = AppDataDirectory;
+            dlg.InitialDirectory = SaveLoadWindowHelper.LoadCurrentDialogDirectory();
 
             bool? result = dlg.ShowDialog();
 
@@ -300,6 +295,12 @@ namespace Graphs
                     Graph.Set(
                         Converter.ConvertToMatrix(GraphLoad.LoadMatrixInc(dlg.FileName))
                         );
+
+                SaveLoadWindowHelper.SaveCurrentDialogDirectory(System.IO.Path.GetDirectoryName(dlg.FileName));
+            }
+            else
+            {
+                SaveLoadWindowHelper.SaveCurrentDialogDirectory(dlg.InitialDirectory);
             }
             Graph.OnChange();
         }
