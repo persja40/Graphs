@@ -129,21 +129,29 @@ namespace Graphs.Actions
                 i++;
             }
 
-         
+            
             GraphList graph = new GraphList(i);
+            
+            int[] tab = new int[100];
+            int liczba = 0;
+
             for (int j = 0; j < i; j++)
             {
-                for (int k = 0; k < s[j].Length; k++)
+                for (int k = 0; k < s[j].Length-1; k+=4)
                 {
-                    if (s[j][k] == ';' || s[j][k] == '\n') { }
-                    else
-                        graph.GetNeighbours(j).Add(s[j][k]-48);
+                    if (s[j][k] == '\n') break;
+                    tab[0] = s[j][k]-48;
+                    tab[1] = s[j][k + 1]-48;
+                    tab[2] = s[j][k + 2]-48;
+                    liczba = 100 * tab[0] + 10 * tab[1] + tab[2];
+                    if (!graph.GetConnection(j, liczba))
+                        graph.MakeConnection(j, liczba);
                    
                 }
             }
-           
 
-            
+
+
             sr.Close();
             return graph;
 
@@ -156,12 +164,14 @@ namespace Graphs.Actions
             StreamWriter sw = new StreamWriter(path);
             for (int i = 0; i < list.NodesNr; i++)
             {
-                for (int j = 0; j < list.GetConnections(i).Count; j++)
-                {
-                    sw.Write(list.GetConnections(i)[j]);
+                 foreach (var item in list.GetConnections(i)){
+                    if (item<10)
+                        sw.Write("00"+item);
+                    else if (item<100)
+                        sw.Write("0" + item);
+                    else sw.Write(item);
                     sw.Write(';');
-                }
-
+                 }
                 sw.Write('\n');
             }
             sw.Close();
