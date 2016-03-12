@@ -35,6 +35,7 @@ namespace Graphs.UserControls
             {
                 _vm = value;
                 Draw();
+                node1 = node2 = null;
             }
             protected get
             {
@@ -142,6 +143,18 @@ namespace Graphs.UserControls
                 {
                     var circle = child as Circle;
                     circle.MouseDoubleClick -= OnNodeDoubleClick;
+                }
+
+                if(child is Canvas)
+                {
+                    foreach(var morechild in (child as Canvas).Children)
+                    {
+                        if (morechild is Circle)
+                        {
+                            var circle = morechild as Circle;
+                            circle.MouseDoubleClick -= OnNodeDoubleClick;
+                        }
+                    }
                 }
             }
             MyCanvas.Children.Clear();
