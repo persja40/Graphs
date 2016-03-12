@@ -129,21 +129,38 @@ namespace Graphs.Actions
                 i++;
             }
 
-         
+            int pomoc=0;
+            int liczba = 0;
+            int potega=1;
+            int[] tab=new int[7];
             GraphList graph = new GraphList(i);
-            /*for (int j = 0; j < i; j++)
+            for (int j = 0; j < i; j++)
             {
                 for (int k = 0; k < s[j].Length; k++)
                 {
                     if (s[j][k] == ';' || s[j][k] == '\n') { }
-                    else
-                        graph.GetNeighbours(j).Add(s[j][k]-48);
+                    else{
+                        tab[0]=s[j][k];
+                        while (s[j][k + 1 + pomoc] != ';' || s[j][k + 1 + pomoc] != '\n') 
+						{ 
+							tab[pomoc + 1] = s[j][k + 1 + pomoc]; pomoc++; 
+						}
+                        for (int q = 0; q < pomoc; q++)
+                        {
+                            for (int y = q; y < pomoc - 1; y++) potega *= 10;
+                            liczba += tab[q] * potega;
+                            potega=1;
+                        }
+                        if (!graph.GetConnection(j, liczba))
+                                graph.MakeConnection(j, liczba);
+                        pomoc = 0; liczba = 0; potega = 1;
+                    }
                    
                 }
-            }*/
-           
+            }
 
-            
+
+
             sr.Close();
             return graph;
 
