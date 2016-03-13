@@ -60,11 +60,11 @@ namespace Graphs.Actions
             Random r = new Random();
             int n;
             int c;
-            const int MAX = 21;
+            const int MAX = 11;
             List<int> p = new List<int>();
             for (int i = 1; i <= MAX; i++)
                 p.Add(i);
-            for (int i = 0; i < MAX; i++)//liczba podaje ile bedzie prob wygenerowania
+            for (int i = 0; i < 100; i++)//liczba podaje ile bedzie prob wygenerowania
             {
                 n = 0;
                 while (n <= 0 || !p.Contains(n))
@@ -76,11 +76,21 @@ namespace Graphs.Actions
                 else
                     for (int j = 0; j <= (n - c); j++)
                         q.Add(k);
-                Console.WriteLine(q.Count+" :   "+q[0]);
+                //Console.WriteLine(q.Count+" :   "+q[0]);
                 if (Misc.Exists(q))
                     return Misc.Construct(q);
             }
             throw new Exception("Did not found");
+        }
+        public static int[,] weights(GraphMatrix f)
+        {
+            Random r = new Random();
+            int[,] x = new int[f.NodesNr, f.NodesNr];
+            for (int k = 0; k < f.NodesNr; k++)//test  
+                for (int p = 0; p < f.NodesNr; p++)
+                    if (f.GetConnection(k, p))
+                        x[k, p] = r.Next(10) + 1;
+            return x;
         }
     }
 }

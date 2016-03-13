@@ -26,7 +26,7 @@ namespace Tests
         public void RegularGen() {
             Random r = new Random();
             int x;
-            for (int i = 1; i < 1000; ++i)
+            for (int i = 1; i < 100; ++i)
             {
                 x = 0;
                 while (x == 0)
@@ -34,7 +34,7 @@ namespace Tests
                 GraphMatrix q = GraphGenerator.generatorRegular(x);
                 GraphList w = q;
                 for (int j = 0; j < q.NodesNr; ++j)
-                    Assert.IsTrue(w.GetConnections(i).Count==x);
+                    Assert.IsTrue(w.GetConnections(j).Count==x);
             }
         }
     }
