@@ -174,14 +174,9 @@ namespace Graphs.UserControls
             else if (node2 == null && vm.NodeNumber != node1.NodeNumber)
             {
                 node2 = vm;
-                node2.AllChanged();
-
                 if (OnTwoNodeClickEvent != null)
                     OnTwoNodeClickEvent(node1.NodeNumber, node2.NodeNumber);
-                node1.Selected = node2.Selected = false;
-                node1.AllChanged();
-                node2.AllChanged();
-                node1 = node2 = null;
+                
             }
             else
             {
