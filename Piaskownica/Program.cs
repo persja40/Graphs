@@ -34,7 +34,7 @@ namespace Piaskownica
             GraphList b = Converter.ConvertToList(x);
             */
            
-            List<int> l = new List<int> { 3, 3, 3, 2, 2, 1 };
+            List<int> l = new List<int> { 3, 4, 3, 5, 2, 3, 4};
             Console.WriteLine(Misc.Exists(l));
             GraphMatrix q = Misc.Construct(l);
             for (int i = 0; i < q.NodesNr; i++)

@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace Graphs.Actions
 {
+
+    class Vertice // klasa reprezentujaca wierzcholek
+    {
+        public Vertice(int id, int deg)
+        {
+            _id = id;
+            _deg = deg;
+        }
+        public int _id; // id wierzcholka
+        public int _deg; // stopien wierzcholka
+    }
+
     public class Misc
     {
         /// <summary>
@@ -81,70 +93,46 @@ namespace Graphs.Actions
                         connections[i, j] = 0;
                 }
 
-                //List<int> max = new List<int>(degrees);
-                bool flag = false;
-                
-                for(int i = 0; i < nodes; ++i)
+            bool flag = false;
+
+            for (int i = 0; i < nodes; ++i)
+            {
+                if (degrees[i] != 2)
                 {
-                    if (degrees[i] != 2)
-                    {
-                        flag = false;
-                        break;
-                    }
-                    else flag = true;
-
+                    flag = false;
+                    break;
                 }
+                else flag = true;
 
+            }
 
             if (!flag)
             {
-
-                for (int i = 0; i < nodes; ++i)
+                List<Vertice> lista = new List<Vertice>(); //lista zawierajaca obiekty(wierzcholki)
+                degrees = degrees.OrderByDescending(x => x).ToList();
+                for (int i = 0; i < nodes; ++i) // tworzenie obiektow wraz z przypisaniem id i stopnia
+                    lista.Add(new Vertice(i, degrees[i]));
+                int deg = 0; 
+                int id = 0;
+                while (lista.Count != 0) 
                 {
-                    for (int j = 0; j < nodes; ++j)
+                    deg = lista[0]._deg; // przypisanie zmiennej deg stopnia wierzcholka(o najwyzszym stopniu)
+                    id = lista[0]._id; // przypisanie zmiennej id - _id wierzcholka o najwyzszym stopniu
+                    lista.RemoveAt(0); // usuwamy pierwszy element listy
+                    for (int i = 0; i < deg; ++i)
                     {
-                        if ((degrees[i] > 0) && (degrees[j] > 0)) // sprawdzenie czy jest jeszcze mozliwe przylaczenie krawedzi do danego wierzcholka
-                        {
-                            if (i == j) // upewnienie sie zeby nie polaczyc wierzcholka ze soba samym
-                                connections[i, j] = 0;
-                            else
-                            {
-                                connections[i, j] = 1; // tworzenie polaczenia pomiedzy wierzcholkami o numerach i,j
-                                connections[j, i] = 1;
-                                degrees[i] -= 1; // po utworzeniu polaczenia miedzy wierzcholkami i,j zmniejszamy ich stopnie o 1.
-                                degrees[j] -= 1;
-                                /* if (degrees[j] == max[j] - 1)
-                                 {
-                                     for (int k = 0; k < j - 1; ++j)
-                                     {
-                                         if (degrees[k] == 0) { flag = false; break; }
-                                         else flag = true;
-                                     }
-                                     if (flag)
-                                     {
-                                         connections[i, j] = 1; // tworzenie polaczenia pomiedzy wierzcholkami o numerach i,j
-                                         connections[j, i] = 1;
-                                         degrees[i] -= 1; // po utworzeniu polaczenia miedzy wierzcholkami i,j zmniejszamy ich stopnie o 1.
-                                         degrees[j] -= 1;
-                                     }
-                                     else continue;
-
-                                 }*/
-
-
-
-
-                            }
-                        }
+                        connections[id, lista[i]._id] = 1; // tworzymy polaczenie pomiedzy usunietym juz wierzcholkiem a pozostałymi na liscie
+                        connections[lista[i]._id, id] = 1;
+                        lista[i]._deg -= 1; // zmniejszamy stopien wierzcholka z listy
                     }
+                    lista = lista.OrderByDescending(x => x._deg).Cast<Vertice>().ToList(); // ponowne sortowanie listy     
                 }
             }
-
             else
             {
-                for(int i = 0; i < nodes; ++i)
+                for (int i = 0; i < nodes; ++i)
                 {
-                    if(i == nodes - 1)
+                    if (i == nodes - 1)
                     {
                         connections[0, i] = 1;
                         connections[i, 0] = 1;
@@ -155,13 +143,8 @@ namespace Graphs.Actions
                         connections[i + 1, i] = 1;
                     }
                 }
-
-
-
             }
                 return new GraphMatrix(nodes, connections);
-            
-            //throw new NotImplementedException();
         }
         public static GraphMatrix Spojny(GraphMatrix from)
         {
