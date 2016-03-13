@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace Graphs
 {
-    public static class Helpers
+    public static class WindowHelper
     {
         public static bool IsWindowOpen<T>(string name = "") where T : Window
         {

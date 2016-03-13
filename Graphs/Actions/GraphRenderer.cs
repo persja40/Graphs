@@ -30,10 +30,13 @@ namespace Graphs.Actions
         }
         public GraphControl GraphControl { get; set; }
 
-        public GraphRenderer(GraphMatrix Graph, GraphControl GraphControl)
+        private MainWindowViewModel vm = null;
+
+        public GraphRenderer(GraphMatrix Graph, GraphControl GraphControl, MainWindowViewModel vm)
         {
             this.GraphControl = GraphControl;
             this.Graph = Graph;
+            this.vm = vm;
         }
 
         private void onGraphChange()
@@ -43,6 +46,8 @@ namespace Graphs.Actions
 
         public void Render()
         {
+            if (this.vm.RegenerateGraphView == false)
+                return;
             GraphViewModel vm = new GraphViewModel();
             double r = Math.Sqrt(Math.Pow(GraphControl.ActualHeight, 1.8) + Math.Pow(GraphControl.ActualWidth, 1.8)) / 20;
 
@@ -53,7 +58,15 @@ namespace Graphs.Actions
                 double x = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r ) * Math.Cos(arc);
                 double y = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r ) * Math.Sin(arc);
 
-                vm.Nodes.Add(new CircleViewModel() { X = x, Y = y, Radius = r, Color = Colors.Yellow, Number = i + 1 });
+                vm.Nodes.Add(new CircleViewModel()
+                {
+                    X = x,
+                    Y = y,
+                    Radius = r,
+                    Color = new SolidColorBrush(Colors.Yellow),
+                    Number = i + 1,
+                    NodeNumber = i
+                });
             }
 
             for (int y = 0; y < Graph.NodesNr; ++y)

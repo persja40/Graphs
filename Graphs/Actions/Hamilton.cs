@@ -7,21 +7,63 @@ using System.Threading.Tasks;
 
 namespace Graphs.Actions
 {
-    class Hamilton
+    public class Hamilton
     {
-        public static bool IsHamilton(GraphList Graph)
+        /*private static HashSet<int> closedEdges;
+        private static HashSet<int> openNodes;
+        private static HashSet<int> visitedNodes;
+
+        private static int currentNode;
+        private static int endNode;*/
+
+        public static bool IsHamilton(GraphMatrixInc Graph)
         {
-            HashSet<int> closedSet = new HashSet<int>();
-            HashSet<int> openSet = new HashSet<int>();
-
-            openSet.Add(0);
-
-            return IsHamilton(Graph, closedSet, openSet);
+            return IsHamilton(Graph, 0, 0, -1, new HashSet<int>(), new HashSet<int>());
         }
 
-        private static bool IsHamilton(GraphList Graph, HashSet<int> closedSet, HashSet<int> openSet)
+        private static bool IsHamilton(GraphMatrixInc Graph, int currentNode, int endNode, int previousNode, HashSet<int> closedEdges, HashSet<int> visitedNodes)
         {
-            throw new NotImplementedException();         
+            if (visitedNodes.Count == Graph.NodesNr)    
+            {
+                if (currentNode == endNode)
+                    return true;
+                else
+                    return false;
+            }
+
+
+            if (currentNode == endNode && previousNode != -1)
+                return false;
+
+            var edges = Graph.GetEdgesList();
+
+            var neighbourEdges = edges
+                    .Where(e => e.Contains(currentNode))
+                    .Where(e => closedEdges.Contains(e.EdgeNumber) == false)
+                    .Where(e => visitedNodes.Contains(e.Node1) == false || e.Node1 == endNode)
+                    .Where(e => visitedNodes.Contains(e.Node2) == false || e.Node2 == endNode)
+                    .ToList();
+
+            foreach (var edge in neighbourEdges)
+            {
+                closedEdges.Add(edge.EdgeNumber);
+                visitedNodes.Add(currentNode);
+
+                if (IsHamilton(Graph,
+                    edge.getNodeOnOtherSide(currentNode),
+                    endNode,
+                    currentNode,
+                   closedEdges,
+                   visitedNodes))
+                    return true;
+
+                closedEdges.Remove(edge.EdgeNumber);
+                visitedNodes.Remove(currentNode);
+            }
+            
+
+
+            return false;
         }
 
     }

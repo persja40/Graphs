@@ -42,9 +42,22 @@
             </MenuItem>
             <MenuItem Header="Projekt2">
                 <MenuItem Header="Is Hamilton" Click="IsHamilton" />
+                <MenuItem Header="Is Graphical" />
+                <MenuItem Header="Randomize simple graph" />
+                <MenuItem Header="Biggest coherent component" />
+                <MenuItem Header="Euler">
+                    <MenuItem Header="Create" />
+                    <MenuItem Header="Is Euler?" />
+                </MenuItem>
+                <MenuItem Header="Generate k-regular"/>
             </MenuItem>
             <MenuItem Header="Projekt3"></MenuItem>
-            <MenuItem Header="_Widok"></MenuItem>
+            <MenuItem Header="_Widok">
+                <MenuItem Header="Regenerate graph view" IsCheckable="True" IsChecked="{Binding RegenerateGraphView}" Checked="OnRederTurnOn" Unchecked="OnRederTurnOff"  />
+                <MenuItem Header="Regenerate matrix" IsCheckable="True" IsChecked="{Binding RegenerateMatrix}" />
+                <MenuItem Header="Regenerate incidency matrix" IsCheckable="True" IsChecked="{Binding RegenerateMatrixInc}" />
+                <MenuItem Header="Regenerate list" IsCheckable="True" IsChecked="{Binding RegenerateList}" />
+            </MenuItem>
             <MenuItem Header="_Tests">
                 <MenuItem Header="_GraphList">
                     <MenuItem Header="_ItemTest" Click="OpenGraphListItemTest"/>

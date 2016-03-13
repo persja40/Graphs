@@ -53,7 +53,7 @@ namespace Graphs
                 double x = MyGraphControl.ActualWidth / 2 + (MyGraphControl.ActualWidth / 2 - r / 2) * Math.Cos(arc);
                 double y = MyGraphControl.ActualHeight / 2 + (MyGraphControl.ActualHeight / 2 - r / 2) * Math.Sin(arc);
 
-                vm.Nodes.Add(new CircleViewModel() { X = x, Y = y, Radius = r, Color = Colors.Yellow });
+                vm.Nodes.Add(new CircleViewModel() { X = x, Y = y, Radius = r, Color = new SolidColorBrush(Colors.Yellow) });
             }
 
             for (int y = 0; y < 10; ++y)

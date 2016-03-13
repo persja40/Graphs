@@ -32,6 +32,58 @@ namespace Graphs.Data
             if (OnChange != null)
                 OnChange();
         }
+        public Edge GetEdge(int edge)
+        {
+            int n1 = -1, n2 = -1;
+            for(int node = 0;node < NodesNr; ++node)
+            {
+                if(connect[node, edge] == 1)
+                {
+                    if (n1 == -1)
+                        n1 = node;
+                    else
+                        n2 = node;
+                }
+            }
+
+            return new Edge()
+            {
+                Node1 = n1,
+                Node2 = n2,
+                EdgeNumber = edge
+            };
+        }
+
+        public List<Edge> GetEdgesList()
+        {
+            List<Edge> list = new List<Edge>();
+
+            for(int edge = 0; edge < ConnectNr; ++edge)
+            {
+                list.Add(GetEdge(edge));
+            }
+
+            return list;
+        }
+
+        public Edge GetEdgeNumber(int node1, int node2)
+        {
+            var desiredEdge = new Edge()
+            {
+                Node1 = node1,
+                Node2 = node2
+            };
+            for(int connection = 0; connection < ConnectNr; ++connection)
+            {
+                var edge = GetEdge(connection);
+
+                if (desiredEdge.HaveSameNodes(edge))
+                    return edge;
+            }
+
+            return null;
+        }
+
         public bool GetConnection(int node1, int node2)//czy n1 i n2 sa polaczone
         {
             if (node1 == node2)

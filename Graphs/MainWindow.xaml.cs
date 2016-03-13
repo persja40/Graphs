@@ -1,5 +1,6 @@
 ﻿using Graphs.Actions;
 using Graphs.Data;
+using Graphs.Helpers;
 using Graphs.TestWindows;
 using Graphs.ViewModels;
 using Graphs.Windows.Generators;
@@ -31,6 +32,7 @@ namespace Graphs
     {
         public GraphMatrix Graph { get; set; }
         public GraphRenderer GraphRenderer { get; set; }
+        public MainWindowViewModel VM { get; set; } = new MainWindowViewModel();
 
 
         public MainWindow()
@@ -39,21 +41,40 @@ namespace Graphs
 
             Graph = new GraphMatrix(5);
 
-            GraphRenderer = new GraphRenderer(Graph, GraphControl);
+            GraphRenderer = new GraphRenderer(Graph, GraphControl, VM);
 
             GraphListControl.DataContext = new GraphListViewModel();
 
-            
+            GraphControl.OnTwoNodeClickEvent += ConnectTwoNodes;
 
             Graph.OnChange += onGraphChange;
             onGraphChange();
+
+            this.DataContext = VM;
+        }
+
+        private void ConnectTwoNodes(int node1, int node2)
+        {
+            if (Graph.GetConnection(node1, node2) == false)
+            {
+                Graph.MakeConnection(node1, node2);
+                Graph.OnChange();
+            }
+            else
+            {
+                Graph.RemoveConnection(node1, node2);
+                Graph.OnChange();
+            }
         }
 
         private void onGraphChange()
         {
-            prepareGraphList();
-            prepareMatrix();
-            prepareMatrixInc();
+            if (VM.RegenerateList)
+                prepareGraphList();
+            if (VM.RegenerateMatrix)
+                prepareMatrix();
+            if (VM.RegenerateMatrixInc)
+                prepareMatrixInc();
         }
 
         private void prepareMatrixInc()
@@ -74,7 +95,7 @@ namespace Graphs
         {
             MatrixViewModel vm = new MatrixViewModel(Graph.NodesNr);
 
-            for (int y = vm.NodeCount - 1; y  >= 0; --y)
+            for (int y = vm.NodeCount - 1; y >= 0; --y)
                 for (int x = 0; x < vm.NodeCount; ++x)
                 {
                     vm.Connections[x, y] = Graph.GetConnection(x, y) ? 1 : 0;
@@ -104,7 +125,7 @@ namespace Graphs
         private void openWindow<T>()
             where T : Window, new()
         {
-            if (!Helpers.IsWindowOpen<T>())
+            if (!WindowHelper.IsWindowOpen<T>())
             {
                 var window = new T();
                 window.Show();
@@ -115,7 +136,7 @@ namespace Graphs
         private void ShowAuthors(object sender, RoutedEventArgs e)
         {
             openWindow<Authors>();
-           
+
         }
 
         private void OpenGraphListItemTest(object sender, RoutedEventArgs e)
@@ -152,7 +173,7 @@ namespace Graphs
                     watch.Stop();
                     after = watch.ElapsedMilliseconds;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     MessageBoxResult result = MessageBox.Show("Coś poszło nie tak"
                         + System.Environment.NewLine
@@ -160,7 +181,7 @@ namespace Graphs
                         );
                 }
             }
-            else if(sender == SecondGeneratorMenuItem)
+            else if (sender == SecondGeneratorMenuItem)
             {
                 var w = new SecondGenerator();
                 try
@@ -219,7 +240,7 @@ namespace Graphs
                 }
 
             }
-            
+
         }
 
         private void CreateNew(object sender, RoutedEventArgs e)
@@ -229,39 +250,17 @@ namespace Graphs
             Graph.OnChange();
         }
 
-        public string AppDataDirectory
-        {
-            get
-            {
-                string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-                string myFolder = System.IO.Path.Combine(folder, "AghGraphs");
-
-                return myFolder;
-            }
-        }
-
-        private void createAppdataFolder()
-        {
-            
-
-            if (!Directory.Exists(AppDataDirectory))
-                Directory.CreateDirectory(AppDataDirectory);
-        }
-
         private void SaveGraph(object sender, RoutedEventArgs e)
         {
-            createAppdataFolder();
-
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.FileName = "Graph";
             dlg.DefaultExt = ".matrix";
             dlg.Filter = "Matrix|*.matrix|List|*.list|Incidency|*.inc";
-            dlg.InitialDirectory = AppDataDirectory;
+            dlg.InitialDirectory = SaveLoadWindowHelper.LoadCurrentDialogDirectory();
 
             bool? result = dlg.ShowDialog();
-            
-            if(result == true)
+
+            if (result == true)
             {
                 if (dlg.FileName.ToLower().EndsWith("matrix"))
                     GraphLoad.SaveMatrix(Graph, dlg.FileName);
@@ -271,18 +270,20 @@ namespace Graphs
 
                 else if (dlg.FileName.ToLower().EndsWith("inc"))
                     GraphLoad.SaveMatrixInc(Converter.ConvertToMatrixInc(Graph), dlg.FileName);
-                
+                SaveLoadWindowHelper.SaveCurrentDialogDirectory(System.IO.Path.GetDirectoryName(dlg.FileName));
+            }
+            else
+            {
+                SaveLoadWindowHelper.SaveCurrentDialogDirectory(dlg.InitialDirectory);
             }
         }
 
         private void LoadGraph(object sender, RoutedEventArgs e)
         {
-            createAppdataFolder();
-
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = ".matrix";
             dlg.Filter = "Matrix|*.matrix|List|*.list|Incidency|*.inc";
-            dlg.InitialDirectory = AppDataDirectory;
+            dlg.InitialDirectory = SaveLoadWindowHelper.LoadCurrentDialogDirectory();
 
             bool? result = dlg.ShowDialog();
 
@@ -300,6 +301,12 @@ namespace Graphs
                     Graph.Set(
                         Converter.ConvertToMatrix(GraphLoad.LoadMatrixInc(dlg.FileName))
                         );
+
+                SaveLoadWindowHelper.SaveCurrentDialogDirectory(System.IO.Path.GetDirectoryName(dlg.FileName));
+            }
+            else
+            {
+                SaveLoadWindowHelper.SaveCurrentDialogDirectory(dlg.InitialDirectory);
             }
             Graph.OnChange();
         }
@@ -316,6 +323,16 @@ namespace Graphs
             string message = "Graf " + (value ? "" : "nie") + " jest Hamiltonowski";
 
             MessageBox.Show(message);
+        }
+
+        private void OnRederTurnOn(object sender, RoutedEventArgs e)
+        {
+            GraphRenderer.Render();
+        }
+
+        private void OnRederTurnOff(object sender, RoutedEventArgs e)
+        {
+            GraphControl.VM = new GraphViewModel();
         }
     }
 }
