@@ -35,10 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ObjectDumper, Version=1.0.0.12, Culture=neutral, PublicKeyToken=9e2fabf3af85dba9, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObjectDumper.1.0.0.12\lib\net35-Client\ObjectDumper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -70,12 +66,15 @@
     <Compile Include="Authors.xaml.cs">
       <DependentUpon>Authors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\Edge.cs" />
     <Compile Include="Data\GraphList.cs" />
     <Compile Include="Data\GraphMatrix.cs" />
     <Compile Include="Data\GraphMatrixInc.cs" />
     <Compile Include="Data\GraphModel.cs" />
     <Compile Include="Actions\GraphLoad.cs" />
-    <Compile Include="Helpers.cs" />
+    <Compile Include="Helpers\WindowHelper.cs" />
+    <Compile Include="Helpers\AppdataHelper.cs" />
+    <Compile Include="Helpers\SaveLoadWindowHelper.cs" />
     <Compile Include="Misc\Debugers.cs" />
     <Compile Include="Misc\Delegates.cs" />
     <Compile Include="Project1Window.xaml.cs">
@@ -125,6 +124,7 @@
     <Compile Include="ViewModels\GraphListViewModel.cs" />
     <Compile Include="ViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MatrixIncViewModel.cs" />
     <Compile Include="ViewModels\MatrixItemViewModel.cs" />
     <Compile Include="ViewModels\MatrixViewModel.cs" />

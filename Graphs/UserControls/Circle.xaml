@@ -12,23 +12,33 @@
         <vm:CircleViewModel/>
     </UserControl.DataContext>
     <Grid>
-    <Ellipse Width="{Binding Radius}" Height="{Binding Radius}" StrokeThickness="2" RenderTransformOrigin="0.5,0.5">
-        <Ellipse.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform/>
-                <SkewTransform/>
-                <RotateTransform/>
-                <TranslateTransform X="{Binding X}"/>
-                <TranslateTransform Y="{Binding Y}"/>
-            </TransformGroup>
-        </Ellipse.RenderTransform>
-        <Ellipse.Fill>
-            <SolidColorBrush Color="{Binding Color}"/>
-        </Ellipse.Fill>
-        <Ellipse.Stroke>
-            <SolidColorBrush Color="{Binding BorderColor}"/>
-        </Ellipse.Stroke>
-    </Ellipse>
+        <Ellipse Width="{Binding Radius}" Stroke="{Binding BorderColor}" Height="{Binding Radius}" StrokeThickness="2" RenderTransformOrigin="0.5,0.5">
+            <Ellipse.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="{Binding X}"/>
+                    <TranslateTransform Y="{Binding Y}"/>
+                </TransformGroup>
+            </Ellipse.RenderTransform>
+            <Ellipse.Style>
+            <Style TargetType="Ellipse">
+                <Style.Triggers>
+                        <DataTrigger Binding="{Binding Selected}" Value="True">
+                            <Setter Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="White"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Selected}" Value="False">
+                            <Setter Property="Fill" Value="{Binding Color}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+            </Style>
+        </Ellipse.Style>
+        </Ellipse>
         <Label Content="{Binding Number}" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>

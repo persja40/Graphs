@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 
 namespace Graphs.UserControls
 {
+    public delegate void OnTwoNodeClick(int node1, int node2);
+
     /// <summary>
     /// Interaction logic for GraphControl.xaml
     /// </summary>
@@ -23,12 +25,17 @@ namespace Graphs.UserControls
     {
         public GraphViewModel _vm;
         private const int NewCanvasPer = 150;
+        CircleViewModel node1 = null, node2 = null;
+
+        public OnTwoNodeClick OnTwoNodeClickEvent { get; set; }
+
         public GraphViewModel VM
         {
             set
             {
                 _vm = value;
                 Draw();
+                node1 = node2 = null;
             }
             protected get
             {
@@ -49,6 +56,7 @@ namespace Graphs.UserControls
             foreach (var node in VM.Nodes)
             {
                 Circle circle = new Circle();
+                circle.MouseDoubleClick += OnNodeDoubleClick;
                 circle.DataContext = node;
                 canvas.Children.Add(circle);
 
@@ -129,7 +137,56 @@ namespace Graphs.UserControls
 
         private void Clear()
         {
+            foreach(var child in MyCanvas.Children)
+            {
+                if(child is Circle)
+                {
+                    var circle = child as Circle;
+                    circle.MouseDoubleClick -= OnNodeDoubleClick;
+                }
+
+                if(child is Canvas)
+                {
+                    foreach(var morechild in (child as Canvas).Children)
+                    {
+                        if (morechild is Circle)
+                        {
+                            var circle = morechild as Circle;
+                            circle.MouseDoubleClick -= OnNodeDoubleClick;
+                        }
+                    }
+                }
+            }
             MyCanvas.Children.Clear();
+        }
+
+        private void OnNodeDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var circle = sender as Circle;
+            var vm = circle.DataContext as CircleViewModel;
+
+            if (node1 == null)
+            {
+                node1 = vm;
+                vm.Selected = true;
+                node1.AllChanged();
+            }
+            else if (node2 == null && vm.NodeNumber != node1.NodeNumber)
+            {
+                node2 = vm;
+                if (OnTwoNodeClickEvent != null)
+                    OnTwoNodeClickEvent(node1.NodeNumber, node2.NodeNumber);
+                
+            }
+            else
+            {
+                if (node1 != null)
+                {
+                    node1.Selected = false;
+                    node1.AllChanged();
+                }
+                node1 = node2 = null;
+            }
         }
     }
 }

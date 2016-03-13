@@ -28,9 +28,19 @@ namespace Piaskownica
                     if(w.GetConnections(i).Count != x);
                 throw new Exception("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz");
             }
+<<<<<<< HEAD
             */
 
             List<int> l = new List<int> { 2, 2, 2, 2, 2, 2, 2 };
+=======
+            
+            GraphMatrix x = GraphGenerator.generatorGnp(4, 0.5);
+            GraphList a = Converter.ConvertToList(x);
+            GraphList b = Converter.ConvertToList(x);
+            */
+           
+            List<int> l = new List<int> { 3, 3, 3, 2, 2, 1 };
+>>>>>>> origin/master
             Console.WriteLine(Misc.Exists(l));
             GraphMatrix q = Misc.Construct(l);
             for (int i = 0; i < q.NodesNr; i++)
@@ -44,7 +54,12 @@ namespace Piaskownica
                 }
                 Console.WriteLine();
             }
+<<<<<<< HEAD
           
+=======
+            
+            //Console.WriteLine(a.Equals(b));
+>>>>>>> origin/master
 
             Console.Read();
         }

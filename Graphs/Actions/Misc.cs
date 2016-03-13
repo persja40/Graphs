@@ -81,25 +81,84 @@ namespace Graphs.Actions
                         connections[i, j] = 0;
                 }
 
+                //List<int> max = new List<int>(degrees);
+                bool flag = false;
+                
+                for(int i = 0; i < nodes; ++i)
+                {
+                    if (degrees[i] != 2)
+                    {
+                        flag = false;
+                        break;
+                    }
+                    else flag = true;
+
+                }
+
+
+            if (!flag)
+            {
 
                 for (int i = 0; i < nodes; ++i)
                 {
                     for (int j = 0; j < nodes; ++j)
                     {
-                        if((degrees[i] > 0) && (degrees[j] > 0)) // sprawdzenie czy jest jeszcze mozliwe przylaczenie krawedzi do danego wierzcholka
+                        if ((degrees[i] > 0) && (degrees[j] > 0)) // sprawdzenie czy jest jeszcze mozliwe przylaczenie krawedzi do danego wierzcholka
                         {
                             if (i == j) // upewnienie sie zeby nie polaczyc wierzcholka ze soba samym
-                                connections[i, j] = 0; 
+                                connections[i, j] = 0;
                             else
                             {
                                 connections[i, j] = 1; // tworzenie polaczenia pomiedzy wierzcholkami o numerach i,j
                                 connections[j, i] = 1;
                                 degrees[i] -= 1; // po utworzeniu polaczenia miedzy wierzcholkami i,j zmniejszamy ich stopnie o 1.
                                 degrees[j] -= 1;
+                                /* if (degrees[j] == max[j] - 1)
+                                 {
+                                     for (int k = 0; k < j - 1; ++j)
+                                     {
+                                         if (degrees[k] == 0) { flag = false; break; }
+                                         else flag = true;
+                                     }
+                                     if (flag)
+                                     {
+                                         connections[i, j] = 1; // tworzenie polaczenia pomiedzy wierzcholkami o numerach i,j
+                                         connections[j, i] = 1;
+                                         degrees[i] -= 1; // po utworzeniu polaczenia miedzy wierzcholkami i,j zmniejszamy ich stopnie o 1.
+                                         degrees[j] -= 1;
+                                     }
+                                     else continue;
+
+                                 }*/
+
+
+
+
                             }
                         }
                     }
                 }
+            }
+
+            else
+            {
+                for(int i = 0; i < nodes; ++i)
+                {
+                    if(i == nodes - 1)
+                    {
+                        connections[0, i] = 1;
+                        connections[i, 0] = 1;
+                    }
+                    else
+                    {
+                        connections[i, i + 1] = 1;
+                        connections[i + 1, i] = 1;
+                    }
+                }
+
+
+
+            }
                 return new GraphMatrix(nodes, connections);
             
             //throw new NotImplementedException();
