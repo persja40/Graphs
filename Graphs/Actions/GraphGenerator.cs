@@ -76,7 +76,6 @@ namespace Graphs.Actions
                 else
                     for (int j = 0; j <= (n - c); j++)
                         q.Add(k);
-                //Console.WriteLine(q.Count+" :   "+q[0]);
                 if (Misc.Exists(q))
                     return Misc.Construct(q);
             }
@@ -86,10 +85,13 @@ namespace Graphs.Actions
         {
             Random r = new Random();
             int[,] x = new int[f.NodesNr, f.NodesNr];
-            for (int k = 0; k < f.NodesNr; k++)//test  
-                for (int p = 0; p < f.NodesNr; p++)
+            for (int k = 0; k < f.NodesNr; k++)
+                for (int p = 0; p < k; p++)
                     if (f.GetConnection(k, p))
+                    {
                         x[k, p] = r.Next(10) + 1;
+                        x[p, k] = x[k, p];
+                    }
             return x;
         }
     }

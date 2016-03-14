@@ -85,13 +85,13 @@ namespace Graphs.Actions
         /// <returns>Graf</returns>
         public static GraphMatrix Construct(List<int> degrees)
         {
-                int nodes = degrees.Count; // liczba wierzcholkow
-                int[,] connections = new int[nodes, nodes]; // macierz sasiedztwa
-                for(int i = 0; i < nodes; ++i) // wyzerowanie macierzy sasiedztwa
-                {
-                    for (int j = 0; j < nodes; ++j)
-                        connections[i, j] = 0;
-                }
+            int nodes = degrees.Count; // liczba wierzcholkow
+            int[,] connections = new int[nodes, nodes]; // macierz sasiedztwa
+            for (int i = 0; i < nodes; ++i) // wyzerowanie macierzy sasiedztwa
+            {
+                for (int j = 0; j < nodes; ++j)
+                    connections[i, j] = 0;
+            }
 
             bool flag = false;
 
@@ -112,9 +112,9 @@ namespace Graphs.Actions
                 degrees = degrees.OrderByDescending(x => x).ToList();
                 for (int i = 0; i < nodes; ++i) // tworzenie obiektow wraz z przypisaniem id i stopnia
                     lista.Add(new Vertice(i, degrees[i]));
-                int deg = 0; 
+                int deg = 0;
                 int id = 0;
-                while (lista.Count != 0) 
+                while (lista.Count != 0)
                 {
                     deg = lista[0]._deg; // przypisanie zmiennej deg stopnia wierzcholka(o najwyzszym stopniu)
                     id = lista[0]._id; // przypisanie zmiennej id - _id wierzcholka o najwyzszym stopniu
@@ -144,7 +144,7 @@ namespace Graphs.Actions
                     }
                 }
             }
-                return new GraphMatrix(nodes, connections);
+            return new GraphMatrix(nodes, connections);
         }
         public static GraphMatrix Spojny(GraphMatrix from)
         {
@@ -164,7 +164,7 @@ namespace Graphs.Actions
                 for (int j = 0; j < lista.Count; j++)
                     if (from.GetConnection(lista[i], lista[j]))
                         wynik.MakeConnection(lista[i], lista[j]);
-            return GraphMatrix.Free( wynik);
+            return GraphMatrix.Free(wynik);
         }
         private static void rek(GraphList x, int e, List<int> z)//rekurencyjne przeszukiwanie grafu
         {

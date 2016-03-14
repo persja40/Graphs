@@ -20,8 +20,8 @@ namespace Graphs.Actions
                 for (int i = 0; i < nodes; i++)
                     while (true)
                     {
-                        int temp = r.Next(nodes - 1);
-                        if (temp % 2 == 0)
+                        int temp = r.Next(nodes);
+                        if (temp % 2 == 0 && temp != 0)
                         {
                             x.Add(temp);
                             break;
@@ -37,8 +37,11 @@ namespace Graphs.Actions
             if (!Eul(temp, path, node, from.ConnectionCount))
                 return null;
             List<int> rp = new List<int>();
-            for (int i = 0; i < from.NodesNr; i++)
-                rp.Add(path.First<Tuple<int, int>>().Item1);
+            for (int i = 0; i < path.Count; i++)
+            {
+                rp.Add(path[i].Item1);
+            }
+            rp.Add(node);//powrot do poczatku
             return rp;
         }
         private static bool Eul(GraphList f, List<Tuple<int, int>> p, int n, int c)//graf, lista do uzupel, aktualny wezel, liczba polaczen

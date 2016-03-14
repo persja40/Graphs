@@ -32,11 +32,12 @@ namespace Piaskownica
             GraphMatrix x = GraphGenerator.generatorGnp(4, 0.5);
             GraphList a = Converter.ConvertToList(x);
             GraphList b = Converter.ConvertToList(x);
-            */
+            
            
             List<int> l = new List<int> { 3, 4, 3, 5, 2, 3, 4};
             Console.WriteLine(Misc.Exists(l));
-            GraphMatrix q = Misc.Construct(l);
+            */
+            GraphMatrix q = EulerGraph.RandEulerGraph(9);
             for (int i = 0; i < q.NodesNr; i++)
             {
                 for (int j = 0; j < q.NodesNr; j++)
@@ -48,7 +49,14 @@ namespace Piaskownica
                 }
                 Console.WriteLine();
             }
-            
+            Console.WriteLine();
+
+            Console.WriteLine();
+            Console.WriteLine();
+            List<int> p = EulerGraph.EulerianPath(q);
+            for (int i = 0; i < p.Count; i++)
+                Console.Write(p[i] + "   ");
+
             //Console.WriteLine(a.Equals(b));
 
             Console.Read();
