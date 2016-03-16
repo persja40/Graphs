@@ -94,5 +94,26 @@ namespace Graphs.Actions
                     }
             return x;
         }
+        public static SGraphMatrix skieruj(GraphMatrix f)//tworzy graf skierowany parametr; musi byc spojny!!!
+        {
+            Random r = new Random();
+            SGraphMatrix x = new SGraphMatrix(f.NodesNr);
+            for (int i = 0; i < f.NodesNr; i++)
+                for (int j = 0; j < i; j++)
+                    switch (r.Next(3))
+                    {
+                        case 0:
+                            x.MakeConnection(i, j);
+                            break;
+                        case 1:
+                            x.MakeConnection(j, i);
+                            break;
+                        case 2:
+                            x.MakeConnection(i, j);
+                            x.MakeConnection(j, i);
+                            break;
+                    }
+            return x;
+        }
     }
 }

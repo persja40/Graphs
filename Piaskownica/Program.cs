@@ -36,7 +36,7 @@ namespace Piaskownica
            
             List<int> l = new List<int> { 3, 4, 3, 5, 2, 3, 4};
             Console.WriteLine(Misc.Exists(l));
-            */
+            
             GraphMatrix q = EulerGraph.RandEulerGraph(9);
             for (int i = 0; i < q.NodesNr; i++)
             {
@@ -56,9 +56,33 @@ namespace Piaskownica
             List<int> p = EulerGraph.EulerianPath(q);
             for (int i = 0; i < p.Count; i++)
                 Console.Write(p[i] + "   ");
-
+            */
             //Console.WriteLine(a.Equals(b));
-
+            GraphMatrix q = Misc.Spojny(EulerGraph.RandEulerGraph(9));
+            for (int i = 0; i < q.NodesNr; i++)
+            {
+                for (int j = 0; j < q.NodesNr; j++)
+                {
+                    if (q.GetConnection(i, j))
+                        Console.Write(1 + " ; ");
+                    else
+                        Console.Write(0 + " ; ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+            SGraphMatrix e= GraphGenerator.skieruj(q);
+            SGraphMatrix w = Converter.ConvertToSMatrix(Converter.ConvertToSMatrixInc(Converter.ConvertToSList(e)));
+            for (int i = 0; i < w.NodesNr; i++)
+            {
+                for (int j = 0; j < w.NodesNr; j++)
+                {
+                    if (w.GetConnection(i,j)!=e.GetConnection(i,j))
+                        Console.WriteLine("bbbbbbbbbbbbbbbbbbbbbbbb");
+                }
+                //Console.WriteLine();
+            }
+            Console.WriteLine();
             Console.Read();
         }
         static bool por(GraphMatrix a, GraphMatrix b) {

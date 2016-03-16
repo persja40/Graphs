@@ -63,6 +63,45 @@ namespace Graphs.Actions
         {
             return Converter.ConvertToList(Converter.ConvertToMatrix(from));
         }
-
+        /// <summary>
+        /// SKIEROWANE KONWERSJE
+        /// </summary>
+        /// <param name="from"></param>
+        /// <returns></returns>
+        public static SGraphMatrix ConvertToSMatrix(SGraphMatrixInc from)
+        {
+            SGraphMatrix x = new SGraphMatrix(from.NodesNr);
+            for (int i = 0; i < from.NodesNr; i++)
+                for (int j = 0; j < from.NodesNr; j++)
+                    if (from.GetConnection(i, j))
+                        x.MakeConnection(i, j);
+            return x;
+        }
+        public static SGraphList ConvertToSList(SGraphMatrix from)
+        {
+            SGraphList x = new SGraphList(from.NodesNr);
+            for (int i = 0; i < from.NodesNr; i++)
+                for (int j = 0; j < from.NodesNr; j++)
+                    if (from.GetConnection(i, j))
+                        x.MakeConnection(i, j);
+            return x;
+        }
+        public static SGraphMatrixInc ConvertToSMatrixInc(SGraphList from)
+        {
+            int sumc = 0;
+            for (int i = 0; i < from.NodesNr; i++)
+                sumc += from.CountElem(i);
+            int c = 0;
+            SGraphMatrixInc x = new SGraphMatrixInc(from.NodesNr,sumc);
+            for (int i = 0; i < from.NodesNr; i++)//pobiera po kolei elementy, dodaje do matrixinc i usuwa z listy
+                for (int j = 0; j < from.NodesNr; j++)               
+                    if (from.GetConnection(i, j))
+                    {
+                        x.MakeConnection(i, j, c);
+                        c++;
+                        from.RemoveConnection(i, j);
+                    }
+            return x;
+        }
     }
 }
