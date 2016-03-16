@@ -94,7 +94,17 @@ namespace Graphs.Actions
                     }
             return x;
         }
-        public static SGraphMatrix skieruj(GraphMatrix f)//tworzy graf skierowany parametr; musi byc spojny!!!
+        public static int[,] Sweights(SGraphMatrix f)
+        {
+            Random r = new Random();
+            int[,] x = new int[f.NodesNr, f.NodesNr];
+            for (int k = 0; k < f.NodesNr; k++)
+                for (int p = 0; p < k; p++)
+                    if (f.GetConnection(k, p))
+                        x[k, p] = r.Next(26) - 5;
+            return x;
+        }
+        public static SGraphMatrix direct(GraphMatrix f)//tworzy graf skierowany parametr; musi byc spojny!!!
         {
             Random r = new Random();
             SGraphMatrix x = new SGraphMatrix(f.NodesNr);

@@ -57,8 +57,11 @@ namespace Piaskownica
             for (int i = 0; i < p.Count; i++)
                 Console.Write(p[i] + "   ");
             */
-            //Console.WriteLine(a.Equals(b));
-            GraphMatrix q = Misc.Spojny(EulerGraph.RandEulerGraph(9));
+            GraphMatrix w = Misc.Spojny(EulerGraph.RandEulerGraph(11));
+
+            SGraphMatrix q= GraphGenerator.direct(w);
+            q = Directed.transpose(q);
+
             for (int i = 0; i < q.NodesNr; i++)
             {
                 for (int j = 0; j < q.NodesNr; j++)
@@ -70,18 +73,23 @@ namespace Piaskownica
                 }
                 Console.WriteLine();
             }
+            
             Console.WriteLine();
-            SGraphMatrix e= GraphGenerator.skieruj(q);
-            SGraphMatrix w = Converter.ConvertToSMatrix(Converter.ConvertToSMatrixInc(Converter.ConvertToSList(e)));
-            for (int i = 0; i < w.NodesNr; i++)
+            List<List<int>> lista = Directed.spojne(q);
+            SGraphMatrix e = Directed.Smaxspojny(q,lista);
+
+            for (int i = 0; i < e.NodesNr; i++)
             {
-                for (int j = 0; j < w.NodesNr; j++)
+                for (int j = 0; j < e.NodesNr; j++)
                 {
-                    if (w.GetConnection(i,j)!=e.GetConnection(i,j))
-                        Console.WriteLine("bbbbbbbbbbbbbbbbbbbbbbbb");
+                    if (e.GetConnection(i, j))
+                        Console.Write(1 + " ; ");
+                    else
+                        Console.Write(0 + " ; ");
                 }
-                //Console.WriteLine();
+                Console.WriteLine();
             }
+
             Console.WriteLine();
             Console.Read();
         }

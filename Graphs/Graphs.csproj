@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\Converter.cs" />
+    <Compile Include="Actions\Directed.cs" />
     <Compile Include="Actions\EulerGraph.cs" />
     <Compile Include="Actions\GraphGenerator.cs" />
     <Compile Include="Actions\GraphRenderer.cs" />
