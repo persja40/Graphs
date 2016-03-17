@@ -11,6 +11,19 @@ namespace Graphs.Actions
 {
     public class Directed
     {
+        public static bool ujemnyCykl(SGraphMatrix x, int[,] w)
+        {
+            List<List<int>> l = circuts(x);
+            for (int i = 0; i < l.Count; i++)
+            {
+                int sum = 0;
+                for (int j = 0; j < l[i].Count - 1; j++)
+                    sum += w[l[i][j], l[i][j+1]];
+                if (sum < 0)
+                    return true;
+            }
+            return false;
+        }
         public static SGraphMatrix transpose(SGraphMatrix from)
         {
             int[,] t = new int[from.NodesNr, from.NodesNr];
@@ -22,7 +35,6 @@ namespace Graphs.Actions
                         t[j, i] = 0;
             return new SGraphMatrix(from.NodesNr, t);
         }
-
         public static SGraphMatrix Smaxspojny(SGraphMatrix f, List<List<int>> sp)
         {
             int k = 0;
@@ -48,15 +60,25 @@ namespace Graphs.Actions
                 }
                 k++;
             }
-            return new SGraphMatrix(q.Count,t);
+            return new SGraphMatrix(q.Count, t);
         }
         public static List<List<int>> circuts(SGraphMatrix f)//zwraca liste cykli(ktore sa listami)
         {
             SGraphList li = Converter.ConvertToSList(f);
+            List<List<int>> cycle = new List<List<int>>();
             List<int> white = new List<int>();
+            for (int i = 0; i < f.NodesNr; i++)
+                white.Add(i);
             List<int> grey = new List<int>();
             List<int> black = new List<int>();
-            throw new NotImplementedException();
+            List<int> temp = new List<int>();
+            for (int i = 0; i < li.NodesNr; i++)
+                rekc(li, white, grey, black, cycle, temp, i);
+            //formatowanie listy !!!
+            for (int i = 0; i < cycle.Count; i++)
+                while (cycle[i][0] != cycle[i][cycle[i].Count - 1])
+                    cycle[i].Remove(cycle[i][0]);
+            return cycle;
         }
         public static List<List<int>> spojne(SGraphMatrix f)
         {
@@ -104,6 +126,34 @@ namespace Graphs.Actions
                 ind++;
                 lista.Add(new List<int>());
             }
+        }
+        private static void rekc(SGraphList x, List<int> white, List<int> grey, List<int> black, List<List<int>> cyc, List<int> temp, int elem)//szukanie sykli
+        {
+            if (black.Contains(elem))
+                return;
+            if (white.Contains(elem))
+            {
+                white.Remove(elem);
+                grey.Add(elem);
+            }
+            temp.Add(elem);
+            for (int i = 0; i < x.GetConnections(elem).Count; i++)
+            {
+                if (grey.Contains(x.GetConnections(elem)[i]))//znaleziono cykl
+                {
+                    temp.Add(x.GetConnections(elem)[i]);
+                    int ind = cyc.Count;
+                    cyc.Add(new List<int>());
+                    for (int j = 0; j < temp.Count; j++)
+                        cyc[ind].Add(temp[j]);
+                    temp.Remove(x.GetConnections(elem)[i]);
+                }
+                if (white.Contains(x.GetConnections(elem)[i]))//bialy / wchodzimy
+                    rekc(x, white, grey, black, cyc, temp, x.GetConnections(elem)[i]);
+            }
+            temp.Remove(elem);
+            grey.Remove(elem);
+            black.Add(elem);
         }
     }
 }
