@@ -12,13 +12,19 @@ namespace Graphs.Data
         {
             NodesNr = other.NodesNr;
             connect = new int[NodesNr, NodesNr];
+            weights = new int[NodesNr, NodesNr];
 
             for (int y = 0; y < NodesNr; ++y)
                 for (int x = 0; x < NodesNr; ++x)
                 {
                     if (other.GetConnection(x, y))
+                    {
                         MakeConnection(x, y);
+                        int weight = getWeight(x, y);
+                        setWeight(x, y, weight);
+                    }
                 }
+            
         }
 
         public override bool GetConnection(int node1, int node2)
