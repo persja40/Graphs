@@ -21,6 +21,7 @@ namespace Graphs.Data
         {
             nodesNr = nodes;
             connect = new int[nodesNr, nodesNr];
+            weights = new int[nodesNr, nodesNr];
             for (int i = 0; i < nodesNr; i++)
                 for (int j = 0; j < nodesNr; j++)
                 {

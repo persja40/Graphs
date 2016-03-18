@@ -15,12 +15,14 @@ namespace Graphs.Data
             nodesNr = nodes;
             connectNr = cons;
             connect = new int[nodesNr, connectNr];
+            weights = new int[nodesNr, nodesNr];
         }
         public GraphMatrixInc(int nodes, int cons, int[,] arr)
         {
             nodesNr = nodes;
             connectNr = cons;
             connect = new int[nodesNr, connectNr];
+            weights = new int[nodesNr, nodesNr];
             for (int i = 0; i < nodesNr; i++)
                 for (int j = 0; j < connectNr; j++)
                 {
