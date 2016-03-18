@@ -39,7 +39,7 @@ namespace Graphs.Data
         public void MakeConnection(int node1, int node2, int weight)
         {
             connect[node1, node2] = 1;
-            throw new NotImplementedException();
+            throw new NotImplementedException();///////////////////////////////////////////////////
         }
 
         public int GetWeight(int node1, int node2)

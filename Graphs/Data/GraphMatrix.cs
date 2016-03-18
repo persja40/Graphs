@@ -15,6 +15,7 @@ namespace Graphs.Data
         {
             nodesNr = nodes;
             connect = new int[nodesNr, nodesNr];
+            weights = new int[nodesNr, nodesNr];
         }
         public GraphMatrix(int nodes, int[,] connections)
         {
@@ -22,15 +23,19 @@ namespace Graphs.Data
             connect = new int[nodesNr, nodesNr];
             for (int i = 0; i < nodesNr; i++)
                 for (int j = 0; j < nodesNr; j++)
+                {
                     connect[i, j] = connections[i, j];
+                    if (connections[i, j] == 1)
+                        weights[i, j] = 1;
+                }
         }
         public override void MakeConnection(int node1, int node2)
         {
-            connect[node1, node2] = connect[node2, node1] = 1;
+            weights[node2, node1] = weights[node1, node2] = connect[node1, node2] = connect[node2, node1] = 1;
         }
         public override void RemoveConnection(int node1, int node2)
         {
-            connect[node1, node2] = connect[node2, node1] = 0;
+            connect[node1, node2] = connect[node2, node1] = weights[node2, node1] = weights[node1, node2] = 0;
             if (OnChange != null)
                 OnChange();
         }
@@ -101,7 +106,7 @@ namespace Graphs.Data
             }
             return Converter.ConvertToMatrix(temp);
         }
-        
+
         public static GraphMatrix Free(GraphMatrix f)//czysci wolne wezly
         {
             List<int> z = new List<int>();
@@ -144,9 +149,8 @@ namespace Graphs.Data
                         if (GetConnection(i, j))
                             _ret++;
                 return _ret;
-
             }
         }
     }
-    
+
 }

@@ -14,8 +14,11 @@ namespace Graphs.Actions
             GraphMatrix x = new GraphMatrix(from.NodesNr);
             for (int i = 0; i < from.NodesNr; i++)
                 for (int j = 0; j < from.NodesNr; j++)
+                {
                     if (from.GetConnection(i, j))
                         x.MakeConnection(i, j);
+                    x.setWeight(i, j, from.getWeight(i, j));
+                }
             return x;
         }
         public static GraphMatrix ConvertToMatrix(GraphList from)
@@ -45,6 +48,7 @@ namespace Graphs.Actions
                         c++;
                         from.RemoveConnection(i, j);
                     }
+                    q.setWeight(i, j, from.getWeight(i, j));
                 }
             return q;
         }
@@ -54,8 +58,11 @@ namespace Graphs.Actions
             GraphList q = new GraphList(from.NodesNr);
             for (int i = 0; i < from.NodesNr; i++)
                 for (int j = 0; j < i; j++)
+                {
                     if (from.GetConnection(i, j))
                         q.MakeConnection(i, j);
+                    q.setWeight(i, j, from.getWeight(i, j));
+                }
             return q;
         }
 

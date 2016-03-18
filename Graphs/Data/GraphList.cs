@@ -21,6 +21,7 @@ namespace Graphs.Data
         {
             connect[node1].Add(node2);
             connect[node2].Add(node1);
+            weights[node2, node1] = weights[node1, node2] = 1;
             if (OnChange != null)
                 OnChange();
         }
@@ -28,10 +29,11 @@ namespace Graphs.Data
         {
             connect[node1].Remove(node2);
             connect[node2].Remove(node1);
+            weights[node2, node1] = weights[node1, node2] = 0;
             if (OnChange != null)
                 OnChange();
         }
-       
+
 
         public static implicit operator GraphMatrix(GraphList list)
         {
@@ -43,5 +45,5 @@ namespace Graphs.Data
             return Converter.ConvertToMatrixInc(list);
         }
     }
-    
+
 }

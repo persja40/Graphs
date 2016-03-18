@@ -23,21 +23,26 @@ namespace Graphs.Data
             connect = new int[nodesNr, connectNr];
             for (int i = 0; i < nodesNr; i++)
                 for (int j = 0; j < connectNr; j++)
+                {
                     connect[i, j] = arr[i, j];
+                    if (arr[i, j] == 1)
+                        weights[i, j] = 1;
+                }
         }
         public void MakeConnection(int node1, int node2, int con1)
         {
             connect[node1, con1] = 1;
             connect[node2, con1] = 1;
+            weights[node2, node1] = weights[node1, node2] = 1;
             if (OnChange != null)
                 OnChange();
         }
         public Edge GetEdge(int edge)
         {
             int n1 = -1, n2 = -1;
-            for(int node = 0;node < NodesNr; ++node)
+            for (int node = 0; node < NodesNr; ++node)
             {
-                if(connect[node, edge] == 1)
+                if (connect[node, edge] == 1)
                 {
                     if (n1 == -1)
                         n1 = node;
@@ -58,7 +63,7 @@ namespace Graphs.Data
         {
             List<Edge> list = new List<Edge>();
 
-            for(int edge = 0; edge < ConnectNr; ++edge)
+            for (int edge = 0; edge < ConnectNr; ++edge)
             {
                 list.Add(GetEdge(edge));
             }
@@ -73,7 +78,7 @@ namespace Graphs.Data
                 Node1 = node1,
                 Node2 = node2
             };
-            for(int connection = 0; connection < ConnectNr; ++connection)
+            for (int connection = 0; connection < ConnectNr; ++connection)
             {
                 var edge = GetEdge(connection);
 
@@ -103,8 +108,8 @@ namespace Graphs.Data
         {
             return Converter.ConvertToList(inc);
         }
-        
-        
+
+
 
         public override string ToString()
         {

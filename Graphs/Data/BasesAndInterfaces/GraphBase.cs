@@ -22,11 +22,17 @@ namespace Graphs.Data
                 nodesNr = value;
             }
         }
-
+        public int getWeight(int n1, int n2) {
+            return weights[n1,n2];
+        }
+        public void setWeight(int n1, int n2, int val)
+        {
+            weights[n1, n2]=val;
+        }
         public OnChange OnChange { get; set; }
-
         public abstract bool GetConnection(int node1, int node2);
         public abstract void MakeConnection(int node1, int node2);
         public abstract void RemoveConnection(int node1, int node2);
+        protected int[,] weights;
     }
 }

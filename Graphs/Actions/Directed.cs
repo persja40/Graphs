@@ -100,6 +100,13 @@ namespace Graphs.Actions
             lista.Remove(lista[ind]);
             return lista;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x">graf</param>
+        /// <param name="elem">element z ktorego zaczynamy przeszukiwanie</param>
+        /// <param name="st"></param>
+        /// <param name="vis"></param>
         private static void rek(DirectedGraphList x, int elem, List<int> st, bool[] vis)//stark by finish time
         {
             vis[elem] = true;

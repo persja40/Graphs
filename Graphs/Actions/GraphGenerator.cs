@@ -54,13 +54,19 @@ namespace Graphs.Actions
                         w.MakeConnection(i, j);
             return w;
         }
-        public static GraphMatrix generatorRegular(int k)
+        /// <summary>
+        /// Tworzy graf k-regularny do MAX ilosci wierzcholkow
+        /// </summary>
+        /// <param name="k"></param>
+        /// <param name="m">maksymalna liczba wierzcholkow, default 11</param>
+        /// <returns></returns>
+        public static GraphMatrix generatorRegular(int k,int m=11)
         {
             List<int> q = new List<int>();
             Random r = new Random();
             int n;
             int c;
-            const int MAX = 11;
+            int MAX = m;
             List<int> p = new List<int>();
             for (int i = 1; i <= MAX; i++)
                 p.Add(i);
@@ -79,20 +85,21 @@ namespace Graphs.Actions
                 if (Misc.Exists(q))
                     return Misc.Construct(q);
             }
-            throw new Exception("Did not found");
+            throw new Exception("Couldn't make k-regular graph");
         }
-        public static int[,] CreateRandomWeights(GraphMatrix f, int minWeight = 1, int maxWeight = 10)
+        public static GraphMatrix CreateRandomWeights(GraphMatrix f, int minWeight = 1, int maxWeight = 10)
         {
+            GraphMatrix ret = new GraphMatrix(f.NodesNr);
             Random r = new Random();
             int[,] x = new int[f.NodesNr, f.NodesNr];
             for (int k = 0; k < f.NodesNr; k++)
                 for (int p = 0; p < k; p++)
                     if (f.GetConnection(k, p))
-                    {
-                        x[k, p] = r.Next(minWeight, maxWeight + 1);
-                        x[p, k] = x[k, p];
+                    {                
+                        ret.MakeConnection(k, p);
+                        ret.setWeight(k, p, r.Next(maxWeight) + 1);
                     }
-            return x;
+            return ret;
         }
         public static int[,] CreateRandomDirectedWeights(DirectedGraphMatrix f, int minWeight = -5, int maxWeight = 20)
         {
