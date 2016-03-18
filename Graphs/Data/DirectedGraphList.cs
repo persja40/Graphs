@@ -1,5 +1,4 @@
-﻿using Graphs.Actions;
-using Graphs.Misc;
+﻿using Graphs.Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Graphs.Data
 {
-    public class GraphList
+    public class SGraphList
     {
-        public GraphList(int nodes)
+        public SGraphList(int nodes)
         {
             nodesNr = nodes;
             connect = new List<int>[nodes];
@@ -27,14 +26,12 @@ namespace Graphs.Data
         public void MakeConnection(int node1, int node2)//tworzy w dwie strony
         {
             connect[node1].Add(node2);
-            connect[node2].Add(node1);
             if (OnChange != null)
                 OnChange();
         }
         public void RemoveConnection(int node1, int node2)//usuwa w dwie strony
         {
             connect[node1].Remove(node2);
-            connect[node2].Remove(node1);
             if (OnChange != null)
                 OnChange();
         }
@@ -42,16 +39,17 @@ namespace Graphs.Data
         {
             return connect[node1].Contains(node2);
         }
-
-        public static implicit operator GraphMatrix(GraphList list)
+        /*
+        public static implicit operator SGraphMatrix(SGraphList list)
         {
-            return Converter.ConvertToMatrix(list);
+            return Converter.ConvertToSMatrix(list);
         }
 
-        public static implicit operator GraphMatrixInc(GraphList list)
+        public static implicit operator SGraphMatrixInc(SGraphList list)
         {
-            return Converter.ConvertToMatrixInc(list);
+            return Converter.ConvertToSMatrixInc(list);
         }
+        */
 
         public int NodesNr
         {
@@ -66,7 +64,7 @@ namespace Graphs.Data
         {
             return connect[x].Count;
         }
-        public bool Equals(GraphList x)
+        public bool Equals(SGraphList x)
         {
             if (x == null)
                 return false;
@@ -76,7 +74,7 @@ namespace Graphs.Data
                 if (this.GetConnections(i).Count == x.GetConnections(i).Count)
                 {
                     for (int k = 0; k < this.GetConnections(i).Count; k++)
-                        if (this.GetConnections(i)[k] != x.GetConnections(i)[k])      
+                        if (this.GetConnections(i)[k] != x.GetConnections(i)[k])
                             return false;
                 }
                 else
@@ -87,5 +85,4 @@ namespace Graphs.Data
         private List<int>[] connect;
         private int nodesNr;
     }
-    
 }
