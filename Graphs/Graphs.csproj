@@ -85,6 +85,7 @@
     <Compile Include="Data\IGraphList.cs" />
     <Compile Include="Data\IGraphMatrix.cs" />
     <Compile Include="Data\IGraphMatrixInc.cs" />
+    <Compile Include="Extensions\RandomExtension.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\AppdataHelper.cs" />
     <Compile Include="Helpers\SaveLoadWindowHelper.cs" />

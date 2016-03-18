@@ -81,7 +81,7 @@ namespace Graphs.Actions
             }
             throw new Exception("Did not found");
         }
-        public static int[,] weights(GraphMatrix f)
+        public static int[,] CreateRandomWeights(GraphMatrix f, int minWeight = 1, int maxWeight = 10)
         {
             Random r = new Random();
             int[,] x = new int[f.NodesNr, f.NodesNr];
@@ -89,19 +89,19 @@ namespace Graphs.Actions
                 for (int p = 0; p < k; p++)
                     if (f.GetConnection(k, p))
                     {
-                        x[k, p] = r.Next(10) + 1;
+                        x[k, p] = r.Next(minWeight, maxWeight + 1);
                         x[p, k] = x[k, p];
                     }
             return x;
         }
-        public static int[,] CreateRandomDirectedWeights(DirectedGraphMatrix f)
+        public static int[,] CreateRandomDirectedWeights(DirectedGraphMatrix f, int minWeight = -5, int maxWeight = 20)
         {
             Random r = new Random();
             int[,] x = new int[f.NodesNr, f.NodesNr];
             for (int k = 0; k < f.NodesNr; k++)
                 for (int p = 0; p < k; p++)
                     if (f.GetConnection(k, p))
-                        x[k, p] = r.Next(-5, 21);
+                        x[k, p] = r.Next(minWeight, maxWeight + 1);
             return x;
         }
         /// <summary>
