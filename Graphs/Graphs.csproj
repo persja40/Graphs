@@ -69,22 +69,22 @@
       <DependentUpon>Authors.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\Edge.cs" />
-    <Compile Include="Data\GraphBase.cs" />
+    <Compile Include="Data\BasesAndInterfaces\GraphBase.cs" />
     <Compile Include="Data\GraphList.cs" />
-    <Compile Include="Data\GraphListBase.cs" />
+    <Compile Include="Data\BasesAndInterfaces\GraphListBase.cs" />
     <Compile Include="Data\GraphMatrix.cs" />
-    <Compile Include="Data\GraphMatrixBase.cs" />
+    <Compile Include="Data\BasesAndInterfaces\GraphMatrixBase.cs" />
     <Compile Include="Data\GraphMatrixInc.cs" />
-    <Compile Include="Data\GraphMatrixIncBase.cs" />
+    <Compile Include="Data\BasesAndInterfaces\GraphMatrixIncBase.cs" />
     <Compile Include="Data\GraphModel.cs" />
     <Compile Include="Actions\GraphLoad.cs" />
     <Compile Include="Data\DirectedGraphList.cs" />
     <Compile Include="Data\DirectedGraphMatrix.cs" />
     <Compile Include="Data\DirectedGraphMatrixInc.cs" />
-    <Compile Include="Data\IGraph.cs" />
-    <Compile Include="Data\IGraphList.cs" />
-    <Compile Include="Data\IGraphMatrix.cs" />
-    <Compile Include="Data\IGraphMatrixInc.cs" />
+    <Compile Include="Data\BasesAndInterfaces\IGraph.cs" />
+    <Compile Include="Data\BasesAndInterfaces\IGraphList.cs" />
+    <Compile Include="Data\BasesAndInterfaces\IGraphMatrix.cs" />
+    <Compile Include="Data\BasesAndInterfaces\IGraphMatrixInc.cs" />
     <Compile Include="Extensions\RandomExtension.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\AppdataHelper.cs" />
