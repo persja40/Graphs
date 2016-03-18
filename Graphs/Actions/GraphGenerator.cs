@@ -94,14 +94,14 @@ namespace Graphs.Actions
                     }
             return x;
         }
-        public static int[,] Sweights(DirectedGraphMatrix f)
+        public static int[,] CreateRandomDirectedWeights(DirectedGraphMatrix f)
         {
             Random r = new Random();
             int[,] x = new int[f.NodesNr, f.NodesNr];
             for (int k = 0; k < f.NodesNr; k++)
                 for (int p = 0; p < k; p++)
                     if (f.GetConnection(k, p))
-                        x[k, p] = r.Next(26) - 5;
+                        x[k, p] = r.Next(-5, 21);
             return x;
         }
         public static DirectedGraphMatrix direct(GraphMatrix matrix)//tworzy graf skierowany parametr; musi byc spojny!!!

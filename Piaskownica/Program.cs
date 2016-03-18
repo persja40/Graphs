@@ -43,7 +43,7 @@ namespace Piaskownica
             */
             Console.WriteLine("aaa");
             List<int> x = new List<int>() { 0, 1, 2, 3 };
-            Console.WriteLine(Directed.ujemnyCykl(q,GraphGenerator.Sweights(q)));
+            Console.WriteLine(Directed.ujemnyCykl(q,GraphGenerator.CreateRandomDirectedWeights(q)));
             
             Console.Read();
         }
