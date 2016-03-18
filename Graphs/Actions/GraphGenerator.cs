@@ -104,26 +104,26 @@ namespace Graphs.Actions
                         x[k, p] = r.Next(26) - 5;
             return x;
         }
-        public static DirectedGraphMatrix direct(GraphMatrix f)//tworzy graf skierowany parametr; musi byc spojny!!!
+        public static DirectedGraphMatrix direct(GraphMatrix matrix)//tworzy graf skierowany parametr; musi byc spojny!!!
         {
             Random r = new Random();
-            DirectedGraphMatrix x = new DirectedGraphMatrix(f.NodesNr);
-            for (int i = 0; i < f.NodesNr; i++)
+            DirectedGraphMatrix directedMatrix = new DirectedGraphMatrix(matrix.NodesNr);
+            for (int i = 0; i < matrix.NodesNr; i++)
                 for (int j = 0; j < i; j++)
                     switch (r.Next(3))
                     {
                         case 0:
-                            x.MakeConnection(i, j);
+                            directedMatrix.MakeConnection(i, j);
                             break;
                         case 1:
-                            x.MakeConnection(j, i);
+                            directedMatrix.MakeConnection(j, i);
                             break;
                         case 2:
-                            x.MakeConnection(i, j);
-                            x.MakeConnection(j, i);
+                            directedMatrix.MakeConnection(i, j);
+                            directedMatrix.MakeConnection(j, i);
                             break;
                     }
-            return x;
+            return directedMatrix;
         }
     }
 }
