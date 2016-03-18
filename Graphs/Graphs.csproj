@@ -64,6 +64,7 @@
     <Compile Include="Actions\GraphRenderer.cs" />
     <Compile Include="Actions\Hamilton.cs" />
     <Compile Include="Actions\Misc.cs" />
+    <Compile Include="Actions\PathFinding.cs" />
     <Compile Include="Authors.xaml.cs">
       <DependentUpon>Authors.xaml</DependentUpon>
     </Compile>
@@ -73,6 +74,9 @@
     <Compile Include="Data\GraphMatrixInc.cs" />
     <Compile Include="Data\GraphModel.cs" />
     <Compile Include="Actions\GraphLoad.cs" />
+    <Compile Include="Data\DirectedGraphList.cs" />
+    <Compile Include="Data\DirectedGraphMatrix.cs" />
+    <Compile Include="Data\DirectedGraphMatrixInc.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\AppdataHelper.cs" />
     <Compile Include="Helpers\SaveLoadWindowHelper.cs" />

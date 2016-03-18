@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Graphs.Data
 {
-    public class SGraphList
+    public class DirectedGraphList
     {
-        public SGraphList(int nodes)
+        public DirectedGraphList(int nodes)
         {
             nodesNr = nodes;
             connect = new List<int>[nodes];
@@ -64,7 +64,7 @@ namespace Graphs.Data
         {
             return connect[x].Count;
         }
-        public bool Equals(SGraphList x)
+        public bool Equals(DirectedGraphList x)
         {
             if (x == null)
                 return false;

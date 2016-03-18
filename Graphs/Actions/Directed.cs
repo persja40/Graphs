@@ -11,7 +11,7 @@ namespace Graphs.Actions
 {
     public class Directed
     {
-        public static bool ujemnyCykl(SGraphMatrix x, int[,] w)
+        public static bool ujemnyCykl(DirectedGraphMatrix x, int[,] w)
         {
             List<List<int>> l = circuts(x);
             for (int i = 0; i < l.Count; i++)
@@ -24,7 +24,7 @@ namespace Graphs.Actions
             }
             return false;
         }
-        public static SGraphMatrix transpose(SGraphMatrix from)
+        public static DirectedGraphMatrix transpose(DirectedGraphMatrix from)
         {
             int[,] t = new int[from.NodesNr, from.NodesNr];
             for (int i = 0; i < from.NodesNr; i++)
@@ -33,9 +33,9 @@ namespace Graphs.Actions
                         t[j, i] = 1;
                     else
                         t[j, i] = 0;
-            return new SGraphMatrix(from.NodesNr, t);
+            return new DirectedGraphMatrix(from.NodesNr, t);
         }
-        public static SGraphMatrix Smaxspojny(SGraphMatrix f, List<List<int>> sp)
+        public static DirectedGraphMatrix Smaxspojny(DirectedGraphMatrix f, List<List<int>> sp)
         {
             int k = 0;
             for (int i = 0; i < sp.Count; i++)
@@ -60,11 +60,11 @@ namespace Graphs.Actions
                 }
                 k++;
             }
-            return new SGraphMatrix(q.Count, t);
+            return new DirectedGraphMatrix(q.Count, t);
         }
-        public static List<List<int>> circuts(SGraphMatrix f)//zwraca liste cykli(ktore sa listami)
+        public static List<List<int>> circuts(DirectedGraphMatrix f)//zwraca liste cykli(ktore sa listami)
         {
-            SGraphList li = Converter.ConvertToSList(f);
+            DirectedGraphList li = Converter.ConvertToSList(f);
             List<List<int>> cycle = new List<List<int>>();
             List<int> white = new List<int>();
             for (int i = 0; i < f.NodesNr; i++)
@@ -80,12 +80,12 @@ namespace Graphs.Actions
                     cycle[i].Remove(cycle[i][0]);
             return cycle;
         }
-        public static List<List<int>> spojne(SGraphMatrix f)
+        public static List<List<int>> spojne(DirectedGraphMatrix f)
         {
             List<int> stark = new List<int>();
             bool[] visited = new bool[f.NodesNr];
             visited[0] = true;
-            SGraphList q = Converter.ConvertToSList(f);
+            DirectedGraphList q = Converter.ConvertToSList(f);
             for (int i = 0; i < f.NodesNr; i++)
                 rek(q, i, stark, visited);
             q = Converter.ConvertToSList(transpose(f));
@@ -100,7 +100,7 @@ namespace Graphs.Actions
             lista.Remove(lista[ind]);
             return lista;
         }
-        private static void rek(SGraphList x, int elem, List<int> st, bool[] vis)//stark by finish time
+        private static void rek(DirectedGraphList x, int elem, List<int> st, bool[] vis)//stark by finish time
         {
             vis[elem] = true;
             for (int i = 0; i < x.CountElem(elem); i++)
@@ -109,7 +109,7 @@ namespace Graphs.Actions
             if (!st.Contains(elem))
                 st.Add(elem);
         }
-        private static void rek2(SGraphList x, int elem, List<int> st, bool[] vis, List<List<int>> lista, ref int ind)//tworzenie list spojnosci
+        private static void rek2(DirectedGraphList x, int elem, List<int> st, bool[] vis, List<List<int>> lista, ref int ind)//tworzenie list spojnosci
         {
             if (vis[elem])
             {
@@ -127,7 +127,7 @@ namespace Graphs.Actions
                 lista.Add(new List<int>());
             }
         }
-        private static void rekc(SGraphList x, List<int> white, List<int> grey, List<int> black, List<List<int>> cyc, List<int> temp, int elem)//szukanie sykli
+        private static void rekc(DirectedGraphList x, List<int> white, List<int> grey, List<int> black, List<List<int>> cyc, List<int> temp, int elem)//szukanie sykli
         {
             if (black.Contains(elem))
                 return;

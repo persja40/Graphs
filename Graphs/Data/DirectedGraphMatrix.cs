@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Graphs.Data
 {
-    public class SGraphMatrix
+    public class DirectedGraphMatrix
     {
-        public SGraphMatrix(int nodes)
+        public DirectedGraphMatrix(int nodes)
         {
             nodesNr = nodes;
             connect = new int[nodesNr, nodesNr];
         }
-        public SGraphMatrix(int nodes, int[,] connections)
+        public DirectedGraphMatrix(int nodes, int[,] connections)
         {
             nodesNr = nodes;
             connect = new int[nodesNr, nodesNr];
@@ -42,7 +42,7 @@ namespace Graphs.Data
                 for (int j = 0; j < nodesNr; ++j)
                     connect[i, j] = 0;
         }
-        public void Set(SGraphMatrix other)
+        public void Set(DirectedGraphMatrix other)
         {
             nodesNr = other.nodesNr;
             connect = new int[nodesNr, nodesNr];
@@ -102,7 +102,7 @@ namespace Graphs.Data
 
             }
         }
-        public bool Equals(SGraphMatrix x)
+        public bool Equals(DirectedGraphMatrix x)
         {
             if (x == null)
                 return false;

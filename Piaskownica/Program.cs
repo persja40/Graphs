@@ -14,7 +14,7 @@ namespace Piaskownica
         {
             GraphMatrix w = Misc.Spojny(EulerGraph.RandEulerGraph(7));
 
-            SGraphMatrix q= GraphGenerator.direct(w);
+            DirectedGraphMatrix q= GraphGenerator.direct(w);
             q = Directed.transpose(q);
             /*
             for (int i = 0; i < q.NodesNr; i++)

@@ -68,31 +68,31 @@ namespace Graphs.Actions
         /// </summary>
         /// <param name="from"></param>
         /// <returns></returns>
-        public static SGraphMatrix ConvertToSMatrix(SGraphMatrixInc from)
+        public static DirectedGraphMatrix ConvertToSMatrix(DirectedGraphMatrixInc from)
         {
-            SGraphMatrix x = new SGraphMatrix(from.NodesNr);
+            DirectedGraphMatrix x = new DirectedGraphMatrix(from.NodesNr);
             for (int i = 0; i < from.NodesNr; i++)
                 for (int j = 0; j < from.NodesNr; j++)
                     if (from.GetConnection(i, j))
                         x.MakeConnection(i, j);
             return x;
         }
-        public static SGraphList ConvertToSList(SGraphMatrix from)
+        public static DirectedGraphList ConvertToSList(DirectedGraphMatrix from)
         {
-            SGraphList x = new SGraphList(from.NodesNr);
+            DirectedGraphList x = new DirectedGraphList(from.NodesNr);
             for (int i = 0; i < from.NodesNr; i++)
                 for (int j = 0; j < from.NodesNr; j++)
                     if (from.GetConnection(i, j))
                         x.MakeConnection(i, j);
             return x;
         }
-        public static SGraphMatrixInc ConvertToSMatrixInc(SGraphList from)
+        public static DirectedGraphMatrixInc ConvertToSMatrixInc(DirectedGraphList from)
         {
             int sumc = 0;
             for (int i = 0; i < from.NodesNr; i++)
                 sumc += from.CountElem(i);
             int c = 0;
-            SGraphMatrixInc x = new SGraphMatrixInc(from.NodesNr,sumc);
+            DirectedGraphMatrixInc x = new DirectedGraphMatrixInc(from.NodesNr,sumc);
             for (int i = 0; i < from.NodesNr; i++)//pobiera po kolei elementy, dodaje do matrixinc i usuwa z listy
                 for (int j = 0; j < from.NodesNr; j++)               
                     if (from.GetConnection(i, j))
