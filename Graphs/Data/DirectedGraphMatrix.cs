@@ -24,13 +24,27 @@ namespace Graphs.Data
         }
         public override void MakeConnection(int node1, int node2)
         {
-            connect[node1, node2] = 1;
+            MakeConnection(node1, node2, 1);
         }
         public override void RemoveConnection(int node1, int node2)
         {
             connect[node1, node2] = 0;
+
+            //TODO : Remove any weights
+
             if (OnChange != null)
                 OnChange();
+        }
+
+        public void MakeConnection(int node1, int node2, int weight)
+        {
+            connect[node1, node2] = 1;
+            throw new NotImplementedException();
+        }
+
+        public int GetWeight(int node1, int node2)
+        {
+            throw new NotImplementedException();
         }
 
         /*

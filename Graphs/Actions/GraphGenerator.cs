@@ -104,7 +104,12 @@ namespace Graphs.Actions
                         x[k, p] = r.Next(-5, 21);
             return x;
         }
-        public static DirectedGraphMatrix CreateDirect(GraphMatrix matrix)//tworzy graf skierowany parametr; musi byc spojny!!!
+        /// <summary>
+        /// Towrzy graf skierowany na podstawie spójnego grafu nieskierowanego
+        /// </summary>
+        /// <param name="matrix">Spójny graf nieskierowany</param>
+        /// <returns>Graf skierowany</returns>
+        public static DirectedGraphMatrix CreateDirect(GraphMatrix matrix)
         {
             Random r = new Random();
             DirectedGraphMatrix directedMatrix = new DirectedGraphMatrix(matrix.NodesNr);
