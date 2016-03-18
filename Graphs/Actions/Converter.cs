@@ -63,11 +63,9 @@ namespace Graphs.Actions
         {
             return Converter.ConvertToList(Converter.ConvertToMatrix(from));
         }
-        /// <summary>
+
         /// SKIEROWANE KONWERSJE
-        /// </summary>
-        /// <param name="from"></param>
-        /// <returns></returns>
+
         public static DirectedGraphMatrix ConvertToSMatrix(DirectedGraphMatrixInc from)
         {
             DirectedGraphMatrix x = new DirectedGraphMatrix(from.NodesNr);
