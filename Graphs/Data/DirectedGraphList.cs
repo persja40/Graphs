@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Graphs.Data
 {
-    public class DirectedGraphList
+    public class DirectedGraphList : GraphListBase
     {
         public DirectedGraphList(int nodes)
         {
@@ -16,28 +16,29 @@ namespace Graphs.Data
             for (int i = 0; i < connect.Length; ++i)
                 connect[i] = new List<int>();
         }
-        public List<int> GetConnections(int node)
-        {
-            List<int> _return = new List<int>();
-            foreach (var item in connect[node])
-                _return.Add(item);
-            return _return;
-        }
-        public void MakeConnection(int node1, int node2)//tworzy w dwie strony
+        
+        /// <summary>
+        /// Tworzy polaczenie jednostrone miedzy dwoma punktami
+        /// </summary>
+        /// <param name="node1">Wezel z ktorego polaczenie wychodzi</param>
+        /// <param name="node2">Wezel do ktorego polaczenie wchodzi</param>
+        public override void MakeConnection(int node1, int node2)
         {
             connect[node1].Add(node2);
             if (OnChange != null)
                 OnChange();
         }
-        public void RemoveConnection(int node1, int node2)//usuwa w dwie strony
+
+        /// <summary>
+        /// Usuwa polaczenie miedzy dwoma nodami. (W jedna strone)
+        /// </summary>
+        /// <param name="node1"></param>
+        /// <param name="node2"></param>
+        public override void RemoveConnection(int node1, int node2)
         {
             connect[node1].Remove(node2);
             if (OnChange != null)
                 OnChange();
-        }
-        public bool GetConnection(int node1, int node2)
-        {
-            return connect[node1].Contains(node2);
         }
         /*
         public static implicit operator SGraphMatrix(SGraphList list)
@@ -49,40 +50,6 @@ namespace Graphs.Data
         {
             return Converter.ConvertToSMatrixInc(list);
         }
-        */
-
-        public int NodesNr
-        {
-            get
-            {
-                int x = nodesNr;
-                return x;
-            }
-        }
-
-        public int CountElem(int x)
-        {
-            return connect[x].Count;
-        }
-        public bool Equals(DirectedGraphList x)
-        {
-            if (x == null)
-                return false;
-            if (this.NodesNr != x.NodesNr)
-                return false;
-            for (int i = 0; i < nodesNr; i++)
-                if (this.GetConnections(i).Count == x.GetConnections(i).Count)
-                {
-                    for (int k = 0; k < this.GetConnections(i).Count; k++)
-                        if (this.GetConnections(i)[k] != x.GetConnections(i)[k])
-                            return false;
-                }
-                else
-                    return false;
-            return true;
-        }
-        public OnChange OnChange { get; set; }
-        private List<int>[] connect;
-        private int nodesNr;
+                */
     }
 }

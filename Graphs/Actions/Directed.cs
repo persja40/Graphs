@@ -35,7 +35,7 @@ namespace Graphs.Actions
                         t[j, i] = 0;
             return new DirectedGraphMatrix(from.NodesNr, t);
         }
-        public static DirectedGraphMatrix Smaxspojny(DirectedGraphMatrix f, List<List<int>> sp)
+        public static DirectedGraphMatrix Directedmaxspojny(DirectedGraphMatrix f, List<List<int>> sp)
         {
             int k = 0;
             for (int i = 0; i < sp.Count; i++)

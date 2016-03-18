@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Graphs.Data
 {
-    public class DirectedGraphMatrix
+    public class DirectedGraphMatrix : GraphMatrixBase
     {
         public DirectedGraphMatrix(int nodes)
         {
@@ -22,39 +22,17 @@ namespace Graphs.Data
                 for (int j = 0; j < nodesNr; j++)
                     connect[i, j] = connections[i, j];
         }
-        public void MakeConnection(int node1, int node2)
+        public override void MakeConnection(int node1, int node2)
         {
             connect[node1, node2] = 1;
         }
-        public void RemoveConnection(int node1, int node2)
+        public override void RemoveConnection(int node1, int node2)
         {
             connect[node1, node2] = 0;
             if (OnChange != null)
                 OnChange();
         }
-        public bool GetConnection(int node1, int node2)
-        {
-            return connect[node1, node2] >= 1;
-        }
-        public void Clear()
-        {
-            for (int i = 0; i < nodesNr; ++i)
-                for (int j = 0; j < nodesNr; ++j)
-                    connect[i, j] = 0;
-        }
-        public void Set(DirectedGraphMatrix other)
-        {
-            nodesNr = other.nodesNr;
-            connect = new int[nodesNr, nodesNr];
 
-            for (int y = 0; y < NodesNr; ++y)
-                for (int x = 0; x < NodesNr; ++x)
-                {
-                    if (other.GetConnection(x, y))
-                        MakeConnection(x, y);
-                }
-        }
-        public OnChange OnChange { get; set; }
         /*
         public static SGraphMatrix Free(SGraphMatrix f)//czysci wolne wezly
         {
@@ -89,40 +67,14 @@ namespace Graphs.Data
             return w;
         }
         */
-        public int ConnectionCount
+        public override int ConnectionCount
         {
             get
             {
-                int _ret = 0;
-                for (int i = 0; i < nodesNr; ++i)
-                    for (int j = i; j < nodesNr; ++j)
-                        if (GetConnection(i, j))
-                            _ret++;
-                return _ret;
+                throw new NotImplementedException();
 
             }
         }
-        public bool Equals(DirectedGraphMatrix x)
-        {
-            if (x == null)
-                return false;
-            if (this.NodesNr != x.NodesNr)
-                return false;
-            for (int i = 0; i < nodesNr; i++)
-                for (int j = 0; j < nodesNr; j++)
-                    if (this.GetConnection(i, j) != x.GetConnection(i, j))
-                        return false;
-            return true;
-        }
-        public int NodesNr
-        {
-            get
-            {
-                int x = nodesNr;
-                return x;
-            }
-        }
-        private int[,] connect;
-        private int nodesNr;
+        
     }
 }

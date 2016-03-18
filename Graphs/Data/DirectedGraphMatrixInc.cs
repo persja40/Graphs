@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Graphs.Data
 {
-    public class DirectedGraphMatrixInc
+    public class DirectedGraphMatrixInc : GraphMatrixIncBase
     {
         public DirectedGraphMatrixInc(int nodes, int cons)
         {
@@ -32,7 +32,7 @@ namespace Graphs.Data
                 OnChange();
         }
 
-        public bool GetConnection(int node1, int node2)//czy n1 i n2 sa polaczone
+        public override bool GetConnection(int node1, int node2)//czy n1 i n2 sa polaczone
         {
             if (node1 == node2)
                 return false;
@@ -41,16 +41,7 @@ namespace Graphs.Data
                     return true;
             return false;
         }
-        public bool GetConnectionArray(int node1, int conn)//zwraca element tablicy
-        {
-            if (connect[node1, conn] == 1)
-                return true;
-            return false;
-        }
-        public void ClearConnection(int n1, int n2, int con)//czysci polaczenia UWAGA MYSLEC!!! zostaje puste polaczenie
-        {
-            connect[n1, con] = connect[n2, con] = 0;
-        }
+        
         /*
         public static implicit operator GraphMatrix(GraphMatrixInc inc)
         {
@@ -62,22 +53,6 @@ namespace Graphs.Data
             return Converter.ConvertToList(inc);
         }
         */
-        public int NodesNr
-        {
-            get
-            {
-                int x = nodesNr;
-                return x;
-            }
-        }
-        public int ConnectNr
-        {
-            get
-            {
-                int x = connectNr;
-                return x;
-            }
-        }
         public bool Equals(DirectedGraphMatrixInc x)
         {
             if (x == null)
@@ -90,26 +65,32 @@ namespace Graphs.Data
                         return false;
             return true;
         }
-        public OnChange OnChange { get; set; }
-        internal int[,] connect;//uwaga tablica x*y przy czym x-wezly, y-polaczenia
-        internal int nodesNr;
-        internal int connectNr;
-        /*
-        public override string ToString()
+
+        public override void MakeConnection(int node1, int node2)
         {
-            var str =
-                "NodesNr = " + NodesNr + Environment.NewLine +
-                 "ConnectNr = " + ConnectNr + Environment.NewLine +
-                 "connect = " + Environment.NewLine;
-
-            for (int node = 0; node < nodesNr; ++node)
-                for (int connection = 0; connection < ConnectNr; ++connection)
-                    str += string.Format("[{0},{1}] = {2}{3}", node, connection, connect[node, connection], Environment.NewLine);
-
-            return str;
-
+            throw new NotImplementedException();
         }
-        */
+
+        public override void RemoveConnection(int node1, int node2)
+        {
+            throw new NotImplementedException();
+        }
+        /*
+public override string ToString()
+{
+   var str =
+       "NodesNr = " + NodesNr + Environment.NewLine +
+        "ConnectNr = " + ConnectNr + Environment.NewLine +
+        "connect = " + Environment.NewLine;
+
+   for (int node = 0; node < nodesNr; ++node)
+       for (int connection = 0; connection < ConnectNr; ++connection)
+           str += string.Format("[{0},{1}] = {2}{3}", node, connection, connect[node, connection], Environment.NewLine);
+
+   return str;
+
+}
+*/
 
 
     }

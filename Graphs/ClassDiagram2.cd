@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Graphs.Data.DirectedGraphList" Collapsed="true">
+    <Position X="5.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Data\DirectedGraphList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphs.Data.DirectedGraphMatrix" Collapsed="true">
+    <Position X="0.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAABAAA=</HashCode>
+      <FileName>Data\DirectedGraphMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphs.Data.DirectedGraphMatrixInc" Collapsed="true">
+    <Position X="12" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAgAAAAAAAAAAAAAAAAAAAABABAAA=</HashCode>
+      <FileName>Data\DirectedGraphMatrixInc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphs.Data.Edge" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAJgAAAEgBAgAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Data\Edge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphs.Data.GraphBase" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAQIAAAACAAAAAAAAAAAAAAAAAAAAABABAAA=</HashCode>
+      <FileName>Data\GraphBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Graphs.Data.GraphList" Collapsed="true">
+    <Position X="7.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEgBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Data\GraphList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphs.Data.GraphListBase" Collapsed="true">
+    <Position X="6.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAgACAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Data\GraphListBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Graphs.Data.GraphMatrix" Collapsed="true">
+    <Position X="3" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAgBAAAAAAAAAAAAAAACAAAAAAAAAAAAAQAABAAI=</HashCode>
+      <FileName>Data\GraphMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphs.Data.GraphMatrixBase" Collapsed="true">
+    <Position X="1.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAgAAAAAAAAAAAAAAAAAAAQBBAAAA=</HashCode>
+      <FileName>Data\GraphMatrixBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Graphs.Data.GraphMatrixInc" Collapsed="true">
+    <Position X="9.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEABAAAAAAAAEAAAACAAAAAAAAAAAAABAgBABAAA=</HashCode>
+      <FileName>Data\GraphMatrixInc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphs.Data.GraphMatrixIncBase" Collapsed="true">
+    <Position X="10.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAgAIAAAAAAAAAgAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Data\GraphMatrixIncBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Graphs.Data.GraphModel" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAACA=</HashCode>
+      <FileName>Data\GraphModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Graphs.Data.IGraph" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAQAAAAACAAAAAAAAAAAAAAAAAAAAABABAAA=</HashCode>
+      <FileName>Data\IGraph.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Graphs.Data.IGraphList" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\IGraphList.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Graphs.Data.IGraphMatrix" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAQABAAAA=</HashCode>
+      <FileName>Data\IGraphMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Graphs.Data.IGraphMatrixInc" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Data\IGraphMatrixInc.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -9,7 +9,7 @@ using Graphs.Actions;
 
 namespace Graphs.Data
 {
-    public class GraphMatrix
+    public class GraphMatrix : GraphMatrixBase
     {
         public GraphMatrix(int nodes)
         {
@@ -24,37 +24,15 @@ namespace Graphs.Data
                 for (int j = 0; j < nodesNr; j++)
                     connect[i, j] = connections[i, j];
         }
-        public void MakeConnection(int node1, int node2)
+        public override void MakeConnection(int node1, int node2)
         {
             connect[node1, node2] = connect[node2, node1] = 1;
         }
-        public void RemoveConnection(int node1, int node2)
+        public override void RemoveConnection(int node1, int node2)
         {
             connect[node1, node2] = connect[node2, node1] = 0;
             if (OnChange != null)
                 OnChange();
-        }
-        public bool GetConnection(int node1, int node2)
-        {
-            return connect[node1, node2] >= 1;
-        }
-        public void Clear()
-        {
-            for (int i = 0; i < nodesNr; ++i)
-                for (int j = 0; j < nodesNr; ++j)
-                    connect[i, j] = 0;
-        }
-        public void Set(GraphMatrix other)
-        {
-            nodesNr = other.nodesNr;
-            connect = new int[nodesNr, nodesNr];
-
-            for (int y = 0; y < NodesNr; ++y)
-                for (int x = 0; x < NodesNr; ++x)
-                {
-                    if (other.GetConnection(x, y))
-                        MakeConnection(x, y);
-                }
         }
 
         public static implicit operator GraphList(GraphMatrix matrix)
@@ -123,7 +101,7 @@ namespace Graphs.Data
             }
             return Converter.ConvertToMatrix(temp);
         }
-        public OnChange OnChange { get; set; }
+        
         public static GraphMatrix Free(GraphMatrix f)//czysci wolne wezly
         {
             List<int> z = new List<int>();
@@ -156,7 +134,7 @@ namespace Graphs.Data
             }
             return w;
         }
-        public int ConnectionCount
+        public override int ConnectionCount
         {
             get
             {
@@ -169,28 +147,6 @@ namespace Graphs.Data
 
             }
         }
-        public bool Equals(GraphMatrix x)
-        {
-            if (x == null)
-                return false;
-            if (this.NodesNr != x.NodesNr)
-                return false;
-            for (int i = 0; i < nodesNr; i++)
-                for (int j = 0; j < nodesNr; j++)
-                    if (this.GetConnection(i, j) != x.GetConnection(i, j))
-                        return false;
-            return true;
-        }
-        public int NodesNr
-        {
-            get
-            {
-                int x = nodesNr;
-                return x;
-            }
-        }
-        private int[,] connect;
-        private int nodesNr;
     }
     
 }

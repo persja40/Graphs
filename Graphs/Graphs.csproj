@@ -69,14 +69,22 @@
       <DependentUpon>Authors.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\Edge.cs" />
+    <Compile Include="Data\GraphBase.cs" />
     <Compile Include="Data\GraphList.cs" />
+    <Compile Include="Data\GraphListBase.cs" />
     <Compile Include="Data\GraphMatrix.cs" />
+    <Compile Include="Data\GraphMatrixBase.cs" />
     <Compile Include="Data\GraphMatrixInc.cs" />
+    <Compile Include="Data\GraphMatrixIncBase.cs" />
     <Compile Include="Data\GraphModel.cs" />
     <Compile Include="Actions\GraphLoad.cs" />
     <Compile Include="Data\DirectedGraphList.cs" />
     <Compile Include="Data\DirectedGraphMatrix.cs" />
     <Compile Include="Data\DirectedGraphMatrixInc.cs" />
+    <Compile Include="Data\IGraph.cs" />
+    <Compile Include="Data\IGraphList.cs" />
+    <Compile Include="Data\IGraphMatrix.cs" />
+    <Compile Include="Data\IGraphMatrixInc.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\AppdataHelper.cs" />
     <Compile Include="Helpers\SaveLoadWindowHelper.cs" />
@@ -240,6 +248,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
