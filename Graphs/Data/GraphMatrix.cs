@@ -50,7 +50,6 @@ namespace Graphs.Data
         {
             return Converter.ConvertToMatrixInc(matrix);
         }
-
         public GraphMatrix Randomize(int x = 1000)
         {
             Random r = new Random();

@@ -95,6 +95,7 @@
     <Compile Include="Helpers\SaveLoadWindowHelper.cs" />
     <Compile Include="Misc\Debugers.cs" />
     <Compile Include="Misc\Delegates.cs" />
+    <Compile Include="Misc\Utils.cs" />
     <Compile Include="Project1Window.xaml.cs">
       <DependentUpon>Project1Window.xaml</DependentUpon>
     </Compile>

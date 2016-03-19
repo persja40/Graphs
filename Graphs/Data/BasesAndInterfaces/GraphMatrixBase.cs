@@ -27,6 +27,7 @@ namespace Graphs.Data
             
         }
 
+
         public override bool GetConnection(int node1, int node2)
         {
             return connect[node1, node2] >= 1;

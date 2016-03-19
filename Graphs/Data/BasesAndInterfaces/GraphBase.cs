@@ -22,17 +22,37 @@ namespace Graphs.Data
                 nodesNr = value;
             }
         }
-        public int getWeight(int n1, int n2) {
-            return weights[n1,n2];
+        
+        public List<int> GetNeighbours(int node)
+        {
+            List<int> neighbours = new List<int>();
+            
+            for(int i = 0; i < NodesNr; ++i)
+            {
+                if (i == node)
+                    continue;
+                if (GetConnection(node, i))
+                    neighbours.Add(i);
+            }
+
+            return neighbours;
+        }
+        public int getWeight(int n1, int n2)
+        {
+            return weights[n1, n2];
         }
         public void setWeight(int n1, int n2, int val)
         {
-            weights[n1, n2]=val;
+            weights[n1, n2] = val;
         }
+
+
         public OnChange OnChange { get; set; }
         public abstract bool GetConnection(int node1, int node2);
         public abstract void MakeConnection(int node1, int node2);
         public abstract void RemoveConnection(int node1, int node2);
+
+
         protected int[,] weights;
     }
 }

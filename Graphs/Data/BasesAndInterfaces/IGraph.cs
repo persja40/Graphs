@@ -18,6 +18,7 @@ namespace Graphs.Data
         bool GetConnection(int node1, int node2);
         void RemoveConnection(int node1, int node2);
         void MakeConnection(int node1, int node2);
+        List<int> GetNeighbours(int node);
 
         int NodesNr { get; }
         OnChange OnChange { get; set; }
