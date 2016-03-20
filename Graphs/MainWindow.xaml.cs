@@ -368,17 +368,34 @@ namespace Graphs
 
         private void IsEuler(object sender, RoutedEventArgs e)
         {
+            List<int> path = EulerGraph.EulerianPath(Graph);
+            string message = "Oto trasa eulera : ";
+
+            
+
+            if(path != null)
+            {
+                path.ForEach(v => message += (v + 1) + " ");
+                message = "Graf ma cykl eulera." + Environment.NewLine + message;
+                MessageBox.Show(message);
+            }
+            else
+            {
+                message = "Graf nie ma cyklu eulera";
+                MessageBox.Show(message);
+            }
 
         }
 
         private void GenerateKRegular(object sender, RoutedEventArgs a)
         {
-            /*var window = new CreateRegularWindow();
+            var window = new CreateRegularWindow();
             window.ShowDialog();
             int nodes = window.NodesCount;
+            int nodeDegree = window.NodeDegree;
 
-            Graph.Set(GraphGenerator.generatorRegular(nodes));
-            Graph.OnChange();*/
+            Graph.Set(GraphGenerator.generatorRegular(nodeDegree, nodes));
+            Graph.OnChange();
         }
     }
 }

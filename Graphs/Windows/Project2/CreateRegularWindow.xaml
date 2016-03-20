@@ -14,6 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <DockPanel Margin="1,2,1,0">
@@ -39,7 +40,30 @@
             </TextBox>
         </DockPanel>
 
-        <Button Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,2" Click="ClickClose">
+        <DockPanel Grid.Row="1" Margin="1,2,1,0">
+            <Label DockPanel.Dock="Left">Node degree</Label>
+            <TextBox Name="NodeDegreeTextBox">
+                <TextBox.Text>
+                    <Binding Path="NodeDegree">
+                        <Binding.ValidationRules>
+                            <val:IntValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="Background" Value="Pink"/>
+                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </DockPanel>
+
+        <Button Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,2" Click="ClickClose">
             Generate
         </Button>
     </Grid>

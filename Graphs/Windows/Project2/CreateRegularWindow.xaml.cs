@@ -20,7 +20,8 @@ namespace Graphs.Windows.Project2
     /// 
     public partial class CreateRegularWindow : Window
     {
-        public int NodesCount { get; set; } = 5;
+        public int NodesCount { get; set; } = 11;
+        public int NodeDegree { get; set; } = 2;
         public CreateRegularWindow()
         {
             InitializeComponent();

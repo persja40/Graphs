@@ -38,29 +38,6 @@ namespace Tests
             }
         }
 
-        [TestMethod]
-        public void RandomizeTest()
-        {
-            Random rand = new Random();
-            for(int i = 0;i < 1000; ++i)
-            {
-                GraphMatrix Graph = GraphGenerator.generatorGnp(rand.Next(10, 100), rand.NextDouble());
-                var sequence = Graph.GetDegreeSequence();
-                var newSequence = GraphGenerator.Randomize(Graph).GetDegreeSequence();
 
-                while(sequence.Count != 0)
-                {
-                    int connections = sequence.First();
-
-                    int index = newSequence.FindIndex(c => c == connections);
-
-                    Assert.IsFalse(index == -1);
-
-                    sequence.RemoveAt(0);
-                    newSequence.RemoveAt(index);
-                }
-
-            }
-        }
     }
 }
