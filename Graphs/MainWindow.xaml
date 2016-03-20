@@ -46,8 +46,8 @@
                 <MenuItem Header="Randomize simple graph" Click="Randomize" />
                 <MenuItem Header="Biggest coherent component" />
                 <MenuItem Header="Euler">
-                    <MenuItem Header="Create" />
-                    <MenuItem Header="Is Euler?" />
+                    <MenuItem Header="Create" Click="CreateEuler" />
+                    <MenuItem Header="Is Euler?" Click="IsEuler" />
                 </MenuItem>
                 <MenuItem Header="Generate k-regular"/>
             </MenuItem>

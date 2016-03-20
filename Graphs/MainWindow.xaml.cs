@@ -4,6 +4,7 @@ using Graphs.Helpers;
 using Graphs.TestWindows;
 using Graphs.ViewModels;
 using Graphs.Windows.Generators;
+using Graphs.Windows.Project2;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -352,6 +353,22 @@ namespace Graphs
         {
             Graph.Set(Graph.Randomize());
             Graph.OnChange();
+        }
+
+        private void CreateEuler(object sender, RoutedEventArgs e)
+        {
+            var window = new CreateEulerWindow();
+            window.ShowDialog();
+            int nodes = window.NodesCount;
+
+            Graph.Set(EulerGraph.RandEulerGraph(nodes));
+            Graph.OnChange();
+
+        }
+
+        private void IsEuler(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

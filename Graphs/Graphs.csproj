@@ -136,6 +136,7 @@
       <DependentUpon>Triangle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validations\GraphListValidationRule.cs" />
+    <Compile Include="Validations\IntValidationRule.cs" />
     <Compile Include="Validations\StringListIntValidationRule.cs" />
     <Compile Include="ValueConverters\GraphListValueConverter.cs" />
     <Compile Include="ValueConverters\IntBoolValueConverter.cs" />
@@ -155,6 +156,9 @@
     </Compile>
     <Compile Include="Windows\Generators\SecondGenerator.xaml.cs">
       <DependentUpon>SecondGenerator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Project2\CreateEulerWindow.xaml.cs">
+      <DependentUpon>CreateEulerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Project2\IsGraphical.xaml.cs">
       <DependentUpon>IsGraphical.xaml</DependentUpon>
@@ -241,6 +245,10 @@
     <Page Include="Windows\Generators\SecondGenerator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Project2\CreateEulerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Project2\IsGraphical.xaml">
       <SubType>Designer</SubType>

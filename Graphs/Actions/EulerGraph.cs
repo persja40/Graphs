@@ -10,6 +10,11 @@ namespace Graphs.Actions
 {
     public class EulerGraph
     {
+        /// <summary>
+        /// Tworzy losowy graf eulera
+        /// </summary>
+        /// <param name="nodes">ilosc wierzcholkow w grafie eulera</param>
+        /// <returns>graf eulera</returns>
         public static GraphMatrix RandEulerGraph(int nodes = 7)
         {
             Random r = new Random();
@@ -30,11 +35,18 @@ namespace Graphs.Actions
             }
             return Misc.Construct(x);
         }
-        public static List<int> EulerianPath(GraphMatrix from, int node = 0)//node wezel poczatkowy ; uwaga wymagany GRAF SPOJNY !!!
+        /// <summary>
+        /// Znajduje sciezke eulera
+        /// Wymagany graf spojny
+        /// </summary>
+        /// <param name="graph">Graf</param>
+        /// <param name="node">Wezel poczatkowy.</param>
+        /// <returns>Nie wiem co to dokladnie zwraca</returns>
+        public static List<int> EulerianPath(GraphMatrix graph, int node = 0)
         {
-            GraphList temp = Converter.ConvertToList(from);
+            GraphList temp = Converter.ConvertToList(graph);
             List<Tuple<int, int>> path = new List<Tuple<int, int>>();
-            if (!Eul(temp, path, node, from.ConnectionCount))
+            if (!Eul(temp, path, node, graph.ConnectionCount))
                 return null;
             List<int> rp = new List<int>();
             for (int i = 0; i < path.Count; i++)
