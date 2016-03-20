@@ -99,7 +99,7 @@ namespace Graphs.Actions
         /// </summary>
         /// <param name="x">Nr of tries to find proper connections to change</param>
         /// <returns></returns>
-        public static GraphMatrix Randomize(GraphMatrix gr, int x = 100)
+        public static GraphMatrix Randomize(GraphMatrix gr, int x = 1000)
         {
             Random r = new Random();
             GraphMatrixInc temp = Converter.ConvertToMatrixInc(Converter.ConvertToList(gr));
@@ -118,31 +118,22 @@ namespace Graphs.Actions
                 for (int j = 0; j < temp.NodesNr; j++)
                 {
                     if (temp.GetConnectionArray(j, a))
-                    {
                         if (q[0] == -1)
                             q[0] = j;
                         else
                             q[1] = j;
-                    }
                     if (temp.GetConnectionArray(j, b))
-                    {
                         if (w[0] == -1)
                             w[0] = j;
                         else
                             w[1] = j;
-                    }
                 }
-                Console.WriteLine();
-                Console.WriteLine(q[0] + "   " + q[1] + "   " + w[0] + "   " + w[1] + "   ");
-                Console.ReadLine();
-                Console.WriteLine();
-                if (temp.GetConnection(q[0], w[1]) || temp.GetConnection(q[1], w[0]))
+                if (temp.GetConnection(q[0], w[1]) || temp.GetConnection(q[1], w[0]) || q[0] == w[1] || q[1] == w[0])
                     continue;
                 temp.ClearConnection(q[0], q[1], a);
                 temp.ClearConnection(w[0], w[1], b);
                 temp.MakeConnection(q[0], w[1], a);
                 temp.MakeConnection(q[1], w[0], b);
-                Console.WriteLine("swap");
             }
             return Converter.ConvertToMatrix(temp);
         }
