@@ -49,7 +49,7 @@
                     <MenuItem Header="Create" Click="CreateEuler" />
                     <MenuItem Header="Is Euler?" Click="IsEuler" />
                 </MenuItem>
-                <MenuItem Header="Generate k-regular"/>
+                <MenuItem Header="Generate k-regular" Click="GenerateKRegular"/>
             </MenuItem>
             <MenuItem Header="Projekt3"></MenuItem>
             <MenuItem Header="_Widok">

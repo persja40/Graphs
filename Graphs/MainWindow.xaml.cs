@@ -370,5 +370,15 @@ namespace Graphs
         {
 
         }
+
+        private void GenerateKRegular(object sender, RoutedEventArgs a)
+        {
+            /*var window = new CreateRegularWindow();
+            window.ShowDialog();
+            int nodes = window.NodesCount;
+
+            Graph.Set(GraphGenerator.generatorRegular(nodes));
+            Graph.OnChange();*/
+        }
     }
 }
