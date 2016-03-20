@@ -351,7 +351,7 @@ namespace Graphs
 
         private void Randomize(object sender, RoutedEventArgs e)
         {
-            Graph.Set(Graph.Randomize());
+            Graph.Set(GraphGenerator.Randomize(Graph));
             Graph.OnChange();
         }
 

@@ -160,6 +160,9 @@
     <Compile Include="Windows\Project2\CreateEulerWindow.xaml.cs">
       <DependentUpon>CreateEulerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Project2\CreateRegularWindow.xaml.cs">
+      <DependentUpon>CreateRegularWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Project2\IsGraphical.xaml.cs">
       <DependentUpon>IsGraphical.xaml</DependentUpon>
     </Compile>
@@ -247,6 +250,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\Project2\CreateEulerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Project2\CreateRegularWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -46,7 +46,7 @@ namespace Tests
             {
                 GraphMatrix Graph = GraphGenerator.generatorGnp(rand.Next(10, 100), rand.NextDouble());
                 var sequence = Graph.GetDegreeSequence();
-                var newSequence = Graph.Randomize().GetDegreeSequence();
+                var newSequence = GraphGenerator.Randomize(Graph).GetDegreeSequence();
 
                 while(sequence.Count != 0)
                 {

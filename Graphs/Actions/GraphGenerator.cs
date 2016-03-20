@@ -134,7 +134,7 @@ namespace Graphs.Actions
                 }
                 Console.WriteLine();
                 Console.WriteLine(q[0] + "   " + q[1] + "   " + w[0] + "   " + w[1] + "   ");
-                //Console.Read();
+                Console.ReadLine();
                 Console.WriteLine();
                 if (temp.GetConnection(q[0], w[1]) || temp.GetConnection(q[1], w[0]))
                     continue;
