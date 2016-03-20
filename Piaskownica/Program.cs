@@ -12,11 +12,21 @@ namespace Piaskownica
     {
         static void Main(string[] args)
         {
-            GraphMatrix w = Misc.Spojny(EulerGraph.RandEulerGraph(7));
-
-            DirectedGraphMatrix q= GraphGenerator.CreateDirect(w);
-            q = Directed.transpose(q);
-            /*
+            GraphMatrix w = GraphGenerator.generatorGER(7, 5);
+            GraphMatrix q = GraphGenerator.Randomize(w);
+            
+            for (int i = 0; i < w.NodesNr; i++)
+            {
+                for (int j = 0; j < w.NodesNr; j++)
+                {
+                    if (w.GetConnection(i, j))
+                        Console.Write(1 + " ; ");
+                    else
+                        Console.Write(0 + " ; ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("------------------------------");
             for (int i = 0; i < q.NodesNr; i++)
             {
                 for (int j = 0; j < q.NodesNr; j++)
@@ -28,7 +38,7 @@ namespace Piaskownica
                 }
                 Console.WriteLine();
             }
-            */
+            Console.WriteLine("------------------------------");
             // List<List<int>> lista = Directed.circuts(q);
             //SGraphMatrix e = Directed.Smaxspojny(q,lista);
             /*
@@ -41,10 +51,10 @@ namespace Piaskownica
                 Console.WriteLine();
             }
             */
-            Console.WriteLine("aaa");
-            List<int> x = new List<int>() { 0, 1, 2, 3 };
-            Console.WriteLine(Directed.ujemnyCykl(q,GraphGenerator.CreateRandomDirectedWeights(q)));
-            
+            //Console.WriteLine("aaa");
+            //List<int> x = new List<int>() { 0, 1, 2, 3 };
+            //Console.WriteLine(Directed.ujemnyCykl(q,GraphGenerator.CreateRandomDirectedWeights(q)));
+
             Console.Read();
         }
         static bool por(GraphMatrix a, GraphMatrix b)

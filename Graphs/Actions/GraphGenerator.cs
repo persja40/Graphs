@@ -60,7 +60,7 @@ namespace Graphs.Actions
         /// <param name="k"></param>
         /// <param name="m">maksymalna liczba wierzcholkow, default 11</param>
         /// <returns></returns>
-        public static GraphMatrix generatorRegular(int k,int m=11)
+        public static GraphMatrix generatorRegular(int k, int m = 11)
         {
             List<int> q = new List<int>();
             Random r = new Random();
@@ -87,6 +87,58 @@ namespace Graphs.Actions
             }
             throw new Exception("Couldn't make k-regular graph");
         }
+        /// <summary>
+        /// Returns new graph which is randomized
+        /// </summary>
+        /// <param name="x">Nr of tries to find proper connections to change</param>
+        /// <returns></returns>
+        public static GraphMatrix Randomize(GraphMatrix gr, int x = 100)
+        {
+            Random r = new Random();
+            GraphMatrixInc temp = Converter.ConvertToMatrixInc(Converter.ConvertToList(gr));
+            int[] q = new int[2];
+            int[] w = new int[2];
+            for (int i = 0; i < x; i++)
+            {
+                q[0] = q[1] = w[0] = w[1] = -1;
+                int a;
+                int b;
+                do
+                {
+                    a = r.Next(temp.ConnectNr);
+                    b = r.Next(temp.ConnectNr);
+                } while (a == b);//find connections to swap
+                for (int j = 0; j < temp.NodesNr; j++)
+                {
+                    if (temp.GetConnectionArray(j, a))
+                    {
+                        if (q[0] == -1)
+                            q[0] = j;
+                        else
+                            q[1] = j;
+                    }
+                    if (temp.GetConnectionArray(j, b))
+                    {
+                        if (w[0] == -1)
+                            w[0] = j;
+                        else
+                            w[1] = j;
+                    }
+                }
+                Console.WriteLine();
+                Console.WriteLine(q[0] + "   " + q[1] + "   " + w[0] + "   " + w[1] + "   ");
+                //Console.Read();
+                Console.WriteLine();
+                if (temp.GetConnection(q[0], w[1]) || temp.GetConnection(q[1], w[0]))
+                    continue;
+                temp.ClearConnection(q[0], q[1], a);
+                temp.ClearConnection(w[0], w[1], b);
+                temp.MakeConnection(q[0], w[1], a);
+                temp.MakeConnection(q[1], w[0], b);
+                Console.WriteLine("swap");
+            }
+            return Converter.ConvertToMatrix(temp);
+        }
         public static GraphMatrix CreateRandomWeights(GraphMatrix f, int minWeight = 1, int maxWeight = 10)
         {
             GraphMatrix ret = new GraphMatrix(f.NodesNr);
@@ -95,7 +147,7 @@ namespace Graphs.Actions
             for (int k = 0; k < f.NodesNr; k++)
                 for (int p = 0; p < k; p++)
                     if (f.GetConnection(k, p))
-                    {                
+                    {
                         ret.MakeConnection(k, p);
                         ret.setWeight(k, p, r.Next(maxWeight) + 1);
                     }

@@ -37,6 +37,7 @@ namespace Graphs.Data
         public void ClearConnection(int n1, int n2, int con)
         {
             connect[n1, con] = connect[n2, con] = 0;
+            weights[n2, n1] = weights[n1, n2] = 0;
         }
 
         public int ConnectNr

@@ -50,63 +50,6 @@ namespace Graphs.Data
         {
             return Converter.ConvertToMatrixInc(matrix);
         }
-        public GraphMatrix Randomize(int x = 1000)
-        {
-            Random r = new Random();
-            /*for (int i = 0; i < this.NodesNr; i++)
-            {//wpisywanie wylosowanych liczb
-                for (int j = 0; j < this.NodesNr; j++)
-                {
-                    if (this.GetConnection(i, j))
-                        Console.Write(1);
-                    else
-                        Console.Write(0);
-                    Console.Write(" ; ");
-                }
-                Console.WriteLine("");
-            }
-            Console.WriteLine("-------------------------------------------------------------");
-            */
-            GraphMatrixInc temp = Converter.ConvertToMatrixInc(Converter.ConvertToList(this));
-            int[] q = new int[2];
-            int[] w = new int[2];
-            for (int i = 0; i < x; i++)
-            {
-                q[0] = q[1] = -1;
-                w[0] = w[1] = -1;
-                int a;
-                int b;
-                do
-                {
-                    a = r.Next(temp.ConnectNr);
-                    b = r.Next(temp.ConnectNr);
-                } while (a == b);
-                for (int j = 0; j < temp.NodesNr; j++)
-                {
-                    if (temp.GetConnectionArray(j, a))
-                        if (q[0] == -1)
-                            q[0] = j;
-                        else
-                            q[1] = j;
-                    if (temp.GetConnectionArray(j, b))
-                        if (w[0] == -1)
-                            w[0] = j;
-                        else
-                            w[1] = j;
-                }
-                //Console.WriteLine(q[0] + "   " + q[1] + "   " + w[0] + "   " + w[1]);
-                if (!temp.GetConnection(q[0], w[1]) || !temp.GetConnection(q[1], w[0]))
-                    continue;
-                //Console.WriteLine("issssssssssss");
-                temp.ClearConnection(q[0], q[1], a);
-                temp.ClearConnection(w[0], w[1], b);
-                temp.MakeConnection(q[0], w[1], a);
-                temp.MakeConnection(q[1], w[0], b);
-
-            }
-            return Converter.ConvertToMatrix(temp);
-        }
-
         public static GraphMatrix Free(GraphMatrix f)//czysci wolne wezly
         {
             List<int> z = new List<int>();
