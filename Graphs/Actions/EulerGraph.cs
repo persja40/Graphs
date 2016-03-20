@@ -13,7 +13,7 @@ namespace Graphs.Actions
         /// <summary>
         /// Tworzy losowy graf eulera
         /// </summary>
-        /// <param name="nodes">ilosc wierzcholkow w grafie eulera</param>
+        /// <param name="nodes">ilosc wierzcholkow w grafie eulera default 7</param>
         /// <returns>graf eulera</returns>
         public static GraphMatrix RandEulerGraph(int nodes = 7)
         {
@@ -38,10 +38,14 @@ namespace Graphs.Actions
         /// <summary>
         /// Znajduje sciezke eulera
         /// Wymagany graf spojny
+        /// Szukamy sciezki eulera z pktu "node"
         /// </summary>
         /// <param name="graph">Graf</param>
-        /// <param name="node">Wezel poczatkowy.</param>
-        /// <returns>Nie wiem co to dokladnie zwraca</returns>
+        /// <param name="node">Wezel poczatkowy ( moze byc podany dowolny patrz "sciezka eulera")</param>
+        /// <returns>
+        /// lista, w ktorej elemety sa posortowane zgodnie z kolejnoscia w sciezce wezel startowy/koncowy wystepuje tylko na poczatku listy
+        /// Zwroci null kiedy graf nie ma sciezki eulera => nie jest eulerowski
+        /// </returns>
         public static List<int> EulerianPath(GraphMatrix graph, int node = 0)
         {
             GraphList temp = Converter.ConvertToList(graph);
@@ -56,6 +60,14 @@ namespace Graphs.Actions
             rp.Add(node);//powrot do poczatku
             return rp;
         }
+        /// <summary>
+        /// Przeszukiwanie w glab, uzupelnia liste o sciezke eulera
+        /// </summary>
+        /// <param name="f">lista po ktorej sie poruszamy</param>
+        /// <param name="p">lista wynikowa, dodajemy do niej pary (skad, dokad) idziemy</param>
+        /// <param name="n">aktualny wezel</param>
+        /// <param name="c">liczba polaczen</param>
+        /// <returns>false gdy nie jest eulerowski</returns>
         private static bool Eul(GraphList f, List<Tuple<int, int>> p, int n, int c)//graf, lista do uzupel, aktualny wezel, liczba polaczen
         {
             if (p.Count == c)

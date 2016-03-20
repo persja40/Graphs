@@ -64,7 +64,7 @@ namespace Graphs.Actions
         /// <summary>
         /// Tworzy graf k-regularny do MAX ilosci wierzcholkow
         /// </summary>
-        /// <param name="k"></param>
+        /// <param name="k">stopnie wierzcholkow</param>
         /// <param name="m">maksymalna liczba wierzcholkow, default 11</param>
         /// <returns></returns>
         public static GraphMatrix generatorRegular(int k, int m = 11)
@@ -162,7 +162,7 @@ namespace Graphs.Actions
             return x;
         }
         /// <summary>
-        /// Towrzy graf skierowany na podstawie spójnego grafu nieskierowanego
+        /// Tworzy graf skierowany na podstawie spójnego grafu nieskierowanego
         /// </summary>
         /// <param name="matrix">Spójny graf nieskierowany</param>
         /// <returns>Graf skierowany</returns>
