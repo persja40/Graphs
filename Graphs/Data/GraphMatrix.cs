@@ -74,13 +74,13 @@ namespace Graphs.Data
             {
                 q[0] = q[1] = -1;
                 w[0] = w[1] = -1;
-                int a = r.Next(temp.ConnectNr);
-                int b = r.Next(temp.ConnectNr);
-                while (a == b)
+                int a;
+                int b;
+                do
                 {
                     a = r.Next(temp.ConnectNr);
                     b = r.Next(temp.ConnectNr);
-                }
+                } while (a == b);
                 for (int j = 0; j < temp.NodesNr; j++)
                 {
                     if (temp.GetConnectionArray(j, a))
@@ -94,8 +94,8 @@ namespace Graphs.Data
                         else
                             w[1] = j;
                 }
-                Console.WriteLine(q[0] + "   " + q[1] + "   " + w[0] + "   " + w[1]);
-                if (temp.GetConnection(q[0], w[1]) || temp.GetConnection(q[1], w[0]))
+                //Console.WriteLine(q[0] + "   " + q[1] + "   " + w[0] + "   " + w[1]);
+                if (!temp.GetConnection(q[0], w[1]) || !temp.GetConnection(q[1], w[0]))
                     continue;
                 //Console.WriteLine("issssssssssss");
                 temp.ClearConnection(q[0], q[1], a);
