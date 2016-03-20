@@ -1,0 +1,27 @@
+﻿<Window x:Class="Graphs.Windows.Project3.Dijkstra"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Graphs.Windows.Project3"
+        mc:Ignorable="d"
+        Title="Dijkstra" Height="150" Width="200" MinHeight="150" MinWidth="200" MaxHeight="150" MaxWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel>
+            <Label DockPanel.Dock="Left" MinWidth="75">Start Node :</Label>
+            <TextBox DockPanel.Dock="left" Name="StartNodeTextBox"></TextBox>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1">
+            <Label DockPanel.Dock="Left" MinWidth="75">End Node :</Label>
+            <TextBox DockPanel.Dock="left" Name="EndNodeTextBox"></TextBox>
+        </DockPanel>
+        <Button  Grid.Row="2" Padding="25,1" Margin="0,15,0,5" HorizontalAlignment="Center" VerticalAlignment="Center">Find path</Button>
+    </Grid>
+</Window>

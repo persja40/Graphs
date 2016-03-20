@@ -4,6 +4,7 @@ using Graphs.Helpers;
 using Graphs.TestWindows;
 using Graphs.ViewModels;
 using Graphs.Windows.Generators;
+using Graphs.Windows.Project2;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -325,6 +326,19 @@ namespace Graphs
             MessageBox.Show(message);
         }
 
+        private void IsGraphical(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Windows.Project2.IsGraphical();
+
+            dialog.ShowDialog();
+
+            bool result = Actions.Misc.Exists(dialog.Degrees.ToList());
+
+            string message = string.Format("This list od node degrees is {0} graphical", result ? "" : "not");
+
+            MessageBox.Show(message);
+        }
+
         private void OnRederTurnOn(object sender, RoutedEventArgs e)
         {
             GraphRenderer.Render();
@@ -333,6 +347,38 @@ namespace Graphs
         private void OnRederTurnOff(object sender, RoutedEventArgs e)
         {
             GraphControl.VM = new GraphViewModel();
+        }
+
+        private void Randomize(object sender, RoutedEventArgs e)
+        {
+            Graph.Set(Graph.Randomize());
+            Graph.OnChange();
+        }
+
+        private void CreateEuler(object sender, RoutedEventArgs e)
+        {
+            var window = new CreateEulerWindow();
+            window.ShowDialog();
+            int nodes = window.NodesCount;
+
+            Graph.Set(EulerGraph.RandEulerGraph(nodes));
+            Graph.OnChange();
+
+        }
+
+        private void IsEuler(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GenerateKRegular(object sender, RoutedEventArgs a)
+        {
+            /*var window = new CreateRegularWindow();
+            window.ShowDialog();
+            int nodes = window.NodesCount;
+
+            Graph.Set(GraphGenerator.generatorRegular(nodes));
+            Graph.OnChange();*/
         }
     }
 }

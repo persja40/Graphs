@@ -43,7 +43,14 @@ namespace Graphs.Actions
                     counter++;
                 }
             return w;
+
         }
+        /// <summary>
+        /// Generates graph with desired number of nodes. Each node can have connection with another with desired propability
+        /// </summary>
+        /// <param name="nodes">Number of nodes</param>
+        /// <param name="prob">[0-1] Propability of creating edge</param>
+        /// <returns></returns>
         public static GraphMatrix generatorGnp(int nodes, double prob)
         {
             GraphMatrix w = new GraphMatrix(nodes);
