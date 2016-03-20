@@ -19,14 +19,8 @@ namespace Tests
             for(int i = 0; i < 1000;++i)
             {
                 GraphMatrix graph = GraphGenerator.generatorGnp(rand.Next(10, 100), 0.5);
-                List<int> sequence = new List<int>();
 
-                for(int node = 0;node < graph.NodesNr;++node)
-                {
-                    sequence.Add(graph.GetNeighbours(node).Count);
-                }
-
-                Assert.IsTrue(Misc.Exists(sequence));
+                Assert.IsTrue(Misc.Exists(graph.GetDegreeSequence()));
             }
         }
 

@@ -46,12 +46,25 @@ namespace Graphs.Data
             weights[n1, n2] = val;
         }
 
+        public List<int> GetDegreeSequence()
+        {
+            List<int> sequence = new List<int>();
+
+            for (int node = 0; node < NodesNr; ++node)
+            {
+                sequence.Add(GetNeighbours(node).Count);
+            }
+
+            return sequence;
+        }
+
 
         public OnChange OnChange { get; set; }
         public abstract bool GetConnection(int node1, int node2);
         public abstract void MakeConnection(int node1, int node2);
         public abstract void RemoveConnection(int node1, int node2);
 
+        
 
         protected int[,] weights;
     }
