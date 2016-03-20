@@ -146,7 +146,12 @@ namespace Graphs.Actions
             }
             return new GraphMatrix(nodes, connections);
         }
-        public static GraphMatrix Spojny(GraphMatrix from)
+        /// <summary>
+        /// Generacja listy zawierajacej nr maksymalnie spojnych wierzcholkow
+        /// </summary>
+        /// <param name="from"></param>
+        /// <returns></returns>
+        public static List<int> ListaSpojny(GraphMatrix from)
         {
             GraphList kl = from;
             List<int> lista = new List<int>();
@@ -158,7 +163,16 @@ namespace Graphs.Actions
                 if (lista.Count < q.Count)
                     lista = q;
             }
-            //stworz graf z listy największej dlugosci
+            return lista;
+            //stworz graf z listy największej dlugosci        
+        }
+        /// <summary>
+        /// Generuje maksymalnie spojny graf uzuwajac ListaSpojny()
+        /// </summary>
+        /// <param name="from"></param>
+        /// <returns></returns>
+        public static GraphMatrix MakeSpojny(GraphMatrix from) {
+            List<int> lista = ListaSpojny(from);
             GraphList wynik = new GraphList(from.NodesNr);
             for (int i = 0; i < lista.Count; i++)
                 for (int j = 0; j < lista.Count; j++)
@@ -166,6 +180,13 @@ namespace Graphs.Actions
                         wynik.MakeConnection(lista[i], lista[j]);
             return GraphMatrix.Free(wynik);
         }
+
+        /// <summary>
+        /// przeszukiwanie grafu w glab operacje dokonujemy na liscie
+        /// </summary>
+        /// <param name="x">Graf ktory przeszukujemy</param>
+        /// <param name="e">element w ktorym jestesmy</param>
+        /// <param name="z">referencyna lista do zapisywania wierzcholkow spojnych</param>
         private static void rek(GraphList x, int e, List<int> z)//rekurencyjne przeszukiwanie grafu
         {
             for (int i = 0; i < x.GetConnections(e).Count; i++)
