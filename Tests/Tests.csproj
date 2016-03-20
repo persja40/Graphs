@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ConversionTests.cs" />
+    <Compile Include="GraphicalTests.cs" />
     <Compile Include="HamiltonTest.cs" />
     <Compile Include="IOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

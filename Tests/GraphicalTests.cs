@@ -30,5 +30,32 @@ namespace Tests
             }
         }
 
+        [TestMethod]
+        public void ManualTests()
+        {
+            List<int>[] falseTests =
+            {
+            new List<int>() { 7, 7, 5, 5, 3, 3,1 ,1 },
+            new List<int>() {5, 2, 1, 1 }
+            };
+
+            List<int>[] trueTests =
+            {
+            new List<int>() { 7, 5,5 ,5 ,3 ,3 ,2 ,1 ,1 ,0 }
+            };
+
+            foreach (var test in falseTests)
+            {
+                Assert.IsFalse(Misc.Exists(test));
+            }
+
+            foreach (var test in trueTests)
+            {
+                Assert.IsTrue(Misc.Exists(test));
+            }
+        }
+
     }
+
+    
 }

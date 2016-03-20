@@ -325,6 +325,19 @@ namespace Graphs
             MessageBox.Show(message);
         }
 
+        private void IsGraphical(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Windows.Project2.IsGraphical();
+
+            dialog.ShowDialog();
+
+            bool result = Actions.Misc.Exists(dialog.Degrees.ToList());
+
+            string message = string.Format("This list od node degrees is {0} graphical", result ? "" : "not");
+
+            MessageBox.Show(message);
+        }
+
         private void OnRederTurnOn(object sender, RoutedEventArgs e)
         {
             GraphRenderer.Render();
@@ -333,6 +346,12 @@ namespace Graphs
         private void OnRederTurnOff(object sender, RoutedEventArgs e)
         {
             GraphControl.VM = new GraphViewModel();
+        }
+
+        private void Randomize(object sender, RoutedEventArgs e)
+        {
+            Graph.Set(Graph.Randomize());
+            Graph.OnChange();
         }
     }
 }

@@ -42,8 +42,8 @@
             </MenuItem>
             <MenuItem Header="Projekt2">
                 <MenuItem Header="Is Hamilton" Click="IsHamilton" />
-                <MenuItem Header="Is Graphical" />
-                <MenuItem Header="Randomize simple graph" />
+                <MenuItem Header="Is Graphical" Click="IsGraphical" />
+                <MenuItem Header="Randomize simple graph" Click="Randomize" />
                 <MenuItem Header="Biggest coherent component" />
                 <MenuItem Header="Euler">
                     <MenuItem Header="Create" />
