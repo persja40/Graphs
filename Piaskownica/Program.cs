@@ -12,15 +12,38 @@ namespace Piaskownica
     {
         static void Main(string[] args)
         {
-            GraphMatrix w = GraphGenerator.generatorRegular(2,7);
+            GraphMatrix w = GraphGenerator.generatorRegular(3, 7);
             //GraphMatrix w =  EulerGraph.RandEulerGraph(13);
             //GraphMatrix q = GraphGenerator.Randomize(w);
-
+            w = GraphGenerator.CreateRandomWeights(w);
             for (int i = 0; i < w.NodesNr; i++)
             {
                 for (int j = 0; j < w.NodesNr; j++)
                 {
                     if (w.GetConnection(i, j))
+                        Console.Write(1 + " ; ");
+                    else
+                        Console.Write(0 + " ; ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("------------------------------");
+            for (int i = 0; i < w.NodesNr; i++)
+            {
+                for (int j = 0; j < w.NodesNr; j++)
+                {
+                        Console.Write(w.getWeight(i,j) + " ; ");
+                }
+                Console.WriteLine();
+            }
+            GraphMatrix q = GraphGenerator.Prim(w);
+            Console.WriteLine("------------------------------");
+
+            for (int i = 0; i < q.NodesNr; i++)
+            {
+                for (int j = 0; j < q.NodesNr; j++)
+                {
+                    if (q.GetConnection(i, j))
                         Console.Write(1 + " ; ");
                     else
                         Console.Write(0 + " ; ");

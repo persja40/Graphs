@@ -67,27 +67,19 @@ namespace Graphs.Actions
         /// <param name="k">stopnie wierzcholkow</param>
         /// <param name="m">maksymalna liczba wierzcholkow, default 11</param>
         /// <returns></returns>
-        public static GraphMatrix generatorRegular(int k, int m = 11)
+        public static GraphMatrix generatorRegular(int k, int max = 11)
         {
             List<int> q = new List<int>();
             Random r = new Random();
-            int n;
-            int c;
-            int MAX = m;
-            List<int> p = new List<int>();
-            for (int i = 1; i <= MAX; i++)
-                p.Add(i);
+            int n;//liczba wierzcholkow
             for (int i = 0; i < 100; i++)//liczba podaje ile bedzie prob wygenerowania
             {
-                n = 0;
-                while (n <= 0 || !p.Contains(n))
-                    n = r.Next(MAX);//max liczba wzlow
-                c = q.Count;
-                if (c > n)
-                    for (int j = 0; j <= (c - n); j++)
+                n = r.Next(max) + 1;//max liczba wzlow
+                if (q.Count > n)
+                    for (int j = 0; j <= (q.Count - n); j++)
                         q.Remove(k);
                 else
-                    for (int j = 0; j <= (n - c); j++)
+                    for (int j = 0; j <= (n - q.Count); j++)
                         q.Add(k);
                 if (Misc.Exists(q))
                     return Misc.Construct(q);
@@ -155,6 +147,7 @@ namespace Graphs.Actions
                     {
                         ret.MakeConnection(k, p);
                         ret.setWeight(k, p, r.Next(maxWeight) + minWeight);
+                        ret.setWeight(p, k, ret.getWeight(k, p));
                     }
             return ret;
         }
@@ -193,6 +186,36 @@ namespace Graphs.Actions
                             break;
                     }
             return directedMatrix;
+        }
+        /// <summary>
+        /// Minimum spanning tree
+        /// Spojnosc wymagana
+        /// </summary>
+        /// <param name="from"></param>
+        /// <returns>Graphmatrix being tree</returns>
+        public static GraphMatrix Prim(GraphMatrix from)
+        {
+            GraphList help = from;
+            List<int> visited = new List<int>();//visited nodes
+            visited.Add(0);
+            GraphList tree = new GraphList(from.NodesNr);
+            for (int i = 0; i < tree.NodesNr - 1; i++)//n-1 operation to make tree
+            {
+                Tuple<int, int, int> temp = new Tuple<int, int, int>(0, 0, 1000);//(skad, dokad, waga)
+                for (int j = 0; j < visited.Count; j++)//search in visited nodes
+                    for (int k = 0; k < help.GetConnections(visited[j]).Count; k++)//search all branches in nodes
+                    {
+                        if (visited.Contains(help.GetConnections(visited[j])[k]))//if we don't seek in visited
+                            continue;
+                        if (from.getWeight(visited[j], help.GetConnections(visited[j])[k]) < temp.Item3)
+                            temp = new Tuple<int, int, int>(visited[j], help.GetConnections(visited[j])[k], from.getWeight(visited[j], help.GetConnections(visited[j])[k]));
+                    }
+                tree.MakeConnection(temp.Item1, temp.Item2);
+                tree.setWeight(temp.Item1, temp.Item2,temp.Item3);
+                tree.setWeight(temp.Item2, temp.Item1, temp.Item3);
+                visited.Add(temp.Item2);
+            }
+            return tree;
         }
     }
 }
