@@ -49,6 +49,9 @@ namespace Graphs.Actions
         public static List<int> EulerianPath(GraphMatrix graph, int node = 0)
         {
             GraphList temp = Converter.ConvertToList(graph);
+            for (int i = 0; i < temp.NodesNr; i++)
+                if (temp.GetConnections(i).Count % 2 != 0)
+                    return null;
             List<Tuple<int, int>> path = new List<Tuple<int, int>>();
             if (!Eul(temp, path, node, graph.ConnectionCount))
                 return null;
