@@ -12,8 +12,8 @@ namespace Piaskownica
     {
         static void Main(string[] args)
         {
-            //GraphMatrix w = GraphGenerator.generatorGER(7, 5);
-            GraphMatrix w =  EulerGraph.RandEulerGraph(13);
+            GraphMatrix w = GraphGenerator.generatorRegular(2,7);
+            //GraphMatrix w =  EulerGraph.RandEulerGraph(13);
             //GraphMatrix q = GraphGenerator.Randomize(w);
 
             for (int i = 0; i < w.NodesNr; i++)
@@ -27,6 +27,7 @@ namespace Piaskownica
                 }
                 Console.WriteLine();
             }
+            /*
             List<int> q = EulerGraph.EulerianPath(w);
             Console.WriteLine("------------------------------");
             for (int i = 0; i < q.Count; i++)
@@ -40,6 +41,7 @@ namespace Piaskownica
             {
                 Console.Write(e.GetConnections(i).Count + "   ");
             }
+            */
             // List<List<int>> lista = Directed.circuts(q);
             //SGraphMatrix e = Directed.Smaxspojny(q,lista);
             /*

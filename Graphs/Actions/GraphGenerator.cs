@@ -137,6 +137,13 @@ namespace Graphs.Actions
             }
             return Converter.ConvertToMatrix(temp);
         }
+        /// <summary>
+        /// Zwraca nowy graf losowo wazony
+        /// </summary>
+        /// <param name="f">graf do uwagowienia</param>
+        /// <param name="minWeight"></param>
+        /// <param name="maxWeight"></param>
+        /// <returns></returns>
         public static GraphMatrix CreateRandomWeights(GraphMatrix f, int minWeight = 1, int maxWeight = 10)
         {
             GraphMatrix ret = new GraphMatrix(f.NodesNr);
@@ -147,7 +154,7 @@ namespace Graphs.Actions
                     if (f.GetConnection(k, p))
                     {
                         ret.MakeConnection(k, p);
-                        ret.setWeight(k, p, r.Next(maxWeight) + 1);
+                        ret.setWeight(k, p, r.Next(maxWeight) + minWeight);
                     }
             return ret;
         }

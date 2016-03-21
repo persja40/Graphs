@@ -43,7 +43,7 @@ namespace Graphs.Actions
         /// <param name="graph">Graf</param>
         /// <param name="node">Wezel poczatkowy ( moze byc podany dowolny patrz "sciezka eulera")</param>
         /// <returns>
-        /// lista, w ktorej elemety sa posortowane zgodnie z kolejnoscia w sciezce wezel startowy/koncowy wystepuje tylko na poczatku listy
+        /// lista, w ktorej elemety sa posortowane zgodnie z kolejnoscia w sciezce wezel startowy/koncowy wystepuje na poczatku i koncu listy
         /// Zwroci null kiedy graf nie ma sciezki eulera => nie jest eulerowski
         /// </returns>
         public static List<int> EulerianPath(GraphMatrix graph, int node = 0)
