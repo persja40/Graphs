@@ -1,0 +1,44 @@
+﻿<Window x:Class="Graphs.Windows.Project2.IsGraphical"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Graphs.Windows.Project2"
+        xmlns:vc="clr-namespace:Graphs.ValueConverters"
+        xmlns:val="clr-namespace:Graphs.Validations"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Title="IsGraphical" Height="85" Width="300" MaxHeight="85" MinHeight="85">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label>Example "1 1"</Label>
+        <TextBox Name="DegreesTextBox" Grid.Row="1">
+            <TextBox.Text>
+                <Binding Path="Degrees">
+                    <Binding.Converter>
+                        <vc:StringListIntValueConverter/>
+                    </Binding.Converter>
+                    <Binding.ValidationRules>
+                        <!--<val:GraphListValidationRule/>-->
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="Background" Value="Red"/>
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+
+        </TextBox>
+        <Button Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Close">Ok</Button>
+    </Grid>
+</Window>

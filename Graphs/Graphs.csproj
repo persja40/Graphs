@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MoreLinq, Version=1.4.18916.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.1.4.0\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -58,25 +62,40 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\Converter.cs" />
+    <Compile Include="Actions\Directed.cs" />
     <Compile Include="Actions\EulerGraph.cs" />
     <Compile Include="Actions\GraphGenerator.cs" />
     <Compile Include="Actions\GraphRenderer.cs" />
     <Compile Include="Actions\Hamilton.cs" />
     <Compile Include="Actions\Misc.cs" />
+    <Compile Include="Actions\PathFinding.cs" />
     <Compile Include="Authors.xaml.cs">
       <DependentUpon>Authors.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\Edge.cs" />
+    <Compile Include="Data\BasesAndInterfaces\GraphBase.cs" />
     <Compile Include="Data\GraphList.cs" />
+    <Compile Include="Data\BasesAndInterfaces\GraphListBase.cs" />
     <Compile Include="Data\GraphMatrix.cs" />
+    <Compile Include="Data\BasesAndInterfaces\GraphMatrixBase.cs" />
     <Compile Include="Data\GraphMatrixInc.cs" />
+    <Compile Include="Data\BasesAndInterfaces\GraphMatrixIncBase.cs" />
     <Compile Include="Data\GraphModel.cs" />
     <Compile Include="Actions\GraphLoad.cs" />
+    <Compile Include="Data\DirectedGraphList.cs" />
+    <Compile Include="Data\DirectedGraphMatrix.cs" />
+    <Compile Include="Data\DirectedGraphMatrixInc.cs" />
+    <Compile Include="Data\BasesAndInterfaces\IGraph.cs" />
+    <Compile Include="Data\BasesAndInterfaces\IGraphList.cs" />
+    <Compile Include="Data\BasesAndInterfaces\IGraphMatrix.cs" />
+    <Compile Include="Data\BasesAndInterfaces\IGraphMatrixInc.cs" />
+    <Compile Include="Extensions\RandomExtension.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\AppdataHelper.cs" />
     <Compile Include="Helpers\SaveLoadWindowHelper.cs" />
     <Compile Include="Misc\Debugers.cs" />
     <Compile Include="Misc\Delegates.cs" />
+    <Compile Include="Misc\Utils.cs" />
     <Compile Include="Project1Window.xaml.cs">
       <DependentUpon>Project1Window.xaml</DependentUpon>
     </Compile>
@@ -117,8 +136,11 @@
       <DependentUpon>Triangle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validations\GraphListValidationRule.cs" />
+    <Compile Include="Validations\IntValidationRule.cs" />
+    <Compile Include="Validations\StringListIntValidationRule.cs" />
     <Compile Include="ValueConverters\GraphListValueConverter.cs" />
     <Compile Include="ValueConverters\IntBoolValueConverter.cs" />
+    <Compile Include="ValueConverters\StringListIntValueConverter.cs" />
     <Compile Include="ViewModels\CircleViewModel.cs" />
     <Compile Include="ViewModels\GraphListItemViewModel.cs" />
     <Compile Include="ViewModels\GraphListViewModel.cs" />
@@ -134,6 +156,18 @@
     </Compile>
     <Compile Include="Windows\Generators\SecondGenerator.xaml.cs">
       <DependentUpon>SecondGenerator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Project2\CreateEulerWindow.xaml.cs">
+      <DependentUpon>CreateEulerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Project2\CreateRegularWindow.xaml.cs">
+      <DependentUpon>CreateRegularWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Project2\IsGraphical.xaml.cs">
+      <DependentUpon>IsGraphical.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Project3\Dijkstra.xaml.cs">
+      <DependentUpon>Dijkstra.xaml</DependentUpon>
     </Compile>
     <Page Include="Authors.xaml">
       <SubType>Designer</SubType>
@@ -215,6 +249,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\Project2\CreateEulerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Project2\CreateRegularWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Project2\IsGraphical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Project3\Dijkstra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -234,6 +284,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Data\hierarchyDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -252,6 +304,7 @@
     <Resource Include="Images\dice.png" />
     <Content Include="Images\exit.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

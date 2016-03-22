@@ -1,56 +1,54 @@
-﻿using System;
+﻿using Graphs.Misc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
-using Graphs.Misc;
-using Graphs.Actions;
 
 namespace Graphs.Data
 {
-    public class GraphMatrix : GraphMatrixBase
+    public class DirectedGraphMatrix : GraphMatrixBase
     {
-        public GraphMatrix(int nodes)
+        public DirectedGraphMatrix(int nodes)
         {
             nodesNr = nodes;
             connect = new int[nodesNr, nodesNr];
-            weights = new int[nodesNr, nodesNr];
         }
-        public GraphMatrix(int nodes, int[,] connections)
+        public DirectedGraphMatrix(int nodes, int[,] connections)
         {
             nodesNr = nodes;
             connect = new int[nodesNr, nodesNr];
-            weights = new int[nodesNr, nodesNr];
             for (int i = 0; i < nodesNr; i++)
                 for (int j = 0; j < nodesNr; j++)
-                {
                     connect[i, j] = connections[i, j];
-                    if (connections[i, j] == 1)
-                        weights[i, j] = 1;
-                }
         }
         public override void MakeConnection(int node1, int node2)
         {
-            weights[node2, node1] = weights[node1, node2] = connect[node1, node2] = connect[node2, node1] = 1;
+            MakeConnection(node1, node2, 1);
         }
         public override void RemoveConnection(int node1, int node2)
         {
-            connect[node1, node2] = connect[node2, node1] = weights[node2, node1] = weights[node1, node2] = 0;
+            connect[node1, node2] = 0;
+
+            //TODO : Remove any weights
+
             if (OnChange != null)
                 OnChange();
         }
 
-        public static implicit operator GraphList(GraphMatrix matrix)
+        public void MakeConnection(int node1, int node2, int weight)
         {
-            return Converter.ConvertToList(matrix);
+            connect[node1, node2] = 1;
+            throw new NotImplementedException();///////////////////////////////////////////////////
         }
 
-        public static implicit operator GraphMatrixInc(GraphMatrix matrix)
+        public int GetWeight(int node1, int node2)
         {
-            return Converter.ConvertToMatrixInc(matrix);
+            throw new NotImplementedException();
         }
-        public static GraphMatrix Free(GraphMatrix f)//czysci wolne wezly
+
+        /*
+        public static SGraphMatrix Free(SGraphMatrix f)//czysci wolne wezly
         {
             List<int> z = new List<int>();
             for (int i = 0; i < f.NodesNr; i++)
@@ -62,7 +60,7 @@ namespace Graphs.Data
                 if (suma == 0)
                     z.Add(i);
             }
-            GraphMatrix w = new GraphMatrix(f.NodesNr - z.Count);
+            SGraphMatrix w = new SGraphMatrix(f.NodesNr - z.Count);
             int k = 0;
             int l = 0;//litera ;)
             for (int i = 0; i < f.NodesNr; i++)
@@ -82,18 +80,15 @@ namespace Graphs.Data
             }
             return w;
         }
+        */
         public override int ConnectionCount
         {
             get
             {
-                int _ret = 0;
-                for (int i = 0; i < nodesNr; ++i)
-                    for (int j = i; j < nodesNr; ++j)
-                        if (GetConnection(i, j))
-                            _ret++;
-                return _ret;
+                throw new NotImplementedException();
+
             }
         }
+        
     }
-
 }

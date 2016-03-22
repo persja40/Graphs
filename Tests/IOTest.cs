@@ -50,7 +50,7 @@ namespace Tests
 
 
             Random rand = new Random();
-            for(int i = 0;i < 100; ++i)
+            for(int i = 0;i < 25; ++i)
             {
                 GraphMatrix matrix = GraphGenerator.generatorGnp(1000 + rand.Next(1000), 0.5);
                 GraphLoad.SaveMatrix(matrix, file);
@@ -66,8 +66,7 @@ namespace Tests
             var file = Path.Combine(AppDataDirectory, "tests\\test.list");
 
             Random rand = new Random();
-            for (int i = 0; i < 100; ++i)
-                for(int j = 0; j <100;++j)
+            for (int i = 0; i < 25; ++i)
             {
                 GraphMatrix matrix = GraphGenerator.generatorGnp(2 + rand.Next(i), 0.5);
                 GraphList list = Converter.ConvertToList(matrix);
@@ -84,7 +83,7 @@ namespace Tests
             var file = Path.Combine(AppDataDirectory, "tests\\test.inc");
 
             Random rand = new Random();
-            for (int i = 0; i < 100; ++i)
+            for (int i = 0; i < 25; ++i)
             {
                 GraphMatrix matrix = GraphGenerator.generatorGnp(10 + rand.Next(100), 0.5);
                 GraphMatrixInc inc = Converter.ConvertToMatrixInc(matrix);
