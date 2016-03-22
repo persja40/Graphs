@@ -28,12 +28,12 @@ namespace Graphs.Actions
                 if (currentNode == endNode)
                     return true;
                 else
-                    return false;
+                    return false; //dotarlismy do node'a ktory nie jest ostatni. Nie zaliczylismy sciezki Hamiltona
             }
 
 
             if (currentNode == endNode && previousNode != -1)
-                return false;
+                return false; //dotarlismy do ostatniego node'a nie odwiedzajac wszystkich node'ow
 
             var edges = Graph.GetEdgesList();
 
