@@ -196,6 +196,46 @@ namespace Graphs.Actions
                     rek(x, x.GetConnections(e)[i], z);
                 }
         }
+        /// <summary>
+        /// Tworzenie macierzy odleglosci pomiedzy wszystkimi parami wierzcholkow w grafie spojnym
+        /// </summary>
+        /// <param name="from"></param> Graf, w ktorym liczymy odleglosci miedzy wszystkimi parami wierzcholkow
+        /// <returns></returns> Macierz odleglosci miedzy wszystkimi parami wierzcholkow
+        public static int[,] distancesMatrix(GraphMatrix from)
+        {
+            GraphMatrix g = MakeSpojny(from);
+            int nodes = from.NodesNr;
+            int[,] distances = new int[nodes, nodes];
+            for (int i = 0; i < nodes; ++i)
+            {
+                for (int j = 0; j < nodes; ++j)
+                    distances[i, j] = 0;
+            }
+            for (int i = 0; i < nodes; ++i)
+            {
+                for(int j = 0; j < nodes; ++j)
+                {
+                    if (i == j) distances[i, j] = 0;
+                    else if (distances[i, j] != 0) continue;
+                    else
+                    {
+                        List<int> path = PathFinding.Dijkstra(g, i, j);
+                        distances[i, j] = distances[j, i] = path.Sum(x => x);
+                        path.Clear();
+                    }
+                }
+            }
+            return distances;
+                
+
+        }
+
+
+
+
     }
 }
+
+
+
 //x.GetConnections(e)[i]
