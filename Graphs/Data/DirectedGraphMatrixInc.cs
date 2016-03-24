@@ -40,7 +40,7 @@ namespace Graphs.Data
             if (node1 == node2)
                 return false;
             for (int i = 0; i < connectNr; i++)
-                if ((connect[node1, i] == 1) && (connect[node2, i] == 2))
+                if ((connect[node1, i] == 1) && (connect[node2, i] == -1))
                     return true;
             return false;
         }
