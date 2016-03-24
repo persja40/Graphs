@@ -15,6 +15,7 @@ namespace Graphs.Data
             connect = new List<int>[nodes];
             for (int i = 0; i < connect.Length; ++i)
                 connect[i] = new List<int>();
+            weights = new int[nodesNr, nodesNr];
         }
         
         /// <summary>
@@ -25,6 +26,7 @@ namespace Graphs.Data
         public override void MakeConnection(int node1, int node2)
         {
             connect[node1].Add(node2);
+            weights[node1, node2] = 1;
             if (OnChange != null)
                 OnChange();
         }
@@ -37,19 +39,9 @@ namespace Graphs.Data
         public override void RemoveConnection(int node1, int node2)
         {
             connect[node1].Remove(node2);
+            weights[node1, node2] = 0;
             if (OnChange != null)
                 OnChange();
         }
-        /*
-        public static implicit operator SGraphMatrix(SGraphList list)
-        {
-            return Converter.ConvertToSMatrix(list);
-        }
-
-        public static implicit operator SGraphMatrixInc(SGraphList list)
-        {
-            return Converter.ConvertToSMatrixInc(list);
-        }
-                */
     }
 }

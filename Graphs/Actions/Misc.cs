@@ -171,7 +171,8 @@ namespace Graphs.Actions
         /// </summary>
         /// <param name="from"></param>
         /// <returns></returns>
-        public static GraphMatrix MakeSpojny(GraphMatrix from) {
+        public static GraphMatrix MakeSpojny(GraphMatrix from)
+        {
             List<int> lista = ListaSpojny(from);
             GraphList wynik = new GraphList(from.NodesNr);
             for (int i = 0; i < lista.Count; i++)
@@ -213,7 +214,7 @@ namespace Graphs.Actions
             }
             for (int i = 0; i < nodes; ++i)
             {
-                for(int j = 0; j < nodes; ++j)
+                for (int j = 0; j < nodes; ++j)
                 {
                     if (i == j) distances[i, j] = 0;
                     else if (distances[i, j] != 0) continue;
@@ -226,7 +227,7 @@ namespace Graphs.Actions
                 }
             }
             return distances;
-                
+
 
         }
 

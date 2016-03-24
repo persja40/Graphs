@@ -14,6 +14,7 @@ namespace Graphs.Data
             nodesNr = nodes;
             connectNr = cons;
             connect = new int[nodesNr, connectNr];
+            weights = new int[nodesNr, nodesNr];
         }
         public DirectedGraphMatrixInc(int nodes, int cons, int[,] arr)
         {
@@ -23,11 +24,13 @@ namespace Graphs.Data
             for (int i = 0; i < nodesNr; i++)
                 for (int j = 0; j < connectNr; j++)
                     connect[i, j] = arr[i, j];
+            weights = new int[nodesNr, nodesNr];
         }
         public void MakeConnection(int node1, int node2, int con1)
         {
             connect[node1, con1] = 1;
-            connect[node2, con1] = 2;
+            connect[node2, con1] = -1;
+            weights[node1, node2] = 1;
             if (OnChange != null)
                 OnChange();
         }

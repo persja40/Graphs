@@ -13,6 +13,7 @@ namespace Graphs.Data
         {
             nodesNr = nodes;
             connect = new int[nodesNr, nodesNr];
+            weights = new int[nodesNr, nodesNr];
         }
         public DirectedGraphMatrix(int nodes, int[,] connections)
         {
@@ -21,6 +22,7 @@ namespace Graphs.Data
             for (int i = 0; i < nodesNr; i++)
                 for (int j = 0; j < nodesNr; j++)
                     connect[i, j] = connections[i, j];
+            weights = new int[nodesNr, nodesNr];
         }
         public override void MakeConnection(int node1, int node2)
         {
@@ -29,8 +31,7 @@ namespace Graphs.Data
         public override void RemoveConnection(int node1, int node2)
         {
             connect[node1, node2] = 0;
-
-            //TODO : Remove any weights
+            weights[node1, node2] = 0;
 
             if (OnChange != null)
                 OnChange();
@@ -39,48 +40,9 @@ namespace Graphs.Data
         public void MakeConnection(int node1, int node2, int weight)
         {
             connect[node1, node2] = 1;
-            throw new NotImplementedException();///////////////////////////////////////////////////
+            weights[node1, node2] = weight;
         }
 
-        public int GetWeight(int node1, int node2)
-        {
-            throw new NotImplementedException();
-        }
-
-        /*
-        public static SGraphMatrix Free(SGraphMatrix f)//czysci wolne wezly
-        {
-            List<int> z = new List<int>();
-            for (int i = 0; i < f.NodesNr; i++)
-            {
-                int suma = 0;
-                for (int j = 0; j < f.NodesNr; j++)
-                    if (f.GetConnection(i, j))
-                        suma++;
-                if (suma == 0)
-                    z.Add(i);
-            }
-            SGraphMatrix w = new SGraphMatrix(f.NodesNr - z.Count);
-            int k = 0;
-            int l = 0;//litera ;)
-            for (int i = 0; i < f.NodesNr; i++)
-            {
-                if (z.Contains(i))
-                    continue;
-                l = 0;
-                for (int j = 0; j < f.NodesNr; j++)
-                {
-                    if (z.Contains(j))
-                        continue;
-                    if (f.GetConnection(i, j))
-                        w.MakeConnection(k, l);
-                    l++;
-                }
-                k++;
-            }
-            return w;
-        }
-        */
         public override int ConnectionCount
         {
             get
