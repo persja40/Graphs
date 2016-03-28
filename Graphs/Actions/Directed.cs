@@ -12,6 +12,65 @@ namespace Graphs.Actions
     public class Directed
     {
         /// <summary>
+        /// Wyznacza wage polaczenia
+        /// </summary>
+        /// <param name="g">graf</param>
+        /// <param name="list">sciezka</param>
+        /// <returns></returns>
+        public static int pathWeight(GraphMatrix g, List<int> list)
+        {
+            int sum = 0;
+            for (int i = 0; i < list.Count - 1; i++)
+                sum += g.getWeight(i, i + 1);
+            return sum;
+        }
+        /// <summary>
+        /// Bellman ford
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="start">skad</param>
+        /// <param name="finish">dokad</param>
+        /// <returns>lista wierzcholkow po ktorych otrzymamy najkrotsza sciezke</returns>
+        public static List<int> BellmanFord(GraphMatrix g, int start, int finish)
+        {
+            const int INF = int.MaxValue - 1000;//uzywam jako nieskonczonosci
+            var map = new Dictionary<int, Tuple<int, int>>();//nr wierzch. < odleglosc, skad przyszedl >
+            for (int i = 0; i < g.NodesNr; i++)
+                if (i == start)
+                    map.Add(i, new Tuple<int, int>(0, -1));
+                else
+                    map.Add(i, new Tuple<int, int>(INF, -1));
+
+            var con = new List<Tuple<int, int, int>>();//lista polaczen skad / dokad / waga
+            for (int i = 0; i < g.NodesNr; i++)
+                for (int j = 0; j < g.NodesNr; j++)
+                    if (g.GetConnection(i, j))
+                        con.Add(new Tuple<int, int, int>(i, j, g.getWeight(i, j)));
+
+            for (int i = 0; i < g.NodesNr - 1; i++)
+                for (int j = 0; j < con.Count; j++)
+                {
+                    if (map[con[j].Item2].Item1 == INF && map[con[j].Item1].Item1 == INF)//pozbywam sie operacji na nieskonczonosciach
+                        continue;
+                    if (map[con[j].Item2].Item1 > map[con[j].Item1].Item1 + con[j].Item3)//relaksacja
+                        map[con[j].Item2] = new Tuple<int, int>(map[con[j].Item1].Item1 + con[j].Item3, con[j].Item1);
+                }
+
+            List<int> path = new List<int>();
+            recBellman(map, path, start, finish);//sciezke otrzymamy od konca
+            path.Reverse();
+            return path;
+        }
+        /// <summary>
+        /// Tworzy rekurencyjnie sciezke
+        /// </summary>
+        private static void recBellman(Dictionary<int, Tuple<int, int>> map, List<int> list, int st, int fin)
+        {
+            list.Add(fin);
+            if (map[fin].Item2 != st)
+                recBellman(map, list, map[fin].Item2, fin);
+        }
+        /// <summary>
         /// Czy w grafie wystepuje ujemny cykl
         /// </summary>
         /// <param name="x"></param>
@@ -174,7 +233,7 @@ namespace Graphs.Actions
             }
         }
         /// <summary>
-        /// szukanie cykli na grafie przy uzyciu kolorowanie wierzch. na bialo/szaro/aczarno
+        /// szukanie cykli na grafie przy uzyciu kolorowanie wierzch. na bialo/szaro/czarno
         /// </summary>
         /// <param name="x"></param>
         /// <param name="white"></param>
