@@ -51,9 +51,9 @@ namespace Graphs.Data
         {
             return weights[n1, n2];
         }
-        public void setWeight(int n1, int n2, int val)
+        public virtual void setWeight(int n1, int n2, int val)
         {
-            weights[n1, n2] = val;
+            weights[n1, n2] = weights[n2, n1] = val;
         }
 
         public List<int> GetDegreeSequence()
