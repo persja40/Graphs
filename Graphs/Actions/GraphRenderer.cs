@@ -30,13 +30,13 @@ namespace Graphs.Actions
         }
         public GraphControl GraphControl { get; set; }
 
-        private MainWindowViewModel vm = null;
+        private MainWindowViewModel mainWindowVM = null;
 
         public GraphRenderer(GraphMatrix Graph, GraphControl GraphControl, MainWindowViewModel vm)
         {
             this.GraphControl = GraphControl;
             this.Graph = Graph;
-            this.vm = vm;
+            this.mainWindowVM = vm;
         }
 
         private void onGraphChange()
@@ -46,7 +46,7 @@ namespace Graphs.Actions
 
         public void Render()
         {
-            if (this.vm.RegenerateGraphView == false)
+            if (this.mainWindowVM.RegenerateGraphView == false)
                 return;
             GraphViewModel vm = new GraphViewModel();
             double r = Math.Sqrt(Math.Pow(GraphControl.ActualHeight, 1.8) + Math.Pow(GraphControl.ActualWidth, 1.8)) / 20;
@@ -69,6 +69,7 @@ namespace Graphs.Actions
                 });
             }
 
+
             for (int y = 0; y < Graph.NodesNr; ++y)
                 for (int x = 0; x < Graph.NodesNr; ++x)
                 {
@@ -83,6 +84,14 @@ namespace Graphs.Actions
                     double x2 = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r) * Math.Cos(arc2);
                     double y2 = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r) * Math.Sin(arc2);
 
+                    int weight = Graph.getWeight(x, y);
+
+                    byte redBrightness = 0;
+                    if(mainWindowVM.ShowWeights)
+                    {
+                        redBrightness = (byte)((double)weight / (double)Graph.MaxWeight * 255.0);
+                    }
+
                     LineViewModel lineVM = new LineViewModel()
                     {
                         X1 = x1,
@@ -90,10 +99,24 @@ namespace Graphs.Actions
                         X2 = x2,
                         Y2 = y2,
                         Node1 = x,
-                        Node2 = y
+                        Node2 = y,
+                        Color = Color.FromRgb(redBrightness, 0, 0)
                     };
-
                     vm.Connections.Add(lineVM);
+
+                    if (mainWindowVM.ShowWeights)
+                    {
+                        LineViewModel hintVM = new LineViewModel(lineVM)
+                        {
+                            Hint = string.Format("Weight : {0}", weight),
+                            Color = Colors.Transparent,
+                            Thickness = 8
+                        };
+
+                        vm.Connections.Add(hintVM);
+                    }
+
+                    
                 }
 
             GraphControl.VM = vm;

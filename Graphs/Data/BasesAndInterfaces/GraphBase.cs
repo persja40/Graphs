@@ -11,6 +11,16 @@ namespace Graphs.Data
     {
         protected int nodesNr;
 
+        public GraphBase()
+        {
+            OnChange += Reset;
+        }
+
+        private void Reset()
+        {
+            maxWeight = null;
+        }
+
         public int NodesNr
         {
             get
@@ -60,6 +70,25 @@ namespace Graphs.Data
 
 
         public OnChange OnChange { get; set; }
+
+        private int? maxWeight = null;
+        public int MaxWeight
+        {
+            get
+            {
+                if (maxWeight != null)
+                    return maxWeight.Value;
+                else
+                    maxWeight = int.MinValue;
+                for(int startNode = 0; startNode < NodesNr; ++ startNode)
+                    for(int endNode = 0; endNode < NodesNr; ++endNode)
+                    {
+                        maxWeight = Math.Max(maxWeight.Value, getWeight(startNode, endNode));
+                    }
+                return maxWeight.Value;
+            }
+        }
+
         public abstract bool GetConnection(int node1, int node2);
         public abstract void MakeConnection(int node1, int node2);
         public abstract void RemoveConnection(int node1, int node2);

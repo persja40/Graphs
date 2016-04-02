@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Graphs.Misc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,6 @@ namespace Graphs.ViewModels
         public bool RegenerateMatrix { get; set; } = true;
         public bool RegenerateMatrixInc { get; set; } = true;
         public bool RegenerateList { get; set; } = true;
+        public bool ShowWeights { get; set; } = true;
     }
 }

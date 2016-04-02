@@ -20,7 +20,7 @@ namespace Graphs.Data
                     if (other.GetConnection(x, y))
                     {
                         MakeConnection(x, y);
-                        int weight = getWeight(x, y);
+                        int weight = other.getWeight(x, y);
                         setWeight(x, y, weight);
                     }
                 }

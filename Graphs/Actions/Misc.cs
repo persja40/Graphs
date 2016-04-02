@@ -171,8 +171,7 @@ namespace Graphs.Actions
         /// </summary>
         /// <param name="from"></param>
         /// <returns></returns>
-        public static GraphMatrix MakeSpojny(GraphMatrix from)
-        {
+        public static GraphMatrix CreateBiggestCoherent(GraphMatrix from) {
             List<int> lista = ListaSpojny(from);
             GraphList wynik = new GraphList(from.NodesNr);
             for (int i = 0; i < lista.Count; i++)
@@ -197,121 +196,6 @@ namespace Graphs.Actions
                     rek(x, x.GetConnections(e)[i], z);
                 }
         }
-        /// <summary>
-        /// Tworzenie macierzy odleglosci pomiedzy wszystkimi parami wierzcholkow w grafie spojnym
-        /// </summary>
-        /// <param name="from"></param> Graf, w ktorym liczymy odleglosci miedzy wszystkimi parami wierzcholkow
-        /// <returns></returns> Macierz odleglosci miedzy wszystkimi parami wierzcholkow
-        public static int[,] distancesMatrix(GraphMatrix from)
-        {
-            GraphMatrix g = MakeSpojny(from);
-            int nodes = g.NodesNr;
-            int[,] distances = new int[nodes, nodes];
-            List<int> path = new List<int>();
-            for (int i = 0; i < nodes; ++i)
-            {
-                for (int j = 0; j < nodes; ++j)
-                    distances[i, j] = 0;
-            }
-            for (int i = 0; i < nodes; ++i)
-            {
-                for (int j = 0; j < nodes; ++j)
-                {
-                    if (i == j) distances[i, j] = 0;
-                    else if (distances[i, j] != 0) continue;
-                    else
-                    {
-                        path = PathFinding.Dijkstra(g, i, j);
-                        distances[i, j] = distances[j, i] = path.Sum(x => x);
-                        path.Clear();
-                    }
-                }
-            }
-            return distances;
-
-
-        }
-
-        /// <summary>
-        ///  Wyznaczanie centrum grafu
-        /// </summary>
-        /// <param name="from"></param>
-        /// <returns></returns> Indeks wierzcholka, ktory stanowi centrum grafu
-        public static int graphCentrum(GraphMatrix from)
-        {
-            GraphMatrix g = MakeSpojny(from);
-            int nodes = g.NodesNr;
-            int[,] distances = distancesMatrix(g);
-            int min_id = 0;
-            int wart = 1000;
-            int suma = 0;
-
-            for (int i = 0; i < nodes; ++i)
-            {
-                for(int j = 0; j < nodes; ++j)
-                {
-                    suma += distances[i, j];
-                    if( suma < wart )
-                    {
-
-                        wart = suma;
-                        min_id = i;
-                    }
-                    suma = 0;
-                }
-            }
-
-            return min_id;
-        }
-
-        /// <summary>
-        /// Wyznaczenie centrum minimax grafu
-        /// </summary>
-        /// <param name="from"></param>
-        /// <returns></returns> Indeks wierzcholka, ktory stanowi centrum minimax grafu
-        public static int graphCentrumMinimax(GraphMatrix from)
-        {
-            GraphMatrix g = MakeSpojny(from);
-            int nodes = g.NodesNr;
-            int[,] distances = distancesMatrix(g);
-            int[] max = new int[nodes];
-            int wart = -1;
-            int min_id = 0;
-
-
-            for (int i = 0; i < nodes; ++i)
-            {
-                wart = -1;
-                for (int j = 0; j < nodes; ++j)
-                {
-                    if (distances[i, j] > wart)
-                    {
-                        wart = distances[i, j];
-                        max[i] = distances[i, j];
-                    }
-
-                }
-
-            }
-
-
-            wart = 1000;
-            for (int i = 0; i < nodes; ++i)
-            {
-                if (max[i] < wart)
-                {
-                    wart = max[i];
-                    min_id = i;
-                }
-            }
-
-            return min_id;
-        }
-
-
     }
 }
-
-
-
 //x.GetConnections(e)[i]
