@@ -11,6 +11,71 @@ namespace Graphs.Actions
 {
     public class Directed
     {
+        /// <summary>
+        /// Wyznacza wage polaczenia
+        /// </summary>
+        /// <param name="g">graf</param>
+        /// <param name="list">sciezka</param>
+        /// <returns></returns>
+        public static int pathWeight(GraphMatrix g, List<int> list)
+        {
+            int sum = 0;
+            for (int i = 0; i < list.Count - 1; i++)
+                sum += g.getWeight(i, i + 1);
+            return sum;
+        }
+        /// <summary>
+        /// Bellman ford
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="start">skad</param>
+        /// <param name="finish">dokad</param>
+        /// <returns>lista wierzcholkow po ktorych otrzymamy najkrotsza sciezke</returns>
+        public static List<int> BellmanFord(GraphMatrix g, int start, int finish)
+        {
+            const int INF = int.MaxValue - 1000;//uzywam jako nieskonczonosci
+            var map = new Dictionary<int, Tuple<int, int>>();//nr wierzch. < odleglosc, skad przyszedl >
+            for (int i = 0; i < g.NodesNr; i++)
+                if (i == start)
+                    map.Add(i, new Tuple<int, int>(0, -1));
+                else
+                    map.Add(i, new Tuple<int, int>(INF, -1));
+
+            var con = new List<Tuple<int, int, int>>();//lista polaczen skad / dokad / waga
+            for (int i = 0; i < g.NodesNr; i++)
+                for (int j = 0; j < g.NodesNr; j++)
+                    if (g.GetConnection(i, j))
+                        con.Add(new Tuple<int, int, int>(i, j, g.getWeight(i, j)));
+
+            for (int i = 0; i < g.NodesNr - 1; i++)
+                for (int j = 0; j < con.Count; j++)
+                {
+                    if (map[con[j].Item2].Item1 == INF && map[con[j].Item1].Item1 == INF)//pozbywam sie operacji na nieskonczonosciach
+                        continue;
+                    if (map[con[j].Item2].Item1 > map[con[j].Item1].Item1 + con[j].Item3)//relaksacja
+                        map[con[j].Item2] = new Tuple<int, int>(map[con[j].Item1].Item1 + con[j].Item3, con[j].Item1);
+                }
+
+            List<int> path = new List<int>();
+            recBellman(map, path, start, finish);//sciezke otrzymamy od konca
+            path.Reverse();
+            return path;
+        }
+        /// <summary>
+        /// Tworzy rekurencyjnie sciezke
+        /// </summary>
+        private static void recBellman(Dictionary<int, Tuple<int, int>> map, List<int> list, int st, int fin)
+        {
+            list.Add(fin);
+            if (map[fin].Item2 != st)
+                recBellman(map, list, map[fin].Item2, fin);
+        }
+        /// <summary>
+        /// Czy w grafie wystepuje ujemny cykl
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="w"></param>
+        /// <returns></returns>
         public static bool ujemnyCykl(DirectedGraphMatrix x, int[,] w)
         {
             List<List<int>> l = circuts(x);
@@ -18,12 +83,18 @@ namespace Graphs.Actions
             {
                 int sum = 0;
                 for (int j = 0; j < l[i].Count - 1; j++)
-                    sum += w[l[i][j], l[i][j+1]];
+                    sum += w[l[i][j], l[i][j + 1]];
                 if (sum < 0)
                     return true;
             }
             return false;
         }
+        /// <summary>
+        /// Transpozycja macierzy sasiedztwa
+        /// potrzebna do algorytmu Kosaraju
+        /// </summary>
+        /// <param name="from"></param>
+        /// <returns>Graf z transponowana macierza sasiedztwa</returns>
         public static DirectedGraphMatrix transpose(DirectedGraphMatrix from)
         {
             int[,] t = new int[from.NodesNr, from.NodesNr];
@@ -35,8 +106,14 @@ namespace Graphs.Actions
                         t[j, i] = 0;
             return new DirectedGraphMatrix(from.NodesNr, t);
         }
-        public static DirectedGraphMatrix Directedmaxspojny(DirectedGraphMatrix f, List<List<int>> sp)
+        /// <summary>
+        /// Tworzy graf maxymalnie spojny
+        /// </summary>
+        /// <param name="f">graf</param>
+        /// <returns>max spojny graf</returns>
+        public static DirectedGraphMatrix Directedmaxspojny(DirectedGraphMatrix f)
         {
+            List<List<int>> sp = spojne(f);
             int k = 0;
             for (int i = 0; i < sp.Count; i++)
                 if (sp[i].Count >= sp[k].Count)
@@ -62,7 +139,12 @@ namespace Graphs.Actions
             }
             return new DirectedGraphMatrix(q.Count, t);
         }
-        public static List<List<int>> circuts(DirectedGraphMatrix f)//zwraca liste cykli(ktore sa listami)
+        /// <summary>
+        /// Szukanie cykli na grafie
+        /// </summary>
+        /// <param name="f">graf</param>
+        /// <returns>Lista cykli(lista)</returns>
+        public static List<List<int>> circuts(DirectedGraphMatrix f)
         {
             DirectedGraphList li = Converter.ConvertToSList(f);
             List<List<int>> cycle = new List<List<int>>();
@@ -80,6 +162,11 @@ namespace Graphs.Actions
                     cycle[i].Remove(cycle[i][0]);
             return cycle;
         }
+        /// <summary>
+        /// Tworzy Liste wszystkich spojnych skladowych
+        /// </summary>
+        /// <param name="f">graf</param>
+        /// <returns>lista spojnych</returns>
         public static List<List<int>> spojne(DirectedGraphMatrix f)
         {
             List<int> stark = new List<int>();
@@ -101,13 +188,14 @@ namespace Graphs.Actions
             return lista;
         }
         /// <summary>
-        /// 
+        /// Algorytm Kosaraju
+        /// stark by finish time
         /// </summary>
         /// <param name="x">graf</param>
         /// <param name="elem">element z ktorego zaczynamy przeszukiwanie</param>
-        /// <param name="st"></param>
-        /// <param name="vis"></param>
-        private static void rek(DirectedGraphList x, int elem, List<int> st, bool[] vis)//stark by finish time
+        /// <param name="st">stark by finish time list</param>
+        /// <param name="vis">lista odwiedzonych wierzcholkow</param>
+        private static void rek(DirectedGraphList x, int elem, List<int> st, bool[] vis)
         {
             vis[elem] = true;
             for (int i = 0; i < x.CountElem(elem); i++)
@@ -116,7 +204,17 @@ namespace Graphs.Actions
             if (!st.Contains(elem))
                 st.Add(elem);
         }
-        private static void rek2(DirectedGraphList x, int elem, List<int> st, bool[] vis, List<List<int>> lista, ref int ind)//tworzenie list spojnosci
+        /// <summary>
+        /// Algorytm Kosaraju cd 
+        /// odtwarzanie spojnych z listy
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="elem">aktualny wierzcholek,w ktorym jestesmy</param>
+        /// <param name="st">stark by finish time list</param>
+        /// <param name="vis">lista odwiedzonych wierzcholkow</param>
+        /// <param name="lista">lista spojnych</param>
+        /// <param name="ind">lista o ktorym indeksie jest teraz obslugiwana</param>
+        private static void rek2(DirectedGraphList x, int elem, List<int> st, bool[] vis, List<List<int>> lista, ref int ind)
         {
             if (vis[elem])
             {
@@ -134,7 +232,17 @@ namespace Graphs.Actions
                 lista.Add(new List<int>());
             }
         }
-        private static void rekc(DirectedGraphList x, List<int> white, List<int> grey, List<int> black, List<List<int>> cyc, List<int> temp, int elem)//szukanie sykli
+        /// <summary>
+        /// szukanie cykli na grafie przy uzyciu kolorowanie wierzch. na bialo/szaro/czarno
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="white"></param>
+        /// <param name="grey"></param>
+        /// <param name="black"></param>
+        /// <param name="cyc">lista z cyklami, ktorych szukamy</param>
+        /// <param name="temp">lista z aktualnym cyklem</param>
+        /// <param name="elem">aktualny wierzcholek,w ktorym jestesmy</param>
+        private static void rekc(DirectedGraphList x, List<int> white, List<int> grey, List<int> black, List<List<int>> cyc, List<int> temp, int elem)
         {
             if (black.Contains(elem))
                 return;

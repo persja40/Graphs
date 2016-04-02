@@ -78,8 +78,11 @@ namespace Graphs.Actions
             DirectedGraphMatrix x = new DirectedGraphMatrix(from.NodesNr);
             for (int i = 0; i < from.NodesNr; i++)
                 for (int j = 0; j < from.NodesNr; j++)
+                {
                     if (from.GetConnection(i, j))
                         x.MakeConnection(i, j);
+                    x.setWeight(i, j, from.getWeight(i, j));
+                }
             return x;
         }
         public static DirectedGraphList ConvertToSList(DirectedGraphMatrix from)
@@ -87,8 +90,11 @@ namespace Graphs.Actions
             DirectedGraphList x = new DirectedGraphList(from.NodesNr);
             for (int i = 0; i < from.NodesNr; i++)
                 for (int j = 0; j < from.NodesNr; j++)
+                {
                     if (from.GetConnection(i, j))
                         x.MakeConnection(i, j);
+                    x.setWeight(i, j, from.getWeight(i, j));
+                }
             return x;
         }
         public static DirectedGraphMatrixInc ConvertToSMatrixInc(DirectedGraphList from)
@@ -97,14 +103,16 @@ namespace Graphs.Actions
             for (int i = 0; i < from.NodesNr; i++)
                 sumc += from.CountElem(i);
             int c = 0;
-            DirectedGraphMatrixInc x = new DirectedGraphMatrixInc(from.NodesNr,sumc);
+            DirectedGraphMatrixInc x = new DirectedGraphMatrixInc(from.NodesNr, sumc);
             for (int i = 0; i < from.NodesNr; i++)//pobiera po kolei elementy, dodaje do matrixinc i usuwa z listy
-                for (int j = 0; j < from.NodesNr; j++)               
+                for (int j = 0; j < from.NodesNr; j++)
                     if (from.GetConnection(i, j))
                     {
+                        x.setWeight(i, j, from.getWeight(i, j));
                         x.MakeConnection(i, j, c);
                         c++;
                         from.RemoveConnection(i, j);
+
                     }
             return x;
         }
