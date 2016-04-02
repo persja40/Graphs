@@ -205,9 +205,13 @@ namespace Graphs.Actions
         public static int[,] distancesMatrix(GraphMatrix from)
         {
             GraphMatrix g = CreateBiggestCoherent(from);
-            int nodes = g.NodesNr;
+            GraphMatrix graph = GraphGenerator.CreateRandomWeights(g);
+            int nodes = graph.NodesNr;
             int[,] distances = new int[nodes, nodes];
             List<int> path = new List<int>();
+            int total_dist = 0;
+            int dist = 0;
+
             for (int i = 0; i < nodes; ++i)
             {
                 for (int j = 0; j < nodes; ++j)
@@ -221,15 +225,22 @@ namespace Graphs.Actions
                     else if (distances[i, j] != 0) continue;
                     else
                     {
-                        path = PathFinding.Dijkstra(g, i, j);
-                        distances[i, j] = distances[j, i] = path.Sum(x => x);
-                        path.Clear();
+                        path = PathFinding.Dijkstra(graph, i, j);
+                        if (path.Count == 1) distances[i, j] = distances[j, i] = graph.getWeight(i, path[0]);
+                        else {
+                            for (int k = 0; k < path.Count - 1; ++k)
+                            {
+                                dist += graph.getWeight(path[k], path[k + 1]);
+                            }
+                            total_dist = dist + graph.getWeight(i, path[0]);
+                            distances[i, j] = distances[j, i] = total_dist;
+                            total_dist = dist = 0;
+                            path.Clear();
+                        }
                     }
                 }
             }
             return distances;
-
-
         }
 
         /// <summary>
