@@ -40,13 +40,14 @@ namespace Graphs
         {
             InitializeComponent();
 
-            Graph = new GraphMatrix(5);
+            Graph = GraphGenerator.generatorRegular(2);
 
             GraphRenderer = new GraphRenderer(Graph, GraphControl, VM);
 
             GraphListControl.DataContext = new GraphListViewModel();
 
             GraphControl.OnTwoNodeClickEvent += ConnectTwoNodes;
+
 
             Graph.OnChange += onGraphChange;
             onGraphChange();
