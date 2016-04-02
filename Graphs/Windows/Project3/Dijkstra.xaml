@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Graphs.Windows.Project3"
         mc:Ignorable="d"
+         WindowStyle="None"
         Title="Dijkstra" Height="150" Width="200" MinHeight="150" MinWidth="200" MaxHeight="150" MaxWidth="300">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,13 +16,13 @@
 
         <DockPanel>
             <Label DockPanel.Dock="Left" MinWidth="75">Start Node :</Label>
-            <TextBox DockPanel.Dock="left" Name="StartNodeTextBox"></TextBox>
+            <TextBox DockPanel.Dock="left" Name="StartNodeTextBox" Text="{Binding StartNode}"></TextBox>
         </DockPanel>
 
         <DockPanel Grid.Row="1">
             <Label DockPanel.Dock="Left" MinWidth="75">End Node :</Label>
-            <TextBox DockPanel.Dock="left" Name="EndNodeTextBox"></TextBox>
+            <TextBox DockPanel.Dock="left" Name="EndNodeTextBox" Text="{Binding EndNode}"></TextBox>
         </DockPanel>
-        <Button  Grid.Row="2" Padding="25,1" Margin="0,15,0,5" HorizontalAlignment="Center" VerticalAlignment="Center">Find path</Button>
+        <Button  Grid.Row="2" Padding="25,1" Margin="0,15,0,5" HorizontalAlignment="Center" VerticalAlignment="Center" Click="CloseWindow">Find path</Button>
     </Grid>
 </Window>

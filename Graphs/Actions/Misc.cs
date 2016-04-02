@@ -171,7 +171,7 @@ namespace Graphs.Actions
         /// </summary>
         /// <param name="from"></param>
         /// <returns></returns>
-        public static GraphMatrix MakeSpojny(GraphMatrix from) {
+        public static GraphMatrix CreateBiggestCoherent(GraphMatrix from) {
             List<int> lista = ListaSpojny(from);
             GraphList wynik = new GraphList(from.NodesNr);
             for (int i = 0; i < lista.Count; i++)

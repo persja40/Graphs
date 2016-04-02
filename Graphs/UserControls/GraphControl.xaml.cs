@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace Graphs.UserControls
 {
     public delegate void OnTwoNodeClick(int node1, int node2);
-
+    public delegate void OnLineClick(LineViewModel lineVM);
     /// <summary>
     /// Interaction logic for GraphControl.xaml
     /// </summary>
@@ -28,6 +28,7 @@ namespace Graphs.UserControls
         CircleViewModel node1 = null, node2 = null;
 
         public OnTwoNodeClick OnTwoNodeClickEvent { get; set; }
+        public OnLineClick OnLineClick { get; set; }
 
         public GraphViewModel VM
         {
@@ -82,8 +83,15 @@ namespace Graphs.UserControls
             {
                 Line line = new Line();
                 line.DataContext = connection;
+                line.MouseDoubleClick += Line_MouseDoubleClick;
                 MyCanvas.Children.Add(line);
             }
+        }
+
+        private void Line_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            LineViewModel vm = (sender as Line).DataContext as LineViewModel;
+            OnLineClick(vm);
         }
 
         private void Draw()

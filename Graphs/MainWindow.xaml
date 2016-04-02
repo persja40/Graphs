@@ -51,12 +51,16 @@
                 </MenuItem>
                 <MenuItem Header="Generate k-regular" Click="GenerateKRegular"/>
             </MenuItem>
-            <MenuItem Header="Projekt3"></MenuItem>
+            <MenuItem Header="Projekt3">
+                <MenuItem Header="Create Random Weights" Click="CreateRandomWeights"/>
+                <MenuItem Header="Dijkstra" Click="CalculateDijkstra" />
+            </MenuItem>
             <MenuItem Header="_Widok">
                 <MenuItem Header="Regenerate graph view" IsCheckable="True" IsChecked="{Binding RegenerateGraphView}" Checked="OnRederTurnOn" Unchecked="OnRederTurnOff"  />
                 <MenuItem Header="Regenerate matrix" IsCheckable="True" IsChecked="{Binding RegenerateMatrix}" />
                 <MenuItem Header="Regenerate incidency matrix" IsCheckable="True" IsChecked="{Binding RegenerateMatrixInc}" />
                 <MenuItem Header="Regenerate list" IsCheckable="True" IsChecked="{Binding RegenerateList}" />
+                <MenuItem Header="Show weights" IsCheckable="True" IsChecked="{Binding ShowWeights}" />
             </MenuItem>
             <MenuItem Header="_Tests">
                 <MenuItem Header="_GraphList">
@@ -71,6 +75,7 @@
         <ToolBarTray  DockPanel.Dock="Top" AllowDrop="True">
             <ToolBar>
                 <Button Content="Stworz Losowy węzeł" Click="GenerateRandomConnection" />
+                <Button Content="Create coherent graph" Click="CreateCoherentGraph" />
             </ToolBar>
 
         </ToolBarTray>

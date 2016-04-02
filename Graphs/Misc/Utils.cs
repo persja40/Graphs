@@ -27,7 +27,7 @@ namespace Graphs.Misc
                 }
             }
 
-            return min;
+            return minIndex;
         }
     }
 }

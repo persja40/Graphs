@@ -15,15 +15,13 @@ using System.Windows.Shapes;
 namespace Graphs.Windows.Project3
 {
     /// <summary>
-    /// Interaction logic for Dijkstra.xaml
+    /// Interaction logic for SelectWeightWindow.xaml
     /// </summary>
-    /// 
-    public partial class Dijkstra : Window
+    public partial class SelectWeightWindow : Window
     {
-        public int StartNode { get; set; }
-        public int EndNode { get; set; }
 
-        public Dijkstra()
+        public int Weight { get; set; }
+        public SelectWeightWindow()
         {
             InitializeComponent();
 
@@ -32,7 +30,7 @@ namespace Graphs.Windows.Project3
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

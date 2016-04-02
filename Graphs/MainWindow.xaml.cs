@@ -5,6 +5,7 @@ using Graphs.TestWindows;
 using Graphs.ViewModels;
 using Graphs.Windows.Generators;
 using Graphs.Windows.Project2;
+using Graphs.Windows.Project3;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -35,9 +36,14 @@ namespace Graphs
         public GraphRenderer GraphRenderer { get; set; }
         public MainWindowViewModel VM { get; set; } = new MainWindowViewModel();
 
+        public static MainWindow Instance;
+
 
         public MainWindow()
         {
+            if (Instance == null)
+                Instance = this;
+
             InitializeComponent();
 
             Graph = new GraphMatrix(5);
@@ -47,11 +53,27 @@ namespace Graphs
             GraphListControl.DataContext = new GraphListViewModel();
 
             GraphControl.OnTwoNodeClickEvent += ConnectTwoNodes;
+            GraphControl.OnLineClick += createWeight;
 
             Graph.OnChange += onGraphChange;
             onGraphChange();
 
             this.DataContext = VM;
+        }
+
+        private void createWeight(LineViewModel lineVM)
+        {
+           if(VM.ShowWeights)
+            {
+                var dialog = new SelectWeightWindow();
+                dialog.ShowDialog();
+                int node1 = lineVM.Node1;
+                int node2 = lineVM.Node2;
+                int weight = dialog.Weight;
+
+                Graph.setWeight(node1, node2, weight);
+                Graph.OnChange();
+            }
         }
 
         private void ConnectTwoNodes(int node1, int node2)
@@ -244,6 +266,12 @@ namespace Graphs
 
         }
 
+        private void CreateCoherentGraph(object sender, RoutedEventArgs e)
+        {
+            Graph.Set(Actions.Misc.CreateBiggestCoherent(Graph));
+            Graph.OnChange();
+        }
+
         private void CreateNew(object sender, RoutedEventArgs e)
         {
             GraphMatrix newGraph = new GraphMatrix(1);
@@ -396,6 +424,30 @@ namespace Graphs
 
             Graph.Set(GraphGenerator.generatorRegular(nodeDegree, nodes));
             Graph.OnChange();
+        }
+
+        private void CreateRandomWeights(object sender, RoutedEventArgs e)
+        {
+            Graph.Set(GraphGenerator.CreateRandomWeights(Graph, 1, 10));
+            Graph.OnChange();
+        }
+        private void CalculateDijkstra(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Dijkstra();
+
+            dialog.ShowDialog();
+
+            int startNode = dialog.StartNode - 1;
+            int endNode = dialog.EndNode - 1;
+
+            List<int> path = PathFinding.Dijkstra(Graph, startNode, endNode);
+
+            string message = "Znaleziona sciezka : " + Environment.NewLine;
+
+            path.ForEach(n => message += (n + 1) + " ");
+
+            MessageBox.Show(message);
+
         }
     }
 }

@@ -140,13 +140,12 @@ namespace Graphs.Actions
         {
             GraphMatrix ret = new GraphMatrix(f.NodesNr);
             Random r = new Random();
-            int[,] x = new int[f.NodesNr, f.NodesNr];
             for (int k = 0; k < f.NodesNr; k++)
                 for (int p = 0; p < k; p++)
                     if (f.GetConnection(k, p))
                     {
                         ret.MakeConnection(k, p);
-                        ret.setWeight(k, p, r.Next(maxWeight) + minWeight);
+                        ret.setWeight(k, p, r.Next(minWeight, maxWeight + 1));
                         ret.setWeight(p, k, ret.getWeight(k, p));
                     }
             return ret;

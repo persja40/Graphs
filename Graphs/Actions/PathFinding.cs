@@ -44,7 +44,8 @@ namespace Graphs.Actions
 
             while(Q.Count > 0)
             {
-                int u = Utils.IndexOfMin(dist);
+                //  int u = Utils.IndexOfMin(dist);
+                int u = Q.OrderBy(n => dist[n]).First();
                 Q.Remove(u);
 
                 var neigbours = graph.GetNeighbours(u);
@@ -72,6 +73,7 @@ namespace Graphs.Actions
                 node = prev[node].Value;
             }
 
+            path.Reverse();
             return path;
         }
 
