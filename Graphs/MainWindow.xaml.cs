@@ -450,5 +450,15 @@ namespace Graphs
             MessageBox.Show(message);
 
         }
+
+        private void CalculateMinMaxCentre(object sender, RoutedEventArgs e)
+        {
+            int centreID = Actions.Misc.graphCentrumMinimax(Graph) + 1;
+
+            string message = "MinMax centrum of the graph is : " + centreID;
+
+            MessageBox.Show(message);
+
+        }
     }
 }

@@ -243,7 +243,7 @@ namespace Graphs.Actions
             int nodes = g.NodesNr;
             int[,] distances = distancesMatrix(g);
             int min_id = 0;
-            int wart = 1000;
+            int wart = int.MaxValue;
             int suma = 0;
 
             for (int i = 0; i < nodes; ++i)
@@ -295,7 +295,7 @@ namespace Graphs.Actions
             }
 
 
-            wart = 1000;
+            wart = int.MaxValue;
             for (int i = 0; i < nodes; ++i)
             {
                 if (max[i] < wart)

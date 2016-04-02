@@ -54,6 +54,7 @@
             <MenuItem Header="Projekt3">
                 <MenuItem Header="Create Random Weights" Click="CreateRandomWeights"/>
                 <MenuItem Header="Dijkstra" Click="CalculateDijkstra" />
+                <MenuItem Header="MinMax centre" Click="CalculateMinMaxCentre" />
             </MenuItem>
             <MenuItem Header="_Widok">
                 <MenuItem Header="Regenerate graph view" IsCheckable="True" IsChecked="{Binding RegenerateGraphView}" Checked="OnRederTurnOn" Unchecked="OnRederTurnOff"  />
