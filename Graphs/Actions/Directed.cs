@@ -270,5 +270,45 @@ namespace Graphs.Actions
             grey.Remove(elem);
             black.Add(elem);
         }
+
+
+        public static int[,] Johnson(DirectedGraphMatrix g)
+        {
+            DirectedGraphMatrix graph = Directedmaxspojny(g);
+            int nodes = graph.NodesNr;
+            int[,] distances = new int[nodes, nodes];
+
+            int q = nodes + 1;
+            bool[,] new_connect = new bool[nodes + 1, nodes + 1];
+            for(int i = 0; i < nodes; ++i)
+            {
+                for(int j = 0; j < nodes; ++j)
+                {
+                    new_connect[i, j] = graph.GetConnection(i, j);
+                }
+            }
+
+            for(int i = 0; i < q - 1; ++i)
+            {
+                graph.MakeConnection(q, i, 0);
+            }
+
+            List<int> bellman = new List<int>();
+            /*
+            1)Dodaj nowy węzeł q połączony krawędziami o wagach 0 z każdym innym wierzchołkiem grafu
+            
+            2)Użyj algorytmu Bellmana-Forda startując od dodanego wierzchołka q, aby odnaleźć minimalną
+            odległość d[v] każdego wierzchołka v od q. Jeżeli został wykryty ujemny cykl, zwróć tę informację i przerwij działanie algorytmu
+            
+            3)W tym kroku przewagujemy graf tak, aby zlikwidować ujemne wagi krawędzi nie zmieniając wartości najkrótszych ścieżek. W tym celu
+            każdej krawędzi (u,v) o wadze w(u,v) przypisz nową wagę w(u,v) + d[u] - d[v]
+            
+            4)Usuń początkowo dodany węzeł q
+
+            5)Użyj algorytmu Dijkstry dla każdego wierzchołka w grafie
+            */
+
+            return distances;
+        }
     }
 }

@@ -48,6 +48,11 @@ namespace Graphs.Data
             weights[node1, node2] = weight;
         }
 
+        public override bool GetConnection(int node1, int node2)
+        {
+            return connect[node1, node2] >= 1;
+        }
+
         public override int ConnectionCount
         {
             get
