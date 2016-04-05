@@ -22,7 +22,7 @@ namespace Graphs.Actions
         /// <param name="startNode">poczatkowy wierzcholek</param>
         /// <param name="endNode">koncowy wierzcholek</param>
         /// <returns>
-        /// Zwraca sciezke od wierzcholka startowego (nie jest wewnatrz tej listy) do wierzcholka koncowego wlacznie.
+        /// Zwraca sciezke (ID wierzchołków) od wierzcholka startowego (nie jest wewnatrz tej listy) do wierzcholka koncowego wlacznie.
         /// </returns>
         /// 
         public static List<int> Dijkstra(GraphMatrix graph, int startNode, int endNode)

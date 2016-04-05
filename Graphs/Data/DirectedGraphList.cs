@@ -17,7 +17,12 @@ namespace Graphs.Data
                 connect[i] = new List<int>();
             weights = new int[nodesNr, nodesNr];
         }
-        
+
+        public override void setWeight(int n1, int n2, int val)
+        {
+            weights[n1, n2] = val;
+        }
+
         /// <summary>
         /// Tworzy polaczenie jednostrone miedzy dwoma punktami
         /// </summary>

@@ -46,7 +46,7 @@ namespace Graphs
 
             InitializeComponent();
 
-            Graph = new GraphMatrix(5);
+            Graph = GraphGenerator.generatorRegular(2);
 
             GraphRenderer = new GraphRenderer(Graph, GraphControl, VM);
 
@@ -54,6 +54,7 @@ namespace Graphs
 
             GraphControl.OnTwoNodeClickEvent += ConnectTwoNodes;
             GraphControl.OnLineClick += createWeight;
+
 
             Graph.OnChange += onGraphChange;
             onGraphChange();
@@ -450,6 +451,19 @@ namespace Graphs
 
         }
 
+        private void GraphMinMaxCentre(object sender, RoutedEventArgs e)
+        {
+            int centreID = Actions.Misc.graphCentrumMinimax(Graph) + 1;
 
+            string message = "MinMax centrum of the graph is : " + centreID;
+
+            MessageBox.Show(message);
+
+        }
+
+        private void GraphCentre(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

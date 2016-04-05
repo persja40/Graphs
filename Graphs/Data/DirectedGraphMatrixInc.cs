@@ -16,6 +16,11 @@ namespace Graphs.Data
             connect = new int[nodesNr, connectNr];
             weights = new int[nodesNr, nodesNr];
         }
+
+        public override void setWeight(int n1, int n2, int val)
+        {
+            weights[n1, n2] = val;
+        }
         public DirectedGraphMatrixInc(int nodes, int cons, int[,] arr)
         {
             nodesNr = nodes;
