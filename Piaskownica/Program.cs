@@ -53,8 +53,8 @@ namespace Piaskownica
 
             List<int> degrees = new List<int>() { 4, 3, 5, 3, 3, 3, 3 };
             GraphMatrix g = Misc.Construct(degrees);
-            int[,] dist = Misc.distancesMatrix(g);
-            int rowLength = dist.GetLength(0);
+            //int[,] dist = Misc.distancesMatrix(g);
+          /*  int rowLength = dist.GetLength(0);
             int colLength = dist.GetLength(1);
 
             for (int i = 0; i < rowLength; i++)
@@ -64,7 +64,7 @@ namespace Piaskownica
                     Console.Write(string.Format("{0} ", dist[i, j]));
                 }
                 Console.Write(Environment.NewLine + Environment.NewLine);
-            }
+            }*/
 
             /*
             List<int> q = EulerGraph.EulerianPath(w);
