@@ -150,15 +150,15 @@ namespace Graphs.Actions
                     }
             return ret;
         }
-        public static int[,] CreateRandomDirectedWeights(DirectedGraphMatrix f, int minWeight = -5, int maxWeight = 20)
+        public static DirectedGraphMatrix CreateRandomDirectedWeights(DirectedGraphMatrix f, int minWeight = -5, int maxWeight = 20)
         {
             Random r = new Random();
-            int[,] x = new int[f.NodesNr, f.NodesNr];
+            DirectedGraphMatrix ret = new DirectedGraphMatrix(f.NodesNr);
             for (int k = 0; k < f.NodesNr; k++)
-                for (int p = 0; p < k; p++)
+                for (int p = 0; p < f.NodesNr; p++)
                     if (f.GetConnection(k, p))
-                        x[k, p] = r.Next(minWeight, maxWeight + 1);
-            return x;
+                        ret.MakeConnection(k,p, r.Next(minWeight, maxWeight + 1));
+            return ret;
         }
         /// <summary>
         /// Tworzy graf skierowany na podstawie spójnego grafu nieskierowanego
@@ -170,20 +170,21 @@ namespace Graphs.Actions
             Random r = new Random();
             DirectedGraphMatrix directedMatrix = new DirectedGraphMatrix(matrix.NodesNr);
             for (int i = 0; i < matrix.NodesNr; i++)
-                for (int j = 0; j < i; j++)
-                    switch (r.Next(3))
-                    {
-                        case 0:
-                            directedMatrix.MakeConnection(i, j);
-                            break;
-                        case 1:
-                            directedMatrix.MakeConnection(j, i);
-                            break;
-                        case 2:
-                            directedMatrix.MakeConnection(i, j);
-                            directedMatrix.MakeConnection(j, i);
-                            break;
-                    }
+                for (int j = 0; j <= i; j++)
+                    if (matrix.GetConnection(i, j))
+                        switch (r.Next(3))
+                        {
+                            case 0:
+                                directedMatrix.MakeConnection(i, j);
+                                break;
+                            case 1:
+                                directedMatrix.MakeConnection(j, i);
+                                break;
+                            case 2:
+                                directedMatrix.MakeConnection(i, j);
+                                directedMatrix.MakeConnection(j, i);
+                                break;
+                        }
             return directedMatrix;
         }
         /// <summary>

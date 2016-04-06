@@ -13,15 +13,20 @@ namespace Graphs.Actions
     {
         /// <summary>
         /// Wyznacza wage polaczenia
+        /// przydatne do Bellmana forda
         /// </summary>
         /// <param name="g">graf</param>
-        /// <param name="list">sciezka</param>
+        /// <param name="list">sciezka z elementem poczatkowym /reszta/ koniec</param>
         /// <returns></returns>
-        public static int pathWeight(GraphMatrix g, List<int> list)
+        public static int pathWeight(DirectedGraphMatrix g, List<int> list)
         {
             int sum = 0;
             for (int i = 0; i < list.Count - 1; i++)
-                sum += g.getWeight(i, i + 1);
+            {
+                sum += g.getWeight(list[i], list[i + 1]);
+                //Console.Write(list[i] + "->" + list[i + 1] + ":" + g.getWeight(list[i], list[i + 1]) + ";  ");
+            }
+            //Console.WriteLine();
             return sum;
         }
         /// <summary>
@@ -30,8 +35,8 @@ namespace Graphs.Actions
         /// <param name="g"></param>
         /// <param name="start">skad</param>
         /// <param name="finish">dokad</param>
-        /// <returns>lista wierzcholkow po ktorych otrzymamy najkrotsza sciezke</returns>
-        public static List<int> BellmanFord(GraphMatrix g, int start, int finish)
+        /// <returns>lista wierzcholkow po ktorych otrzymamy najkrotsza sciezke start /rest/ finish</returns>
+        public static List<int> BellmanFord(DirectedGraphMatrix g, int start, int finish)
         {
             const int INF = int.MaxValue - 1000;//uzywam jako nieskonczonosci
             var map = new Dictionary<int, Tuple<int, int>>();//nr wierzch. < odleglosc, skad przyszedl >
@@ -57,7 +62,10 @@ namespace Graphs.Actions
                 }
 
             List<int> path = new List<int>();
+
             recBellman(map, path, start, finish);//sciezke otrzymamy od konca
+            if (path.Count==1)//brak sciezki
+                return null;
             path.Reverse();
             return path;
         }
@@ -66,9 +74,16 @@ namespace Graphs.Actions
         /// </summary>
         private static void recBellman(Dictionary<int, Tuple<int, int>> map, List<int> list, int st, int fin)
         {
+            if (fin == -1)//brak sciezki
+            {
+                list = null;
+                return;
+            }
             list.Add(fin);
             if (map[fin].Item2 != st)
-                recBellman(map, list, map[fin].Item2, fin);
+                recBellman(map, list, st, map[fin].Item2);
+            else
+                list.Add(st);
         }
         /// <summary>
         /// Czy w grafie wystepuje ujemny cykl
@@ -280,15 +295,15 @@ namespace Graphs.Actions
 
             int q = nodes + 1;
             bool[,] new_connect = new bool[nodes + 1, nodes + 1];
-            for(int i = 0; i < nodes; ++i)
+            for (int i = 0; i < nodes; ++i)
             {
-                for(int j = 0; j < nodes; ++j)
+                for (int j = 0; j < nodes; ++j)
                 {
                     new_connect[i, j] = graph.GetConnection(i, j);
                 }
             }
 
-            for(int i = 0; i < q - 1; ++i)
+            for (int i = 0; i < q - 1; ++i)
             {
                 graph.MakeConnection(q, i, 0);
             }
