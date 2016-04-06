@@ -85,6 +85,7 @@
     <Compile Include="Data\BasesAndInterfaces\IGraphList.cs" />
     <Compile Include="Data\BasesAndInterfaces\IGraphMatrix.cs" />
     <Compile Include="Data\BasesAndInterfaces\IGraphMatrixInc.cs" />
+    <Compile Include="Data\Percolation.cs" />
     <Compile Include="Extensions\RandomExtension.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\AppdataHelper.cs" />

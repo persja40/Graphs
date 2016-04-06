@@ -14,24 +14,23 @@ namespace Piaskownica
         {
             int x = 6;
             int y = 4;
-            GraphMatrix e = GraphGenerator.generatorGER(7,10);
+            //GraphMatrix e = GraphGenerator.generatorGER(7,10);
             //GraphMatrix w =  EulerGraph.RandEulerGraph(13);
             //GraphMatrix q = GraphGenerator.Randomize(w);
             //e = GraphGenerator.CreateRandomWeights(e);
-            DirectedGraphMatrix w = GraphGenerator.CreateDirect(e);
-            w = GraphGenerator.CreateRandomDirectedWeights(w);
-            for (int i = 0; i < w.NodesNr; i++)
+            // DirectedGraphMatrix w = GraphGenerator.CreateDirect(e);
+            //w = GraphGenerator.CreateRandomDirectedWeights(w);
+            Percolation w = new Percolation(7, 0.5);
+            for (int i = 0; i < w.size; i++)
             {
-                for (int j = 0; j < w.NodesNr; j++)
-                {
-                    if (w.GetConnection(i, j))
-                        Console.Write(1 + " ; ");
-                    else
-                        Console.Write(0 + " ; ");
-                }
+                for (int j = 0; j < w.size; j++)     
+                        Console.Write(w.matrix[i,j] + " | ");
                 Console.WriteLine();
             }
             Console.WriteLine("------------------------------");
+            Console.WriteLine(w.matrix[0,3]);
+            
+            /*
             List<int> q = Directed.BellmanFord(w,x,y);
             if (q != null)
             {
@@ -44,6 +43,7 @@ namespace Piaskownica
             {
                 Console.WriteLine("Brak sciezki");
             }
+            */
             //List<int> degrees = new List<int>() { 4, 3, 5, 3, 3, 3, 3 };
             //GraphMatrix g = Misc.Construct(degrees);
             //int[,] dist = Misc.distancesMatrix(g);
