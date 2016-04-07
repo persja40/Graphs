@@ -155,9 +155,18 @@ namespace Graphs.Actions
             Random r = new Random();
             DirectedGraphMatrix ret = new DirectedGraphMatrix(f.NodesNr);
             for (int k = 0; k < f.NodesNr; k++)
+            {
                 for (int p = 0; p < f.NodesNr; p++)
+                {
                     if (f.GetConnection(k, p))
-                        ret.MakeConnection(k,p, r.Next(minWeight, maxWeight + 1));
+                        ret.MakeConnection(k, p, r.Next(minWeight, maxWeight + 1));
+                    /*else
+                    {
+                        ret.setWeight(k, p, int.MaxValue);
+                    }
+                    */
+                }
+            }
             return ret;
         }
         /// <summary>

@@ -64,7 +64,7 @@ namespace Graphs.Actions
             List<int> path = new List<int>();
 
             recBellman(map, path, start, finish);//sciezke otrzymamy od konca
-            if (path.Count==1)//brak sciezki
+            if (path.Count == 1)//brak sciezki
                 return null;
             path.Reverse();
             return path;
@@ -286,44 +286,159 @@ namespace Graphs.Actions
             black.Add(elem);
         }
 
+        /// <summary>
+        /// Implementacja algorytmu Johnsona, korzysta z algorytmow Bellmana-Forda i Dijkstry
+        /// </summary>
+        /// <param name="g"></param> obiekt DirectedGraphMatrix, stworzony np metoda CreateDirect(GraphMatrix g), randomizacja wag
+        /// odbywa sie w trakcie algorytmu (metodą CreateRandomDirectedWeights)
+        /// <returns></returns> Macierz odleglosci miedzy wszystkimi wierzcholkami
 
+        /*
         public static int[,] Johnson(DirectedGraphMatrix g)
         {
-            DirectedGraphMatrix graph = Directedmaxspojny(g);
+            
+            DirectedGraphMatrix g1 = Directedmaxspojny(g);
+            DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g1);
             int nodes = graph.NodesNr;
-            int[,] distances = new int[nodes, nodes];
+            // int[,] distances = new int[nodes, nodes];
+            int[] d = new int[nodes];
 
             int q = nodes + 1;
-            bool[,] new_connect = new bool[nodes + 1, nodes + 1];
+            int[,] new_connect = new int[q, q];
             for (int i = 0; i < nodes; ++i)
             {
                 for (int j = 0; j < nodes; ++j)
                 {
-                    new_connect[i, j] = graph.GetConnection(i, j);
+                    new_connect[i, j] = graph.getConnect(i, j);
                 }
             }
 
+            DirectedGraphMatrix dgraph = new DirectedGraphMatrix(q, new_connect);
+
             for (int i = 0; i < q - 1; ++i)
             {
-                graph.MakeConnection(q, i, 0);
+                dgraph.MakeConnection(q, i, 0);
+                for(int j = 0; j < q - 1; ++j)
+                {
+                    dgraph.setWeight(i, j, graph.getWeight(i, j));
+                }
+            }
+            
+            List<List<int>> bellman = new List<List<int>>();
+
+            for(int i =  0; i < nodes; ++i)
+            {
+                bellman[i] = BellmanFord(dgraph, q, i);
+                d[i] = pathWeight(dgraph, bellman[i]);
             }
 
-            List<int> bellman = new List<int>();
-            /*
-            1)Dodaj nowy węzeł q połączony krawędziami o wagach 0 z każdym innym wierzchołkiem grafu
-            
-            2)Użyj algorytmu Bellmana-Forda startując od dodanego wierzchołka q, aby odnaleźć minimalną
-            odległość d[v] każdego wierzchołka v od q. Jeżeli został wykryty ujemny cykl, zwróć tę informację i przerwij działanie algorytmu
-            
-            3)W tym kroku przewagujemy graf tak, aby zlikwidować ujemne wagi krawędzi nie zmieniając wartości najkrótszych ścieżek. W tym celu
-            każdej krawędzi (u,v) o wadze w(u,v) przypisz nową wagę w(u,v) + d[u] - d[v]
-            
-            4)Usuń początkowo dodany węzeł q
+            for(int i = 0; i < q; ++i)
+            {
+                for(int j = 0; j < q; ++j)
+                {
+                    if (dgraph.GetConnection(i, j))
+                    {
+                        dgraph.setWeight(i, j, dgraph.getWeight(i, j) + d[i] - d[j]);
+                    }
+                }
+            }
 
-            5)Użyj algorytmu Dijkstry dla każdego wierzchołka w grafie
+            int[,] last_connect = new int[nodes, nodes];
+            for (int i = 0; i < nodes; ++i)
+            {
+                for (int j = 0; j < nodes; ++j)
+                {
+                    last_connect[i, j] = dgraph.getConnect(i, j);
+                }
+            }
+
+            DirectedGraphMatrix lgraph = new DirectedGraphMatrix(nodes, last_connect);
+
+            for (int i = 0; i < nodes; ++i)
+            {
+                for (int j = 0; j < nodes; ++j)
+                {
+                    if (lgraph.GetConnection(i, j))
+                    {
+                        lgraph.setWeight(i, j, dgraph.getWeight(i, j);
+                    }
+                }
+            }
             */
+
+        /*
+        List<int> path = new List<int>();
+        int total_dist = 0;
+        int dist = 0;
+
+        for (int i = 0; i < nodes; ++i)
+        {
+            for (int j = 0; j < nodes; ++j)
+            {
+                if (i == j) distances[i, j] = 0;
+                else if (distances[i, j] != 0) continue;
+                else
+                {
+                    path = PathFinding.Dijkstra(graph, i, j);
+                    if (path.Count == 1) distances[i, j] = distances[j, i] = graph.getWeight(i, path[0]);
+                    else {
+                        for (int k = 0; k < path.Count - 1; ++k)
+                        {
+                            dist += graph.getWeight(path[k], path[k + 1]);
+                        }
+                        total_dist = dist + graph.getWeight(i, path[0]);
+                        distances[i, j] = distances[j, i] = total_dist;
+                        total_dist = dist = 0;
+                        path.Clear();
+                    }
+                }
+            }
+        }
+        */
+        /*
+         Trzeba jeszcze wypelnic tablice distances i ja zwrocic
+         */
+
+        //return distances;
+
+        /// <summary>
+        /// Implementacja algorytmu Floyda-Warshalla
+        /// </summary>
+        /// <param name="g"></param> obiekt DirectedGraphMatrix, stworzony np metoda CreateDirect(GraphMatrix g), randomizacja wag
+        /// odbywa sie w trakcie algorytmu (metodą CreateRandomDirectedWeights)
+        /// <returns></returns> Macierz odleglosci miedzy wszystkimi wierzcholkami, jezeli nie wystepuje sciezka pomiedzy i,j to distances[i, j] = int.MaxValue
+        public static int[,] FloydWarshall(DirectedGraphMatrix g)
+        {
+            DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g);
+            int nodes = graph.NodesNr;
+            int[,] distances = new int[nodes, nodes];
+            int w = 0;
+
+            for (int i = 0; i < nodes; ++i)
+            {
+                for (int j = 0; j < nodes; ++j)
+                {
+                    if (i == j) distances[i, j] = 0;
+                    else distances[i, j] = int.MaxValue;
+                    if (graph.GetConnection(i, j)) distances[i, j] = graph.getWeight(i, j);
+                }
+            }
+
+            for (int k = 0; k < nodes; ++k)
+            {
+                for (int i = 0; i < nodes; ++i)
+                {
+                    for (int j = 0; j < nodes; ++j)
+                    {
+                        if ((distances[i, k] == int.MaxValue) || (distances[k, j] == int.MaxValue)) continue;
+                        w = distances[i, k] + distances[k, j];
+                        if (distances[i, j] > w) distances[i, j] = w;
+                    }
+                }
+            }
 
             return distances;
         }
     }
 }
+
