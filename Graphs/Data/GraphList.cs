@@ -36,6 +36,30 @@ namespace Graphs.Data
         }
 
 
+        /// <summary>
+        /// Jak podamy mu drugi graf to wszystko jest kopiowane do macierzystego. Wagi etc. Drugi graf nie jest zmieniany w zaden sposob
+        /// </summary>
+        /// <param name="other"></param>
+        public void Set(GraphList other)
+        {
+            connect = new List<int>[other.nodesNr];
+            nodesNr = other.nodesNr;
+            weights = new int[nodesNr, nodesNr];
+            for (int i = 0; i < connect.Length; ++i)
+                connect[i] = new List<int>();
+
+            for (int i = 0;i < nodesNr; ++i)
+                for(int j = i;j < nodesNr; ++j)
+                {
+                    if(other.GetConnection(i, j))
+                    {
+                        MakeConnection(i, j);
+                        setWeight(i, j, other.getWeight(i, j));
+                    }
+                }
+        }
+
+
         public static implicit operator GraphMatrix(GraphList list)
         {
             return Converter.ConvertToMatrix(list);

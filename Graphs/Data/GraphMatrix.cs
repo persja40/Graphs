@@ -75,7 +75,10 @@ namespace Graphs.Data
                     if (z.Contains(j))
                         continue;
                     if (f.GetConnection(i, j))
+                    {
                         w.MakeConnection(k, l);
+                        w.setWeight(k, l, f.getWeight(i, j));
+                    }
                     l++;
                 }
                 k++;

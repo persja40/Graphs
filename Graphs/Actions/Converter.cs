@@ -16,7 +16,9 @@ namespace Graphs.Actions
                 for (int j = 0; j < from.NodesNr; j++)
                 {
                     if (from.GetConnection(i, j))
+                    {
                         x.MakeConnection(i, j);
+                    }
                     x.setWeight(i, j, from.getWeight(i, j));
                 }
             return x;
@@ -31,8 +33,10 @@ namespace Graphs.Actions
             return ConvertToMatrixInc(ConvertToList(from));
         }
 
-        public static GraphMatrixInc ConvertToMatrixInc(GraphList from)
+        public static GraphMatrixInc ConvertToMatrixInc(GraphList input)
         {
+            GraphList from = new GraphList(1);
+            from.Set(input);
             int sumc = 0;
             for (int i = 0; i < from.NodesNr; i++)
                 sumc += from.CountElem(i);
@@ -48,7 +52,7 @@ namespace Graphs.Actions
                         c++;
                         from.RemoveConnection(i, j);
                     }
-                    q.setWeight(i, j, from.getWeight(i, j));
+                    q.setWeight(i, j, input.getWeight(i, j));
                 }
             return q;
         }

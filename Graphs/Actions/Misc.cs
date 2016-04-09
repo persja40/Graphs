@@ -177,7 +177,10 @@ namespace Graphs.Actions
             for (int i = 0; i < lista.Count; i++)
                 for (int j = 0; j < lista.Count; j++)
                     if (from.GetConnection(lista[i], lista[j]))
+                    {
                         wynik.MakeConnection(lista[i], lista[j]);
+                        wynik.setWeight(lista[i], lista[j], from.getWeight(lista[i], lista[j]));
+                    }
             return GraphMatrix.Free(wynik);
         }
 
@@ -204,8 +207,7 @@ namespace Graphs.Actions
         /// <returns></returns> Macierz odleglosci miedzy wszystkimi parami wierzcholkow
         public static int[,] distancesMatrix(GraphMatrix from)
         {
-            GraphMatrix g = CreateBiggestCoherent(from);
-            GraphMatrix graph = GraphGenerator.CreateRandomWeights(g);
+            GraphMatrix graph = CreateBiggestCoherent(from);
             int nodes = graph.NodesNr;
             int[,] distances = new int[nodes, nodes];
             List<int> path = new List<int>();
