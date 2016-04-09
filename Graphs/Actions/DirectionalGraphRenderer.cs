@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Graphs.Actions
 {
@@ -28,25 +29,25 @@ namespace Graphs.Actions
         }
         public GraphControl GraphControl { get; set; }
 
-        private MainWindowViewModel mainWindowVM = null;
+        private DirectedWindowViewModel DirectedWindowVM = null;
 
-        public GraphRenderer(GraphMatrix Graph, GraphControl GraphControl, MainWindowViewModel vm)
+        public DirectionalGraphRenderer(DirectedGraphMatrix Graph, GraphControl GraphControl, DirectedWindowViewModel vm)
         {
             this.GraphControl = GraphControl;
             this.Graph = Graph;
-            this.mainWindowVM = vm;
+            this.DirectedWindowVM = vm;
         }
-
+        
         private void onGraphChange()
         {
-            Render();
+            //Render();
         }
-
+        
         public void Render()
         {
-            if (this.mainWindowVM.RegenerateGraphView == false)
+            if (this.DirectedWindowVM.RegenerateGraphView == false)
                 return;
-            GraphViewModel vm = new GraphViewModel();
+            DirectedGraphViewModel vm = new DirectedGraphViewModel();
             double r = Math.Sqrt(Math.Pow(GraphControl.ActualHeight, 1.8) + Math.Pow(GraphControl.ActualWidth, 1.8)) / 20;
 
 
@@ -85,9 +86,9 @@ namespace Graphs.Actions
                     int weight = Graph.getWeight(x, y);
 
                     byte redBrightness = 0;
-                    if (mainWindowVM.ShowWeights)
+                    if (DirectedWindowVM.ShowWeights)
                     {
-                        redBrightness = (byte)((double)weight / (double)Graph.MaxWeight * 255.0);
+                        redBrightness = (byte)((Math.Abs(weight) + (weight > 0 ? 0 : -weight)) / (double)(Graph.MaxWeight + Graph.MinWeight) * 255.0);
                     }
 
                     LineViewModel lineVM = new LineViewModel()
@@ -102,7 +103,16 @@ namespace Graphs.Actions
                     };
                     vm.Connections.Add(lineVM);
 
-                    if (mainWindowVM.ShowWeights)
+                    TriangleViewModel triangleVm = new TriangleViewModel()
+                    {
+                        X = x2,
+                        Y = y2,
+                        Angle = lineVM.Angle
+                    };
+
+                    vm.Triangles.Add(triangleVm);
+
+                    if (DirectedWindowVM.ShowWeights)
                     {
                         LineViewModel hintVM = new LineViewModel(lineVM)
                         {

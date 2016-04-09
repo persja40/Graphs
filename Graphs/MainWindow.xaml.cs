@@ -45,6 +45,7 @@ namespace Graphs
                 Instance = this;
 
             InitializeComponent();
+            Project4(null, null);
 
             Graph = GraphGenerator.generatorRegular(2);
 
@@ -491,7 +492,12 @@ namespace Graphs
 
         }
 
-        //private void Project4
+        private void Project4(object sender, RoutedEventArgs e)
+        {
+            DirectedWindow wind = new DirectedWindow();
+
+            wind.ShowDialog();
+        }
 
         private void SpanningTree(object sender, RoutedEventArgs e)
         {

@@ -15,6 +15,36 @@ namespace Graphs.ViewModels
         public double X2 { get; set; }
         public double Y2 { get; set; }
 
+        public double Width { get { return X2 - X1; } }
+        public double Height { get { return Y2 - Y1; } }
+
+        public double Length { get { return Math.Sqrt(Math.Pow(Width, 2) + Math.Pow(Height, 2)); } }
+
+        public double Angle
+        {
+            get
+            {
+                var arcsin = Math.Asin(Height / Length);
+                var arccos = Math.Acos(Width / Length);
+
+                if(arcsin < 0 && arccos < 0)
+                {
+                    return arcsin + Math.PI / 2;
+                }
+                else if(arcsin < 0)
+                {
+                    return Math.PI - arccos;
+                }
+                else if(arccos < 0)
+                {
+                    return Math.PI * 2 - arcsin;
+                }
+
+                return arcsin;
+
+            }
+        }
+
         public Color Color { get; set; } = Colors.Black;
         public int Thickness { get; set; } = 1;
 

@@ -59,6 +59,7 @@
     </ApplicationDefinition>
     <Compile Include="Actions\Converter.cs" />
     <Compile Include="Actions\Directed.cs" />
+    <Compile Include="Actions\DirectionalGraphRenderer.cs" />
     <Compile Include="Actions\EulerGraph.cs" />
     <Compile Include="Actions\GraphGenerator.cs" />
     <Compile Include="Actions\GraphRenderer.cs" />
@@ -86,6 +87,9 @@
     <Compile Include="Data\BasesAndInterfaces\IGraphMatrix.cs" />
     <Compile Include="Data\BasesAndInterfaces\IGraphMatrixInc.cs" />
     <Compile Include="Data\Percolation.cs" />
+    <Compile Include="DirectedWindow.xaml.cs">
+      <DependentUpon>DirectedWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\RandomExtension.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\AppdataHelper.cs" />
@@ -105,6 +109,9 @@
     </Compile>
     <Compile Include="UserControls\Circle.xaml.cs">
       <DependentUpon>Circle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DirectionalLine.xaml.cs">
+      <DependentUpon>DirectionalLine.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\GraphControl.xaml.cs">
       <DependentUpon>GraphControl.xaml</DependentUpon>
@@ -140,6 +147,8 @@
     <Compile Include="ValueConverters\IntBoolValueConverter.cs" />
     <Compile Include="ValueConverters\StringListIntValueConverter.cs" />
     <Compile Include="ViewModels\CircleViewModel.cs" />
+    <Compile Include="ViewModels\DirectedGraphViewModel.cs" />
+    <Compile Include="ViewModels\DirectedWindowViewModel.cs" />
     <Compile Include="ViewModels\GraphListItemViewModel.cs" />
     <Compile Include="ViewModels\GraphListViewModel.cs" />
     <Compile Include="ViewModels\GraphViewModel.cs" />
@@ -174,6 +183,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DirectedWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -203,6 +216,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\Circle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DirectionalLine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

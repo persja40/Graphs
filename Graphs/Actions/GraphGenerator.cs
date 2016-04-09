@@ -174,7 +174,7 @@ namespace Graphs.Actions
         /// </summary>
         /// <param name="matrix">Spójny graf nieskierowany</param>
         /// <returns>Graf skierowany</returns>
-        public static DirectedGraphMatrix CreateDirect(GraphMatrix matrix)
+        public static DirectedGraphMatrix CreateDirectional(GraphMatrix matrix)
         {
             Random r = new Random();
             DirectedGraphMatrix directedMatrix = new DirectedGraphMatrix(matrix.NodesNr);

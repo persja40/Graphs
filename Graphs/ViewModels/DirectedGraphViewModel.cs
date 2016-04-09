@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Graphs.ViewModels
 {
-    public class TriangleViewModel
+    public class DirectedGraphViewModel : GraphViewModel
     {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Angle { get; set; }
+        public List<TriangleViewModel> Triangles { get; set; } = new List<TriangleViewModel>();
     }
 }

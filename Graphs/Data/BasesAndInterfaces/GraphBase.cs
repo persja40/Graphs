@@ -89,6 +89,24 @@ namespace Graphs.Data
             }
         }
 
+        private int? minWeight = null;
+        public int MinWeight
+        {
+            get
+            {
+                if (minWeight != null)
+                    return minWeight.Value;
+                else
+                    minWeight = int.MinValue;
+                for (int startNode = 0; startNode < NodesNr; ++startNode)
+                    for (int endNode = 0; endNode < NodesNr; ++endNode)
+                    {
+                        minWeight = Math.Min(minWeight.Value, getWeight(startNode, endNode));
+                    }
+                return minWeight.Value;
+            }
+        }
+
         public abstract bool GetConnection(int node1, int node2);
         public abstract void MakeConnection(int node1, int node2);
         public abstract void RemoveConnection(int node1, int node2);

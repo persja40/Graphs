@@ -100,46 +100,23 @@ namespace Graphs.UserControls
             DrawConnections();
             DrawNodes();
 
-            //Image test = new Image();
-            //DrawingGroup tmpDrawing = new DrawingGroup();
-            //GeometryGroup lineGroup = new GeometryGroup();
-            //GeometryGroup circleGroup = new GeometryGroup();
-            //circleGroup.FillRule = FillRule.Nonzero;
-
-            //LineGeometry[] lines = new LineGeometry[VM.Connections.Count];
-            //EllipseGeometry[] circles = new EllipseGeometry[VM.Nodes.Count];
-            //int i = 0;
-            //foreach (var c in VM.Connections)
-            //{
-            //    lines[i] = new LineGeometry
-            //        (
-            //        new Point(c.X1, c.Y1),
-            //        new Point(c.X2, c.Y2)
-            //        );
-            //    lineGroup.Children.Add(lines[i]);
-            //     ++ i;
-            //}
-            //i = 0;
-            //foreach (var n in VM.Nodes)
-            //{
-            //    circles[i] = new EllipseGeometry
-            //        (
-            //         new Point(n.X, n.Y),
-            //         n.Radius,
-            //         n.Radius
-            //        );
-                
-            //    circleGroup.Children.Add(circles[i]);
-            //    ++i;
-            //}
-
-            //tmpDrawing.Children.Add(new GeometryDrawing(new SolidColorBrush(Colors.Black), new Pen(new SolidColorBrush(Colors.Black), 1), lineGroup));
-            //tmpDrawing.Children.Add(new GeometryDrawing(new SolidColorBrush(Colors.Black), new Pen(new SolidColorBrush(Colors.Black), 1), circleGroup));
-            //LineImage.Source = new DrawingImage(tmpDrawing);
+            if(VM is DirectedGraphViewModel)
+            {
+                DrawTriangles();
+            }
 
 
-           
-            //// MyCanvas.Drawing = tmpDrawing;
+        }
+
+        private void DrawTriangles()
+        {
+            var vm = VM as DirectedGraphViewModel;
+            foreach (var trinagle in vm.Triangles)
+            {
+                Triangle line = new Triangle();
+                line.DataContext = trinagle;
+                MyCanvas.Children.Add(line);
+            }
 
         }
 

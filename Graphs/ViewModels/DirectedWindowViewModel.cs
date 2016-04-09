@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Graphs.ViewModels
 {
-    public class TriangleViewModel
+    public class DirectedWindowViewModel
     {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Angle { get; set; }
+        public bool RegenerateGraphView { get; set; } = true;
+        public bool ShowWeights { get; set; } = true;
     }
 }
