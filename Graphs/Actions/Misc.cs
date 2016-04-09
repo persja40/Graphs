@@ -249,7 +249,7 @@ namespace Graphs.Actions
         ///  Wyznaczanie centrum grafu
         /// </summary>
         /// <param name="from"></param>
-        /// <returns></returns> Indeks wierzcholka, ktory stanowi centrum grafu
+        /// <returns></returns> Indeks wierzcholka, ktory stanowi centrum grafu(indeksowane od 0)
         public static int graphCentrum(GraphMatrix from)
         {
             GraphMatrix g = CreateBiggestCoherent(from);
@@ -258,19 +258,24 @@ namespace Graphs.Actions
             int min_id = 0;
             int wart = int.MaxValue;
             int suma = 0;
+            int[] total_dist = new int[nodes];
 
             for (int i = 0; i < nodes; ++i)
             {
                 for (int j = 0; j < nodes; ++j)
                 {
                     suma += distances[i, j];
-                    if (suma < wart)
-                    {
-
-                        wart = suma;
-                        min_id = i;
-                    }
-                    suma = 0;
+                }
+                total_dist[i] = suma;
+                suma = 0;
+            }
+            
+            for(int i = 0; i < nodes; ++i)
+            {
+                if(total_dist[i] < wart)
+                {
+                    min_id = i;
+                    wart = total_dist[i];
                 }
             }
 
@@ -281,26 +286,26 @@ namespace Graphs.Actions
         /// Wyznaczenie centrum minimax grafu
         /// </summary>
         /// <param name="from"></param>
-        /// <returns></returns> Indeks wierzcholka, ktory stanowi centrum minimax grafu
+        /// <returns></returns> Indeks wierzcholka, ktory stanowi centrum minimax grafu(indeksowane od 0)
         public static int graphCentrumMinimax(GraphMatrix from)
         {
             GraphMatrix g = CreateBiggestCoherent(from);
             int nodes = g.NodesNr;
             int[,] distances = distancesMatrix(g);
             int[] max = new int[nodes];
-            int wart = -1;
+            int wart = int.MinValue;
             int min_id = 0;
 
 
             for (int i = 0; i < nodes; ++i)
             {
-                wart = -1;
+                wart = int.MinValue;
                 for (int j = 0; j < nodes; ++j)
                 {
                     if (distances[i, j] > wart)
                     {
-                        wart = distances[i, j];
                         max[i] = distances[i, j];
+                        wart = distances[i, j];
                     }
 
                 }
@@ -313,8 +318,8 @@ namespace Graphs.Actions
             {
                 if (max[i] < wart)
                 {
-                    wart = max[i];
                     min_id = i;
+                    wart = max[i];
                 }
             }
 

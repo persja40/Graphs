@@ -32,6 +32,11 @@ namespace Graphs.Data
         {
             return connect[node1, node2] >= 1;
         }
+
+        public int getConnect(int from, int to)
+        {
+            return connect[from, to];
+        }
         public void Clear()
         {
             for (int i = 0; i < nodesNr; ++i)
