@@ -58,6 +58,8 @@
                 <MenuItem Header="Graph centre" Click="GraphCentre"/>
                 <MenuItem Header="Graph minmax centre" Click="GraphMinMaxCentre" />
             </MenuItem>
+            <MenuItem Header="Projekt4" Click="Project4">
+            </MenuItem>
             <MenuItem Header="_Widok">
                 <MenuItem Header="Regenerate graph view" IsCheckable="True" IsChecked="{Binding RegenerateGraphView}" Checked="OnRederTurnOn" Unchecked="OnRederTurnOff"  />
                 <MenuItem Header="Regenerate matrix" IsCheckable="True" IsChecked="{Binding RegenerateMatrix}" />
