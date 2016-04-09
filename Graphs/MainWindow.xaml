@@ -54,9 +54,11 @@
             <MenuItem Header="Projekt3">
                 <MenuItem Header="Create Random Weights" Click="CreateRandomWeights"/>
                 <MenuItem Header="Dijkstra" Click="CalculateDijkstra" />
+                <MenuItem Header="Distances table" Click="DistanceMatrix" />
                 <MenuItem Header="Create coherent graph" Click="CreateCoherentGraph" />
                 <MenuItem Header="Graph centre" Click="GraphCentre"/>
                 <MenuItem Header="Graph minmax centre" Click="GraphMinMaxCentre" />
+                <MenuItem Header="Minimum spanning tree" Click="SpanningTree" />
             </MenuItem>
             <MenuItem Header="Projekt4" Click="Project4">
             </MenuItem>
@@ -71,6 +73,7 @@
                 <MenuItem Header="_GraphList">
                     <MenuItem Header="_ItemTest" Click="OpenGraphListItemTest"/>
                     <MenuItem Header="_AllTest" Click="OpenGraphListTest"/>
+                    
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Info">

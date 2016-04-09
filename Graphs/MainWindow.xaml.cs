@@ -122,7 +122,7 @@ namespace Graphs
             for (int y = vm.NodeCount - 1; y >= 0; --y)
                 for (int x = 0; x < vm.NodeCount; ++x)
                 {
-                    vm.Connections[x, y] = Graph.GetConnection(x, y) ? 1 : 0;
+                    vm.Connections[x, y] = Graph.GetConnection(x, y) ? Graph.getWeight(x, y) : 0;
                 }
 
             MatrixControl.DataContext = vm;
@@ -456,16 +456,48 @@ namespace Graphs
             int centreID = Actions.Misc.graphCentrumMinimax(Graph) + 1;
 
             string message = "MinMax centrum of the graph is : " + centreID;
-
+             
             MessageBox.Show(message);
 
         }
 
         private void GraphCentre(object sender, RoutedEventArgs e)
         {
+            int centreID = Actions.Misc.graphCentrum(Graph) + 1;
+
+            string message = "MinMax centrum of the graph is : " + centreID;
+
+            MessageBox.Show(message);
+        }
+
+        private void DistanceMatrix(object sender, RoutedEventArgs e)
+        {
+            var weightDistance = Actions.Misc.distancesMatrix(Graph);
+
+            string message = "";
+
+            for(int i = 0;i < Graph.NodesNr; ++i)
+            {
+                message += "Wagi dla " + (i + 1) + Environment.NewLine;
+                for(int j = 0; j < Graph.NodesNr; ++j)
+                {
+                    var weight = weightDistance[i, j];
+                    message += string.Format(" -> {0} : {1}{2}", j + 1, weight, Environment.NewLine);
+                }
+            }
+
+            MessageBox.Show(message);
+
 
         }
 
         //private void Project4
+
+        private void SpanningTree(object sender, RoutedEventArgs e)
+        {
+            Graph.Set(GraphGenerator.Prim(Graph));
+            Graph.OnChange();
+            
+        }
     }
 }
