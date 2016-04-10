@@ -8,7 +8,7 @@ namespace Graphs.Data
 {
     public abstract class GraphMatrixBase : GraphBase, IGraphMatrix
     {
-        public void Set(IGraphMatrix other)
+        public virtual void Set(IGraphMatrix other)
         {
             NodesNr = other.NodesNr;
             connect = new int[NodesNr, NodesNr];

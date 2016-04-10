@@ -1,0 +1,47 @@
+﻿<Window x:Class="Graphs.Windows.Project4.CreateAcycligGraphWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Graphs.Windows.Project4"
+        mc:Ignorable="d"
+        Title="CreateAcycligGraphWindow" Width="300" SizeToContent="Height"
+        WindowStyle="None"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label>Liczba Kolumn</Label>
+        <TextBox Grid.Column="1" x:Name="RowCount">5</TextBox>
+
+        <Label Grid.Row="1">Max Node/Column</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NodePerRowCount">5</TextBox>
+
+        <Label Grid.Row="2">Prawdopobieństwo Node'a</Label>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="NodePropability">44</TextBox>
+        <Label Grid.Row="2" Grid.Column="1" DockPanel.Dock="Right" HorizontalAlignment="Right">%</Label>
+
+        <Label Grid.Row="3">Prawdopobieństwo sąsiada</Label>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="NeighbourPropability">22</TextBox>
+        <Label Grid.Row="3" Grid.Column="1" DockPanel.Dock="Right" HorizontalAlignment="Right">%</Label>
+
+        <Label Grid.Row="4">Prawdopobieństwo dalekiego</Label>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="LongPropability">4</TextBox>
+        <Label Grid.Row="4" Grid.Column="1" DockPanel.Dock="Right" HorizontalAlignment="Right">%</Label>
+
+
+
+        <Button Click="Generate" Grid.Row="5" Grid.Column="1">Generuj</Button>
+    </Grid>
+</Window>

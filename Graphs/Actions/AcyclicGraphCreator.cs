@@ -9,47 +9,51 @@ using Graphs.Extensions;
 
 namespace Graphs.Actions
 {
-    public static class AcyclicGraphCreator
+    public class AcyclicGraphGenerator
     {
         
-        public static int RowCount { get; set; }
-        public static int MaxNodesPerRow { get; set; }
-        public static double NodePropability { get; set; }
-        public static double NodeNeighbourJoinPropability { get; set; }
+        public int RowCount { get; set; }
+        public int MaxNodesPerRow { get; set; }
+        public double NodePropability { get; set; }
+        public double NodeNeighbourJoinPropability { get; set; }
         /// <summary>
         /// Everything that's not neighbour
         /// </summary>
-        public static double NodeLongDistanceJoinProability { get; set; }
+        public double NodeLongDistanceJoinProability { get; set; }
 
 
 
-        public static DirectedGraphMatrix Generate()
+        public DirectedGraphMatrix Generate()
         {
             resetStaticSettings();
 
             List<Row> rows = new List<Row>(RowCount);
+            for (int i = 0; i < RowCount; ++i)
+                rows.Add(new Row());
             createNodes(rows);
             createNodesConnetions(rows);
             return createGraphFromRows(rows);
-
         }
 
-        private static void resetStaticSettings()
+        private void resetStaticSettings()
         {
             Node.Reset();
         }
 
-        private static DirectedGraphMatrix createGraphFromRows(List<Row> rows)
+        private DirectedGraphMatrix createGraphFromRows(List<Row> rows)
         {
             DirectedGraphMatrix graph = new DirectedGraphMatrix(Node.Indexer);
 
-            foreach (var row in rows)
+            for(int i = 0;i < rows.Count; ++i)
             {
+                var row = rows[i];
                 foreach (var node in row)
                 {
+                    graph.AddToColumn(i);
                     foreach (var connectedTo in node.JoinedTo)
                     {
                         graph.MakeConnection(node.Index, connectedTo.Index);
+                        
                     }
                 }
             }
@@ -57,35 +61,50 @@ namespace Graphs.Actions
             return graph;
         }
 
-        private static void createNodesConnetions(List<Row> rows)
+        private void createNodesConnetions(List<Row> rows)
         {
             for (int i = 0; i < rows.Count; ++i)
             {
                 var row = rows[i];
                 Row nextRow = getNextRow(rows, i);
+                Row previousRouw = getPreviousRow(rows, i);
                 List<Row> longRows = createLongRowList(rows, i);
-                tryToConnectNode(row, nextRow, longRows);
+                tryToConnectNode(row, nextRow, previousRouw, longRows);
             }
         }
 
-        private static void tryToConnectNode(Row row, Row nextRow, List<Row> longRows)
+        private Row getPreviousRow(List<Row> rows, int i)
+        {
+            Row previousRow = null;
+
+            if (i - 1 >= 0)
+                previousRow = rows[i - 1];
+            return previousRow;
+        }
+
+        private void tryToConnectNode(Row row, Row nextRow, Row previousRow, List<Row> longRows)
         {
             foreach (var node in row)
             {
                 while (nextRow != null && Utils.CheckChance(NodeNeighbourJoinPropability))
                 {
-                    ConnectNodeToRandomRowNode(nextRow, node);
+                    ConnectNodeToRandomRowNode(node, nextRow);
                 }
 
                 while (longRows.Count > 0 && Utils.CheckChance(NodeLongDistanceJoinProability))
                 {
-                    ConnectNodeToRandomRowNode(longRows.SelectRandom(), node);
+                    ConnectNodeToRandomRowNode(node, longRows.SelectRandom());
                 }
 
+                while (node.JoinedTo.Count == 0 && nextRow != null)
+                    ConnectNodeToRandomRowNode(node, nextRow);
+
+                while (node.JoinedFrom.Count == 0 && previousRow != null)
+                    ConnectRandomRowNodeToNode(previousRow, node);
             }
         }
 
-        private static Row getNextRow(List<Row> rows, int i)
+        private Row getNextRow(List<Row> rows, int i)
         {
             Row nextRow = null;
 
@@ -94,7 +113,7 @@ namespace Graphs.Actions
             return nextRow;
         }
 
-        private static List<Row> createLongRowList(List<Row> rows, int i)
+        private List<Row> createLongRowList(List<Row> rows, int i)
         {
             List<Row> longRows = new List<Row>();
             for (int j = i + 2; j < rows.Count; ++j)
@@ -102,13 +121,31 @@ namespace Graphs.Actions
             return longRows;
         }
 
-        private static void ConnectNodeToRandomRowNode(Row nextRow, Node node)
+        private void ConnectNodeToRandomRowNode(Node node, Row nextRow)
         {
             var neighbourNode = nextRow.SelectRandom();
-            node.JoinedTo.Add(neighbourNode);
+            if (!node.IsConnectedTo(neighbourNode))
+            {
+                connectNodes(node, neighbourNode);
+            }
         }
 
-        private static void createNodes(List<Row> rows)
+        private static void connectNodes(Node startNode, Node ndNode)
+        {
+            startNode.JoinedTo.Add(ndNode);
+            ndNode.JoinedFrom.Add(startNode);
+        }
+
+        private void ConnectRandomRowNodeToNode(Row previousRow, Node node)
+        {
+            var neighbourNode = previousRow.SelectRandom();
+            if (!node.IsConnectedTo(neighbourNode))
+            {
+                connectNodes(neighbourNode, node);
+            }
+        }
+
+        private void createNodes(List<Row> rows)
         {
             foreach (var row in rows)
             {
@@ -119,13 +156,23 @@ namespace Graphs.Actions
                         row.Add(new Node());
                     }
                 }
+
+                if (row.Count == 0)
+                    row.Add(new Node()); //must be at least 1 node per row.
             }
         }
 
         private class Node
         {
             public int Index { get; set; }
+            /// <summary>
+            /// połączenia wychodzące
+            /// </summary>
             public List<Node> JoinedTo { get; set; } = new List<Node>();
+/// <summary>
+/// połączenia wchodzące
+/// </summary>
+            public List<Node> JoinedFrom { get; set; } = new List<Node>();
 
 
             public static int Indexer { get; private set; } = 0;
@@ -139,6 +186,12 @@ namespace Graphs.Actions
             internal static void Reset()
             {
                 Indexer = 0;
+            }
+
+            public bool IsConnectedTo(Node other)
+            {
+                int otherIndex = other.Index;
+                return JoinedTo.Any(n => n.Index == otherIndex);
             }
         }
 

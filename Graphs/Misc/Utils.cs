@@ -8,6 +8,7 @@ namespace Graphs.Misc
 {
     public static class Utils
     {
+        static Random rand = new Random();
         public static int IndexOfMin(int[] array)
         {
             if (array == null)
@@ -32,8 +33,7 @@ namespace Graphs.Misc
 
         public static bool CheckChance(double propability)
         {
-            Random rand = new Random();
-            return propability < rand.NextDouble();
+            return propability >= rand.NextDouble();
         }
     }
 }

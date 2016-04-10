@@ -24,7 +24,7 @@
                 <MenuItem Header="Johnson-Floyd" />
             </MenuItem>
             <MenuItem Header="Acykliczne">
-                <MenuItem Header="Stwórz losowy acykliczny i go posortuj" />
+                <MenuItem Header="Stwórz losowy acykliczny" Click="CreateAcyclic"/>
             </MenuItem>
             <MenuItem Header="_Widok">
                 <MenuItem Header="Regenerate graph view" IsCheckable="True" IsChecked="{Binding RegenerateGraphView}" Checked="OnRederTurnOn" Unchecked="OnRederTurnOff"  />

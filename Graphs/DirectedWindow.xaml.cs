@@ -3,6 +3,7 @@ using Graphs.Data;
 using Graphs.ViewModels;
 using Graphs.Windows.Generators;
 using Graphs.Windows.Project3;
+using Graphs.Windows.Project4;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -164,5 +165,27 @@ namespace Graphs
 
             MessageBox.Show(message);
         }
+
+        private void CreateAcyclic(object sender, RoutedEventArgs arg)
+        {
+            var w = new CreateAcycligGraphWindow();
+            try
+            {
+                w.ShowDialog();
+                Graph.Clear();
+                Graph.Set(w.Generate());
+                Graph.OnChange();
+            }
+            catch (Exception e)
+            {
+                MessageBoxResult result = MessageBox.Show("Coś poszło nie tak"
+                    + System.Environment.NewLine
+                    + e.Message
+                    );
+            }
+
+            Renderer.Displayer = new DirectedColumnDisplayer();
+        }
+    
     }
 }

@@ -57,13 +57,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Actions\AcyclicGraphCreator.cs" />
     <Compile Include="Actions\Converter.cs" />
     <Compile Include="Actions\Directed.cs" />
+    <Compile Include="Actions\DirectedCircleDisplayer.cs" />
+    <Compile Include="Actions\DirectedColumnDisplayer.cs" />
     <Compile Include="Actions\DirectionalGraphRenderer.cs" />
     <Compile Include="Actions\EulerGraph.cs" />
     <Compile Include="Actions\GraphGenerator.cs" />
     <Compile Include="Actions\GraphRenderer.cs" />
     <Compile Include="Actions\Hamilton.cs" />
+    <Compile Include="Actions\IDirectedDisplayer.cs" />
     <Compile Include="Actions\Misc.cs" />
     <Compile Include="Actions\PathFinding.cs" />
     <Compile Include="Authors.xaml.cs">
@@ -90,6 +94,7 @@
     <Compile Include="DirectedWindow.xaml.cs">
       <DependentUpon>DirectedWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\RandomExtension.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\AppdataHelper.cs" />
@@ -178,6 +183,9 @@
     </Compile>
     <Compile Include="Windows\Project3\SelectWeightWindow.xaml.cs">
       <DependentUpon>SelectWeightWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Project4\CreateAcycligGraphWindow.xaml.cs">
+      <DependentUpon>CreateAcycligGraphWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Authors.xaml">
       <SubType>Designer</SubType>
@@ -284,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Project3\SelectWeightWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Project4\CreateAcycligGraphWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
