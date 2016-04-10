@@ -69,8 +69,8 @@ namespace Graphs
             {
                 var dialog = new SelectWeightWindow();
                 dialog.ShowDialog();
-                int node1 = lineVM.Node1;
-                int node2 = lineVM.Node2;
+                int node1 = lineVM.StartNode;
+                int node2 = lineVM.EndNode;
                 int weight = dialog.Weight;
 
                 Graph.setWeight(node1, node2, weight);

@@ -18,9 +18,9 @@ namespace Graphs.Misc
             int min = array[0];
             int minIndex = 0;
 
-            for(int i = 1; i < array.Count(); ++i)
+            for (int i = 1; i < array.Count(); ++i)
             {
-                if(array[i] < min)
+                if (array[i] < min)
                 {
                     min = array[i];
                     minIndex = i;
@@ -28,6 +28,12 @@ namespace Graphs.Misc
             }
 
             return minIndex;
+        }
+
+        public static bool CheckChance(double propability)
+        {
+            Random rand = new Random();
+            return propability < rand.NextDouble();
         }
     }
 }

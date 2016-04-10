@@ -9,17 +9,29 @@
         Title="DirectedWindow (Zestaw 4)" Height="300" Width="300">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Random" >
+                <MenuItem.Icon>
+                    <Image Source="Images/dice.png" />
+                </MenuItem.Icon>
+                <MenuItem Header="_Erdos Renyi" Name="ErdosRenyiMenuItem"  Click="GenerateGraph"/>
+                <MenuItem Header="_G(n, p)" Name="SecondGeneratorMenuItem" Click="GenerateGraph"/>
+            </MenuItem>
             <MenuItem Header="DiGrafy">
-                <MenuItem Header="Stworz losowy digraf" />
                 <MenuItem Header="Wypisz cykle" />
                 <MenuItem Header="Wypisz silnie spójne składowe" />
-                <MenuItem Header="Stwórz losowe wagi" />
-                <MenuItem Header="Bellman-Ford" />
+                <MenuItem Header="Bellman-Ford" Click="BellmanFord" />
                 <MenuItem Header="Sprawdź czy zawiera ujemne cykle" />
                 <MenuItem Header="Johnson-Floyd" />
             </MenuItem>
             <MenuItem Header="Acykliczne">
                 <MenuItem Header="Stwórz losowy acykliczny i go posortuj" />
+            </MenuItem>
+            <MenuItem Header="_Widok">
+                <MenuItem Header="Regenerate graph view" IsCheckable="True" IsChecked="{Binding RegenerateGraphView}" Checked="OnRederTurnOn" Unchecked="OnRederTurnOff"  />
+                <MenuItem Header="Regenerate matrix" IsCheckable="True" IsChecked="{Binding RegenerateMatrix}" />
+                <MenuItem Header="Regenerate incidency matrix" IsCheckable="True" IsChecked="{Binding RegenerateMatrixInc}" />
+                <MenuItem Header="Regenerate list" IsCheckable="True" IsChecked="{Binding RegenerateList}" />
+                <MenuItem Header="Show weights" IsCheckable="True" IsChecked="{Binding ShowWeights}" />
             </MenuItem>
         </Menu>
         <Grid DockPanel.Dock="Top">

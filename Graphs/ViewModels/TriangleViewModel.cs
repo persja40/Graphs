@@ -10,6 +10,9 @@ namespace Graphs.ViewModels
     {
         public double X { get; set; }
         public double Y { get; set; }
+        /// <summary>
+        /// In degrees
+        /// </summary>
         public double Angle { get; set; }
     }
 }

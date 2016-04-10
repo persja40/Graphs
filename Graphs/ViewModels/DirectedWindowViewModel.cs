@@ -9,6 +9,9 @@ namespace Graphs.ViewModels
     public class DirectedWindowViewModel
     {
         public bool RegenerateGraphView { get; set; } = true;
+        public bool RegenerateMatrix { get; set; } = true;
+        public bool RegenerateMatrixInc { get; set; } = true;
+        public bool RegenerateList { get; set; } = true;
         public bool ShowWeights { get; set; } = true;
     }
 }

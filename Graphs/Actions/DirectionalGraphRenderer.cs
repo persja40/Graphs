@@ -40,7 +40,7 @@ namespace Graphs.Actions
         
         private void onGraphChange()
         {
-            //Render();
+            Render();
         }
         
         public void Render()
@@ -72,7 +72,7 @@ namespace Graphs.Actions
             for (int y = 0; y < Graph.NodesNr; ++y)
                 for (int x = 0; x < Graph.NodesNr; ++x)
                 {
-                    if (Graph.GetConnection(x, y) == false)
+                    if (Graph.GetConnection(y, x) == false)
                         continue;
                     double arc1 = 2 * Math.PI / Graph.NodesNr * y;
                     double arc2 = 2 * Math.PI / Graph.NodesNr * x;
@@ -83,12 +83,12 @@ namespace Graphs.Actions
                     double x2 = GraphControl.ActualWidth / 2 + (GraphControl.ActualWidth / 2 - r) * Math.Cos(arc2);
                     double y2 = GraphControl.ActualHeight / 2 + (GraphControl.ActualHeight / 2 - r) * Math.Sin(arc2);
 
-                    int weight = Graph.getWeight(x, y);
+                    int weight = Graph.getWeight(y, x);
 
                     byte redBrightness = 0;
                     if (DirectedWindowVM.ShowWeights)
                     {
-                        redBrightness = (byte)((Math.Abs(weight) + (weight > 0 ? 0 : -weight)) / (double)(Graph.MaxWeight + Graph.MinWeight) * 255.0);
+                        redBrightness = (byte)((Math.Abs(Graph.MaxWeight - Graph.MinWeight) - Math.Abs(Graph.MaxWeight - weight) ) / (double)(Math.Abs(Graph.MaxWeight - Graph.MinWeight)) * 255.0);
                     }
 
                     LineViewModel lineVM = new LineViewModel()
@@ -97,17 +97,25 @@ namespace Graphs.Actions
                         Y1 = y1,
                         X2 = x2,
                         Y2 = y2,
-                        Node1 = x,
-                        Node2 = y,
+                        StartNode = y,
+                        EndNode = x,
                         Color = Color.FromRgb(redBrightness, 0, 0)
                     };
                     vm.Connections.Add(lineVM);
+                    double a = (y2 - y1) / (x2 - x1);
+                    double b = y2 / (a * x2);
+                    double length = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
+                    double newLength = length - r / 2;
+
+                    double ratio = newLength / length;
+                    double newX = x1 + (x2 - x1) * ratio;
+                    double newY = y1 + (y2 - y1) * ratio;
 
                     TriangleViewModel triangleVm = new TriangleViewModel()
                     {
-                        X = x2,
-                        Y = y2,
-                        Angle = lineVM.Angle
+                        X = newX - 10,
+                        Y = newY - 5,
+                        Angle = lineVM.Angle * (180.0 / Math.PI) + 90.0
                     };
 
                     vm.Triangles.Add(triangleVm);
@@ -116,7 +124,7 @@ namespace Graphs.Actions
                     {
                         LineViewModel hintVM = new LineViewModel(lineVM)
                         {
-                            Hint = string.Format("Weight : {0}", weight),
+                            Hint = string.Format("Weight : {0}, {1} , {2}", weight, y, x),
                             Color = Colors.Transparent,
                             Thickness = 8
                         };

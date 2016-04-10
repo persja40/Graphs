@@ -111,11 +111,19 @@ namespace Graphs.UserControls
         private void DrawTriangles()
         {
             var vm = VM as DirectedGraphViewModel;
-            foreach (var trinagle in vm.Triangles)
+            foreach (var trVM in vm.Triangles)
             {
-                Triangle line = new Triangle();
-                line.DataContext = trinagle;
-                MyCanvas.Children.Add(line);
+                Triangle triangle = new Triangle();
+                triangle.DataContext = trVM;
+
+               
+               // double radianAngle = Math.PI * trVM.Angle / 180.0;
+               // double xChange = Math.Sin(radianAngle) * 20.0;
+               // double yChange = Math.Cos(radianAngle) * 20.0;
+
+               // triangle.Margin = new Thickness(trVM.X , trVM.Y, 0, 0);
+
+                MyCanvas.Children.Add(triangle);
             }
 
         }

@@ -19,6 +19,7 @@ namespace Graphs.Data
         private void Reset()
         {
             maxWeight = null;
+            minWeight = null;
         }
 
         public int NodesNr
@@ -83,7 +84,8 @@ namespace Graphs.Data
                 for(int startNode = 0; startNode < NodesNr; ++ startNode)
                     for(int endNode = 0; endNode < NodesNr; ++endNode)
                     {
-                        maxWeight = Math.Max(maxWeight.Value, getWeight(startNode, endNode));
+                        if(GetConnection(startNode, endNode))
+                            maxWeight = Math.Max(maxWeight.Value, getWeight(startNode, endNode));
                     }
                 return maxWeight.Value;
             }
@@ -97,11 +99,15 @@ namespace Graphs.Data
                 if (minWeight != null)
                     return minWeight.Value;
                 else
-                    minWeight = int.MinValue;
+                    minWeight = int.MaxValue;
                 for (int startNode = 0; startNode < NodesNr; ++startNode)
                     for (int endNode = 0; endNode < NodesNr; ++endNode)
                     {
-                        minWeight = Math.Min(minWeight.Value, getWeight(startNode, endNode));
+                        if (GetConnection(startNode, endNode))
+                        {
+                            var weight = getWeight(startNode, endNode);
+                            minWeight = Math.Min(minWeight.Value, weight);
+                        }
                     }
                 return minWeight.Value;
             }

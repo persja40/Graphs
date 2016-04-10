@@ -27,17 +27,23 @@ namespace Graphs.ViewModels
                 var arcsin = Math.Asin(Height / Length);
                 var arccos = Math.Acos(Width / Length);
 
-                if(arcsin < 0 && arccos < 0)
+                
+
+
+                if (double.IsNaN(arcsin))
+                    return 0.0;
+
+                if(Width < 0 && Height < 0)
                 {
-                    return arcsin + Math.PI / 2;
+                    return Math.PI + Math.Abs(arcsin);
                 }
-                else if(arcsin < 0)
+                else if (Width < 0)
                 {
-                    return Math.PI - arccos;
+                    return Math.PI - Math.Abs(arcsin);
                 }
-                else if(arccos < 0)
+                else if (Height < 0)
                 {
-                    return Math.PI * 2 - arcsin;
+                    return Math.PI * 2 - Math.Abs(arcsin);
                 }
 
                 return arcsin;
@@ -48,8 +54,8 @@ namespace Graphs.ViewModels
         public Color Color { get; set; } = Colors.Black;
         public int Thickness { get; set; } = 1;
 
-        public int Node1 { get; set; }
-        public int Node2 { get; set; }
+        public int StartNode { get; set; }
+        public int EndNode { get; set; }
         public string Hint { get; set; }
 
         public LineViewModel() { }
@@ -63,8 +69,8 @@ namespace Graphs.ViewModels
             this.Color = other.Color;
             this.Thickness = other.Thickness;
 
-            this.Node1 = other.Node1;
-            this.Node2 = other.Node2;
+            this.StartNode = other.StartNode;
+            this.EndNode = other.EndNode;
             this.Hint = other.Hint;
         }
     }

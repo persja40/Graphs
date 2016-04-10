@@ -98,8 +98,8 @@ namespace Graphs.Actions
                         Y1 = y1,
                         X2 = x2,
                         Y2 = y2,
-                        Node1 = x,
-                        Node2 = y,
+                        StartNode = x,
+                        EndNode = y,
                         Color = Color.FromRgb(redBrightness, 0, 0)
                     };
                     vm.Connections.Add(lineVM);

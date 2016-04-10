@@ -5,13 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Graphs.UserControls"
              mc:Ignorable="d" Height="10" Width="20">
-    <Polygon Points="10,0 20,10, 0,10" Stroke="Black" Fill="White" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" >
+    <Polygon Points="10,0 20,10, 0,10" Stroke="Black" Fill="White" Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" >
         <Polygon.RenderTransform>
             <TransformGroup>
                 <ScaleTransform/>
                 <SkewTransform/>
                 <RotateTransform Angle="{Binding Angle}"/>
-                <TranslateTransform/>
+                <TranslateTransform X="{Binding X}"/>
+                <TranslateTransform Y="{Binding Y}"/>
             </TransformGroup>
         </Polygon.RenderTransform>
     </Polygon>
