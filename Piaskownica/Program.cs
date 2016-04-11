@@ -28,7 +28,7 @@ namespace Piaskownica
                 Console.WriteLine();
             }
             Console.WriteLine("------------------------------");
-            Console.WriteLine(w.matrix[0,3]);
+            //Console.WriteLine(w.matrix[0,3]);
             
             /*
             List<int> q = Directed.BellmanFord(w,x,y);

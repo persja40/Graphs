@@ -16,9 +16,6 @@
         <Label HorizontalAlignment="Center">
             Oleszek Kamil
         </Label>
-        <Label HorizontalAlignment="Center">
-            Papież Mateusz
-        </Label>
         <Button HorizontalAlignment="Center" Padding="25,1">Ok</Button>
         
     </StackPanel>
