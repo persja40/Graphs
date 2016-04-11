@@ -456,7 +456,7 @@ namespace Graphs
         {
             int centreID = Actions.Misc.graphCentrumMinimax(Graph) + 1;
 
-            string message = "MinMax centrum of the graph is : " + centreID;
+            string message = "MinMax center of the graph is : " + centreID;
              
             MessageBox.Show(message);
 
@@ -466,7 +466,7 @@ namespace Graphs
         {
             int centreID = Actions.Misc.graphCentrum(Graph) + 1;
 
-            string message = "MinMax centrum of the graph is : " + centreID;
+            string message = "Graph center is : " + centreID;
 
             MessageBox.Show(message);
         }
