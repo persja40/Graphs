@@ -293,14 +293,13 @@ namespace Graphs.Actions
         /// odbywa sie w trakcie algorytmu (metodą CreateRandomDirectedWeights)
         /// <returns></returns> Macierz odleglosci miedzy wszystkimi wierzcholkami
 
-        /*
+
         public static int[,] Johnson(DirectedGraphMatrix g)
         {
-            
             DirectedGraphMatrix g1 = Directedmaxspojny(g);
             DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g1);
             int nodes = graph.NodesNr;
-            // int[,] distances = new int[nodes, nodes];
+            int[,] distances = new int[nodes, nodes];
             int[] d = new int[nodes];
 
             int q = nodes + 1;
@@ -317,24 +316,25 @@ namespace Graphs.Actions
 
             for (int i = 0; i < q - 1; ++i)
             {
-                dgraph.MakeConnection(q, i, 0);
-                for(int j = 0; j < q - 1; ++j)
+                dgraph.MakeConnection(q - 1, i, 0);
+                dgraph.setWeight(i, q - 1, int.MaxValue);
+                for (int j = 0; j < q - 1; ++j)
                 {
                     dgraph.setWeight(i, j, graph.getWeight(i, j));
                 }
             }
-            
+
             List<List<int>> bellman = new List<List<int>>();
 
-            for(int i =  0; i < nodes; ++i)
+            for (int i = 0; i < nodes; ++i)
             {
-                bellman[i] = BellmanFord(dgraph, q, i);
+                bellman.Add(BellmanFord(dgraph, q - 1, i));
                 d[i] = pathWeight(dgraph, bellman[i]);
             }
 
-            for(int i = 0; i < q; ++i)
+            for (int i = 0; i < q - 1; ++i)
             {
-                for(int j = 0; j < q; ++j)
+                for (int j = 0; j < q - 1; ++j)
                 {
                     if (dgraph.GetConnection(i, j))
                     {
@@ -358,48 +358,45 @@ namespace Graphs.Actions
             {
                 for (int j = 0; j < nodes; ++j)
                 {
-                    if (lgraph.GetConnection(i, j))
-                    {
-                        lgraph.setWeight(i, j, dgraph.getWeight(i, j);
-                    }
+                    lgraph.setWeight(i, j, dgraph.getWeight(i, j));
                 }
             }
+
+            /*
+            Wypelnianie macierzy odleglosci miedzy wszystkimi wierzcholkami
             */
 
-        /*
-        List<int> path = new List<int>();
-        int total_dist = 0;
-        int dist = 0;
+            List<int> path = new List<int>();
+            int total_dist = 0;
+            int dist = 0;
 
-        for (int i = 0; i < nodes; ++i)
-        {
-            for (int j = 0; j < nodes; ++j)
+            for (int i = 0; i < nodes; ++i)
             {
-                if (i == j) distances[i, j] = 0;
-                else if (distances[i, j] != 0) continue;
-                else
+                for (int j = 0; j < nodes; ++j)
                 {
-                    path = PathFinding.Dijkstra(graph, i, j);
-                    if (path.Count == 1) distances[i, j] = distances[j, i] = graph.getWeight(i, path[0]);
-                    else {
-                        for (int k = 0; k < path.Count - 1; ++k)
-                        {
-                            dist += graph.getWeight(path[k], path[k + 1]);
+                    if (i == j) distances[i, j] = 0;
+                    else if (distances[i, j] != 0) continue;
+                    else
+                    {
+                        path = PathFinding.Dijkstra(lgraph, i, j);
+                        if (path.Count == 0) continue;
+                        if (path.Count == 1) distances[i, j] = distances[j, i] = lgraph.getWeight(i, path[0]);
+                        else {
+                            for (int k = 0; k < path.Count - 1; ++k)
+                            {
+                                dist += lgraph.getWeight(path[k], path[k + 1]);
+                            }
+                            total_dist = dist + lgraph.getWeight(i, path[0]);
+                            distances[i, j] = distances[j, i] = total_dist;
+                            total_dist = dist = 0;
+                            path.Clear();
                         }
-                        total_dist = dist + graph.getWeight(i, path[0]);
-                        distances[i, j] = distances[j, i] = total_dist;
-                        total_dist = dist = 0;
-                        path.Clear();
                     }
                 }
             }
-        }
-        */
-        /*
-         Trzeba jeszcze wypelnic tablice distances i ja zwrocic
-         */
 
-        //return distances;
+            return distances;
+        }
 
         /// <summary>
         /// Implementacja algorytmu Floyda-Warshalla
