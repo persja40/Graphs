@@ -95,38 +95,41 @@ namespace Graphs.Actions
         {
             Random r = new Random();
             GraphMatrixInc temp = Converter.ConvertToMatrixInc(Converter.ConvertToList(gr));
-            int[] q = new int[2];
-            int[] w = new int[2];
-            for (int i = 0; i < x; i++)
+            do
             {
-                q[0] = q[1] = w[0] = w[1] = -1;
-                int a;
-                int b;
-                do
+                int[] q = new int[2];
+                int[] w = new int[2];
+                for (int i = 0; i < x; i++)
                 {
-                    a = r.Next(temp.ConnectNr);
-                    b = r.Next(temp.ConnectNr);
-                } while (a == b);//find connections to swap
-                for (int j = 0; j < temp.NodesNr; j++)
-                {
-                    if (temp.GetConnectionArray(j, a))
-                        if (q[0] == -1)
-                            q[0] = j;
-                        else
-                            q[1] = j;
-                    if (temp.GetConnectionArray(j, b))
-                        if (w[0] == -1)
-                            w[0] = j;
-                        else
-                            w[1] = j;
+                    q[0] = q[1] = w[0] = w[1] = -1;
+                    int a;
+                    int b;
+                    do
+                    {
+                        a = r.Next(temp.ConnectNr);
+                        b = r.Next(temp.ConnectNr);
+                    } while (a == b);//find connections to swap
+                    for (int j = 0; j < temp.NodesNr; j++)
+                    {
+                        if (temp.GetConnectionArray(j, a))
+                            if (q[0] == -1)
+                                q[0] = j;
+                            else
+                                q[1] = j;
+                        if (temp.GetConnectionArray(j, b))
+                            if (w[0] == -1)
+                                w[0] = j;
+                            else
+                                w[1] = j;
+                    }
+                    if (temp.GetConnection(q[0], w[1]) || temp.GetConnection(q[1], w[0]) || q[0] == w[1] || q[1] == w[0])
+                        continue;
+                    temp.ClearConnection(q[0], q[1], a);
+                    temp.ClearConnection(w[0], w[1], b);
+                    temp.MakeConnection(q[0], w[1], a);
+                    temp.MakeConnection(q[1], w[0], b);
                 }
-                if (temp.GetConnection(q[0], w[1]) || temp.GetConnection(q[1], w[0]) || q[0] == w[1] || q[1] == w[0])
-                    continue;
-                temp.ClearConnection(q[0], q[1], a);
-                temp.ClearConnection(w[0], w[1], b);
-                temp.MakeConnection(q[0], w[1], a);
-                temp.MakeConnection(q[1], w[0], b);
-            }
+            } while (Converter.ConvertToMatrix(temp).Equals(gr));
             return Converter.ConvertToMatrix(temp);
         }
         /// <summary>
@@ -220,7 +223,7 @@ namespace Graphs.Actions
                             temp = new Tuple<int, int, int>(visited[j], help.GetConnections(visited[j])[k], from.getWeight(visited[j], help.GetConnections(visited[j])[k]));
                     }
                 tree.MakeConnection(temp.Item1, temp.Item2);
-                tree.setWeight(temp.Item1, temp.Item2,temp.Item3);
+                tree.setWeight(temp.Item1, temp.Item2, temp.Item3);
                 tree.setWeight(temp.Item2, temp.Item1, temp.Item3);
                 visited.Add(temp.Item2);
             }
