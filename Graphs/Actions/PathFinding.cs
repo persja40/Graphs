@@ -27,56 +27,62 @@ namespace Graphs.Actions
         /// 
         public static List<int> Dijkstra(IGraph graph, int startNode, int endNode)
         {
-            HashSet<int> Q = new HashSet<int>();
-
-            int[] dist = new int[graph.NodesNr];
-            int?[] prev = new int?[graph.NodesNr];
-            int node;
-
-            for (node = 0; node < graph.NodesNr; ++node)
+            try
             {
-                dist[node] = int.MaxValue;
-                prev[node] = null;
-                Q.Add(node);
-            }
+                HashSet<int> Q = new HashSet<int>();
 
-            dist[startNode] = 0;
+                int[] dist = new int[graph.NodesNr];
+                int?[] prev = new int?[graph.NodesNr];
+                int node;
 
-            while(Q.Count > 0)
-            {
-                //  int u = Utils.IndexOfMin(dist);
-                int u = Q.OrderBy(n => dist[n]).First();
-                Q.Remove(u);
-
-                var neigbours = graph.GetNeighbours(u);
-
-                foreach(var v in neigbours)
+                for (node = 0; node < graph.NodesNr; ++node)
                 {
-                    int weight = graph.getWeight(u, v);
-                    int alt = dist[u] + weight;
-                    if(alt < dist[v])
-                    {
-                        dist[v] = alt;
-                        prev[v] = u;
-                    }
+                    dist[node] = int.MaxValue;
+                    prev[node] = null;
+                    Q.Add(node);
                 }
-                
+
+                dist[startNode] = 0;
+
+                while (Q.Count > 0)
+                {
+                    //  int u = Utils.IndexOfMin(dist);
+                    int u = Q.OrderBy(n => dist[n]).First();
+                    Q.Remove(u);
+
+                    var neigbours = graph.GetNeighbours(u);
+
+                    foreach (var v in neigbours)
+                    {
+                        int weight = graph.getWeight(u, v);
+                        int alt = dist[u] + weight;
+                        if (alt < dist[v])
+                        {
+                            dist[v] = alt;
+                            prev[v] = u;
+                        }
+                    }
+
+                }
+
+                List<int> path = new List<int>();
+                node = endNode;
+
+                while (node != startNode)
+                {
+                    path.Add(node);
+
+                    node = prev[node].Value;
+                }
+
+                path.Reverse();
+                return path;
             }
-
-            List<int> path = new List<int>();
-            node = endNode;
-
-            while(node != startNode)
+            catch (Exception)
             {
-                path.Add(node);
-
-                node = prev[node].Value;
+                return new List<int>();
             }
-
-            path.Reverse();
-            return path;
         }
-
-
     }
 }
+
