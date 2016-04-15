@@ -186,6 +186,25 @@ namespace Graphs
 
             Renderer.Displayer = new DirectedColumnDisplayer();
         }
-    
+
+        private void Dijkstra(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Dijkstra();
+
+            dialog.ShowDialog();
+
+            int startNode = dialog.StartNode - 1;
+            int endNode = dialog.EndNode - 1;
+
+            List<int> path = PathFinding.Dijkstra(Graph, startNode, endNode);
+
+            string message = "Znaleziona sciezka : " + Environment.NewLine;
+            if (path != null)
+                path.ForEach(n => message += (n + 1) + " ");
+            else
+                message = "Nie znaleziono sciezki";
+
+            MessageBox.Show(message);
+        }
     }
 }
