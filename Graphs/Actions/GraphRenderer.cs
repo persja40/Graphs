@@ -21,7 +21,7 @@ namespace Graphs.Actions
             get { return _displayer; }
             set
             {
-                _displayer = value; Render(); _displayer = new CircleDisplayer();
+                _displayer = value;
             }
         }
         public GraphMatrix Graph

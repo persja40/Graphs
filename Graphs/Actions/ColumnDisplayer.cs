@@ -74,7 +74,12 @@ namespace Graphs.Actions
                     }
 
 
-
+                    int weight = R.Graph.getWeight(x, y);
+                    byte redBrightness = 0;
+                    if (R.mainWindowVM.ShowWeights)
+                    {
+                        redBrightness = (byte)((double)weight / (double)R.Graph.MaxWeight * 255.0);
+                    }
 
                     LineViewModel lineVM = new LineViewModel()
                     {
@@ -83,7 +88,8 @@ namespace Graphs.Actions
                         X2 = x2,
                         Y2 = y2,
                         StartNode = y,
-                        EndNode = x
+                        EndNode = x,
+                        Color = Color.FromRgb(redBrightness, 0, 0)
                     };
                     vm.Connections.Add(lineVM);
                 }

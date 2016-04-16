@@ -245,6 +245,8 @@ namespace Graphs
                 //    "After = " + (double)(after / 1000.0));
             }
 
+            GraphRenderer.Displayer = new CircleDisplayer();
+
         }
 
         private void ListChanged(object sender, RoutedEventArgs args)
@@ -271,12 +273,15 @@ namespace Graphs
 
             }
 
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void CreateCoherentGraph(object sender, RoutedEventArgs e)
         {
             Graph.Set(Actions.Misc.CreateBiggestCoherent(Graph));
             Graph.OnChange();
+
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void CreateNew(object sender, RoutedEventArgs e)
@@ -284,6 +289,8 @@ namespace Graphs
             GraphMatrix newGraph = new GraphMatrix(1);
             Graph.Set(newGraph);
             Graph.OnChange();
+
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void SaveGraph(object sender, RoutedEventArgs e)
@@ -345,6 +352,7 @@ namespace Graphs
                 SaveLoadWindowHelper.SaveCurrentDialogDirectory(dlg.InitialDirectory);
             }
             Graph.OnChange();
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void ExitApplication(object sender, RoutedEventArgs e)
@@ -388,6 +396,7 @@ namespace Graphs
         {
             Graph.Set(GraphGenerator.Randomize(Graph));
             Graph.OnChange();
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void CreateEuler(object sender, RoutedEventArgs e)
@@ -398,6 +407,7 @@ namespace Graphs
 
             Graph.Set(EulerGraph.RandEulerGraph(nodes));
             Graph.OnChange();
+            GraphRenderer.Displayer = new CircleDisplayer();
 
         }
 
@@ -431,6 +441,7 @@ namespace Graphs
 
             Graph.Set(GraphGenerator.generatorRegular(nodeDegree, nodes));
             Graph.OnChange();
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void CreateRandomWeights(object sender, RoutedEventArgs e)
@@ -508,7 +519,8 @@ namespace Graphs
         {
             Graph.Set(GraphGenerator.Prim(Graph));
             Graph.OnChange();
-            
+            GraphRenderer.Displayer = new CircleDisplayer();
+
         }
 
         private void GenerateFlowNetwork(object sender, RoutedEventArgs args)

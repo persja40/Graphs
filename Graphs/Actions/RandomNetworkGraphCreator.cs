@@ -70,6 +70,10 @@ namespace Graphs.Actions
                 var row = rows[i];
                 Row nextRow = getNextRow(rows, i);
                 Row previousRouw = getPreviousRow(rows, i);
+                if (i == 1)
+                    previousRouw = null;
+                if (i == rows.Count - 2)
+                    nextRow = null;
                 List<Row> longRows = createLongRowList(rows, i);
                 tryToConnectNode(row, nextRow, previousRouw, longRows);
             }
