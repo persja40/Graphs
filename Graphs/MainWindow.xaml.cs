@@ -45,7 +45,6 @@ namespace Graphs
                 Instance = this;
 
             InitializeComponent();
-            Project4(null, null);
 
             Graph = GraphGenerator.generatorRegular(2);
 
