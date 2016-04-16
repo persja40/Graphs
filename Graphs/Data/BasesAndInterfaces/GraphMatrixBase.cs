@@ -24,7 +24,9 @@ namespace Graphs.Data
                         setWeight(x, y, weight);
                     }
                 }
-            
+
+            Columns = other.Columns;
+
         }
 
 

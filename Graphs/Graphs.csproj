@@ -58,6 +58,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\AcyclicGraphCreator.cs" />
+    <Compile Include="Actions\CircleDisplayer.cs" />
+    <Compile Include="Actions\ColumnDisplayer.cs" />
     <Compile Include="Actions\Converter.cs" />
     <Compile Include="Actions\Directed.cs" />
     <Compile Include="Actions\DirectedCircleDisplayer.cs" />
@@ -68,8 +70,10 @@
     <Compile Include="Actions\GraphRenderer.cs" />
     <Compile Include="Actions\Hamilton.cs" />
     <Compile Include="Actions\IDirectedDisplayer.cs" />
+    <Compile Include="Actions\IDisplayer.cs" />
     <Compile Include="Actions\Misc.cs" />
     <Compile Include="Actions\PathFinding.cs" />
+    <Compile Include="Actions\RandomNetworkGraphCreator.cs" />
     <Compile Include="Authors.xaml.cs">
       <DependentUpon>Authors.xaml</DependentUpon>
     </Compile>
@@ -187,6 +191,9 @@
     <Compile Include="Windows\Project4\CreateAcycligGraphWindow.xaml.cs">
       <DependentUpon>CreateAcycligGraphWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Project5\CreateFlowNetworkWindow.xaml.cs">
+      <DependentUpon>CreateFlowNetworkWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Authors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -296,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Project4\CreateAcycligGraphWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Project5\CreateFlowNetworkWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

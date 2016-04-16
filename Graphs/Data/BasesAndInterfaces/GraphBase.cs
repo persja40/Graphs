@@ -102,8 +102,11 @@ namespace Graphs.Data
                 for(int startNode = 0; startNode < NodesNr; ++ startNode)
                     for(int endNode = 0; endNode < NodesNr; ++endNode)
                     {
-                        if(GetConnection(startNode, endNode))
-                            maxWeight = Math.Max(maxWeight.Value, getWeight(startNode, endNode));
+                        var weight = getWeight(startNode, endNode);
+                        if (weight == int.MaxValue)
+                            continue;
+                        if (GetConnection(startNode, endNode))
+                            maxWeight = Math.Max(maxWeight.Value, weight);
                     }
                 return maxWeight.Value;
             }
@@ -124,6 +127,8 @@ namespace Graphs.Data
                         if (GetConnection(startNode, endNode))
                         {
                             var weight = getWeight(startNode, endNode);
+                            if (weight == int.MinValue)
+                                continue;
                             minWeight = Math.Min(minWeight.Value, weight);
                         }
                     }
@@ -138,5 +143,34 @@ namespace Graphs.Data
         
 
         protected int[,] weights;
+
+
+        public List<int> Columns { get; set; } = new List<int>();
+        public void AddToColumn(int columnNumber)
+        {
+            Columns.Add(columnNumber);
+        }
+
+        public int NodesInColumn(int nodeNumber)
+        {
+            int columnNumber = Columns[nodeNumber];
+            var count = Columns.Count(n => n == columnNumber);
+            return count;
+        }
+
+        public int ColumnsCount()
+        {
+            return Columns.Max();
+        }
+
+        public int NodeOrderInColumn(int node)
+        {
+            int column = Columns[node];
+            int order = 0;
+            for (int i = 0; i < node; ++i)
+                if (Columns[i] == column)
+                    order++;
+            return order;
+        }
     }
 }

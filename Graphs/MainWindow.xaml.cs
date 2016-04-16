@@ -6,6 +6,7 @@ using Graphs.ViewModels;
 using Graphs.Windows.Generators;
 using Graphs.Windows.Project2;
 using Graphs.Windows.Project3;
+using Graphs.Windows.Project5;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -45,9 +46,7 @@ namespace Graphs
                 Instance = this;
 
             InitializeComponent();
-            new DirectedWindow().ShowDialog();
 
-            Project4(null, null);
 
             Graph = GraphGenerator.generatorRegular(2);
 
@@ -69,10 +68,14 @@ namespace Graphs
         {
            if(VM.ShowWeights)
             {
-                var dialog = new SelectWeightWindow();
-                dialog.ShowDialog();
                 int node1 = lineVM.StartNode;
                 int node2 = lineVM.EndNode;
+
+                var dialog = new SelectWeightWindow();
+                dialog.Weight = Graph.getWeight(node1, node2);
+
+                dialog.ShowDialog();
+               
                 int weight = dialog.Weight;
 
                 Graph.setWeight(node1, node2, weight);
@@ -506,6 +509,27 @@ namespace Graphs
             Graph.Set(GraphGenerator.Prim(Graph));
             Graph.OnChange();
             
+        }
+
+        private void GenerateFlowNetwork(object sender, RoutedEventArgs args)
+        {
+            var w = new CreateFlowNetworkWindow();
+            try
+            {
+                w.ShowDialog();
+                Graph.Clear();
+                Graph.Set(w.Generate());
+                Graph.OnChange();
+            }
+            catch (Exception e)
+            {
+                MessageBoxResult result = MessageBox.Show("Coś poszło nie tak"
+                    + System.Environment.NewLine
+                    + e.Message
+                    );
+            }
+
+            GraphRenderer.Displayer = new ColumnDisplayer();
         }
     }
 }
