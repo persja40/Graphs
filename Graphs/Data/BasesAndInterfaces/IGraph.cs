@@ -29,5 +29,7 @@ namespace Graphs.Data
         int MaxWeight { get; }
         int NodesNr { get; }
         OnChange OnChange { get; set; }
+
+        List<int> Columns { get; set; }
     }
 }

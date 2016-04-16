@@ -14,5 +14,14 @@ namespace Graphs.Extensions
            
             return collection.ElementAt(rand.Next(0, collection.Count));
         }
+
+        /// <param name="min">Inclusive</param>
+        /// <param name="max">Not inclusive</param>
+        /// <returns></returns>
+        public static T SelectRandom<T>(this ICollection<T> collection, int min, int max)
+        {
+
+            return collection.ElementAt(rand.Next(min, max));
+        }
     }
 }

@@ -68,33 +68,7 @@ namespace Graphs.Data
             Columns = other.Columns;
         }
 
-        public List<int> Columns { get; set; } = new List<int>();
-        public void AddToColumn(int columnNumber)
-        {
-            Columns.Add(columnNumber);
-        }
 
-        public int NodesInColumn(int nodeNumber)
-        {
-            int columnNumber = Columns[nodeNumber];
-            var count =  Columns.Count(n => n == columnNumber);
-            return count;
-        }
-
-        public int ColumnsCount()
-        {
-           return Columns.Max();
-        }
-
-        public int NodeOrderInColumn(int node)
-        {
-            int column = Columns[node];
-            int order = 0;
-            for (int i = 0; i < node; ++i)
-                if (Columns[i] == column)
-                    order++;
-            return order;
-        }
         
     }
 }
