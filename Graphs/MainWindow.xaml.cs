@@ -45,6 +45,8 @@ namespace Graphs
                 Instance = this;
 
             InitializeComponent();
+            new DirectedWindow().ShowDialog();
+
             Project4(null, null);
 
             Graph = GraphGenerator.generatorRegular(2);

@@ -48,6 +48,24 @@ namespace Graphs.Data
 
             return neighbours;
         }
+
+        /// <summary>
+        /// Zwraca liste node'ów które są połączone z danym nodem. (nasz node nie musi mieć z nimi bezposrędniego połączenia)
+        /// </summary>
+        public List<int> GetConnectedToNodes(int node)
+        {
+            List<int> connectedTo = new List<int>();
+            for(int i = 0; i < nodesNr; ++i)
+            {
+                if (i == node)
+                    continue;
+                if (GetConnection(i, node))
+                    connectedTo.Add(i);
+            }
+
+            return connectedTo;
+        }
+
         public int getWeight(int n1, int n2)
         {
             return weights[n1, n2];

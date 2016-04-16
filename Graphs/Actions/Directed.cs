@@ -436,6 +436,60 @@ namespace Graphs.Actions
 
             return distances;
         }
+
+        public static List<int> TopologicSorting(DirectedGraphMatrix Graph)
+        {
+            List<int> topologicList = new List<int>();
+            List<int> done = new List<int>();
+
+            topologicSorting(Graph, topologicList, done);
+
+            return topologicList;
+        }
+
+        /// <throws>Rzuca wyjątek gdy nic nie znajdzie. Nie powinno się tak dziac.</throws>
+        private static int getFirstNotCompleted(List<int> done, int nodesNr)
+        {
+            int? firstNotCompleted = null;
+            for (int i = 0; i < nodesNr; ++i)
+            {
+                if (!done.Contains(i))
+                {
+                    firstNotCompleted = i;
+                    break;
+                }
+            }
+
+            return firstNotCompleted.Value;
+        }
+
+        private static void topologicSorting(DirectedGraphMatrix originalGraph, List<int> retList, List<int> Done)
+        {
+            DirectedGraphMatrix graph = new DirectedGraphMatrix(1);
+            graph.Set(originalGraph);
+
+            while (retList.Count != originalGraph.NodesNr)
+            {
+                //find node with 0 dim
+                for (int i = 0; i < graph.NodesNr; ++i)
+                {
+                    if (Done.Contains(i))
+                        continue;
+
+                    var neighbours = graph.GetNeighbours(i);
+
+                    if (neighbours.Count == 0)
+                    {
+                        //remove this node
+                        retList.Add(i);
+                        Done.Add(i);
+                        foreach (var node in graph.GetConnectedToNodes(i))
+                            graph.RemoveConnection(node, i);
+                    }
+                }
+            }
+
+        }
     }
 }
 

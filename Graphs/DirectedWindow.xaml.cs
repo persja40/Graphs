@@ -206,5 +206,16 @@ namespace Graphs
 
             MessageBox.Show(message);
         }
+
+        private void TopologicSorting(object sender, RoutedEventArgs e)
+        {
+            var sorted = Directed.TopologicSorting(Graph);
+
+            string message = "";
+            foreach (var node in sorted)
+                message += (node + 1) + Environment.NewLine;
+
+            MessageBox.Show(message);
+        }
     }
 }
