@@ -289,15 +289,13 @@ namespace Graphs.Actions
         /// <summary>
         /// Implementacja algorytmu Johnsona, korzysta z algorytmow Bellmana-Forda i Dijkstry
         /// </summary>
-        /// <param name="g"></param> obiekt DirectedGraphMatrix, stworzony np metoda CreateDirect(GraphMatrix g), randomizacja wag
-        /// odbywa sie w trakcie algorytmu (metodą CreateRandomDirectedWeights)
+        /// <param name="g"></param> obiekt DirectedGraphMatrix, stworzony np metoda CreateDirectional(GraphMatrix g)
         /// <returns></returns> Macierz odleglosci miedzy wszystkimi wierzcholkami
 
 
-        public static int[,] Johnson(DirectedGraphMatrix g)
+        public static int[,] Johnson(DirectedGraphMatrix graph)
         {
-            DirectedGraphMatrix g1 = Directedmaxspojny(g);
-            DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g1);
+            //DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g);
             int nodes = graph.NodesNr;
             int[,] distances = new int[nodes, nodes];
             int[] d = new int[nodes];
@@ -309,7 +307,9 @@ namespace Graphs.Actions
                 for (int j = 0; j < nodes; ++j)
                 {
                     new_connect[i, j] = graph.getConnect(i, j);
+                    distances[i, j] = int.MaxValue;
                 }
+                distances[i, i] = 0;
             }
 
             DirectedGraphMatrix dgraph = new DirectedGraphMatrix(q, new_connect);
@@ -362,51 +362,19 @@ namespace Graphs.Actions
                 }
             }
 
-            /*
-            Wypelnianie macierzy odleglosci miedzy wszystkimi wierzcholkami
-            */
-
-            List<int> path = new List<int>();
-            int total_dist = 0;
-            int dist = 0;
-
-            for (int i = 0; i < nodes; ++i)
-            {
-                for (int j = 0; j < nodes; ++j)
-                {
-                    if (i == j) distances[i, j] = 0;
-                    else if (distances[i, j] != 0) continue;
-                    else
-                    {
-                        path = PathFinding.Dijkstra(lgraph, i, j);
-                        if (path.Count == 0) continue;
-                        if (path.Count == 1) distances[i, j] = distances[j, i] = lgraph.getWeight(i, path[0]);
-                        else {
-                            for (int k = 0; k < path.Count - 1; ++k)
-                            {
-                                dist += lgraph.getWeight(path[k], path[k + 1]);
-                            }
-                            total_dist = dist + lgraph.getWeight(i, path[0]);
-                            distances[i, j] = distances[j, i] = total_dist;
-                            total_dist = dist = 0;
-                            path.Clear();
-                        }
-                    }
-                }
-            }
+            distances = distancesDirectedMatrix(lgraph);
 
             return distances;
         }
 
+
         /// <summary>
         /// Implementacja algorytmu Floyda-Warshalla
         /// </summary>
-        /// <param name="g"></param> obiekt DirectedGraphMatrix, stworzony np metoda CreateDirect(GraphMatrix g), randomizacja wag
-        /// odbywa sie w trakcie algorytmu (metodą CreateRandomDirectedWeights)
+        /// <param name="g"></param> obiekt DirectedGraphMatrix, stworzony np metoda CreateDirectional(GraphMatrix g)
         /// <returns></returns> Macierz odleglosci miedzy wszystkimi wierzcholkami, jezeli nie wystepuje sciezka pomiedzy i,j to distances[i, j] = int.MaxValue
-        public static int[,] FloydWarshall(DirectedGraphMatrix g)
+        public static int[,] FloydWarshall(DirectedGraphMatrix graph)
         {
-            DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g);
             int nodes = graph.NodesNr;
             int[,] distances = new int[nodes, nodes];
             int w = 0;
@@ -415,10 +383,13 @@ namespace Graphs.Actions
             {
                 for (int j = 0; j < nodes; ++j)
                 {
-                    if (i == j) distances[i, j] = 0;
-                    else distances[i, j] = int.MaxValue;
-                    if (graph.GetConnection(i, j)) distances[i, j] = graph.getWeight(i, j);
+                    distances[i, j] = int.MaxValue;
+                    if (graph.GetConnection(i, j))
+                    {
+                        distances[i, j] = graph.getWeight(i, j);
+                    }
                 }
+                distances[i, i] = 0;
             }
 
             for (int k = 0; k < nodes; ++k)
@@ -427,13 +398,83 @@ namespace Graphs.Actions
                 {
                     for (int j = 0; j < nodes; ++j)
                     {
-                        if ((distances[i, k] == int.MaxValue) || (distances[k, j] == int.MaxValue)) continue;
+                        if (k == i || k == j || i == j) continue;
+                        if ((distances[i, k] == int.MaxValue) || (distances[k, j] == int.MaxValue))
+                            continue;
                         w = distances[i, k] + distances[k, j];
-                        if (distances[i, j] > w) distances[i, j] = w;
+                        if (distances[i, j] > w)
+                            distances[i, j] = w;
                     }
                 }
             }
 
+            return distances;
+        }
+
+        /// <summary>
+        /// Tworzenie macierzy odleglosci pomiedzy wszystkimi parami wierzcholkow w grafie spojnym skierowanym, wykorzystuje algorytm Dijkstry
+        /// </summary>
+        /// <param name="from"></param> Graf skierowany, w ktorym liczymy odleglosci miedzy wszystkimi parami wierzcholkow
+        /// <returns></returns> distances - Macierz odleglosci miedzy wszystkimi parami wierzcholkow
+        public static int[,] distancesDirectedMatrix(DirectedGraphMatrix graph)
+        {
+            //DirectedGraphMatrix graph = Directedmaxspojny(from);
+            int nodes = graph.NodesNr;
+            int[,] distances = new int[nodes, nodes];
+            List<int> path = new List<int>();
+            int total_dist = 0;
+            int dist = 0;
+
+
+            for (int i = 0; i < nodes; ++i)
+            {
+                for (int j = 0; j < nodes; ++j)
+                {
+                    if (i == j)
+                        distances[i, j] = 0;
+                    else
+                        distances[i, j] = int.MaxValue; ;
+                }
+
+            }
+
+            for (int i = 0; i < nodes; ++i)
+            {
+                for (int j = 0; j < nodes; ++j)
+                {
+                    if (i == j) continue;
+                    else
+                    {
+                        path = PathFinding.Dijkstra(graph, i, j);
+                        /*Pomocnicze wypisanie sciezek*/
+
+                        if (path.Count == 0)
+                        {
+                            Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " nie istnieje.");
+                            continue; // jesli nie ma sciezki to pozostaje int.MaxValue
+                        }
+                        else if (path.Count == 1)
+                        {
+                            distances[i, j] = graph.getWeight(i, path[0]); // jesli sciezka zawiera jeden wierzcholek to odleglosc == waga(i, id)
+                            Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->" + path[0]);
+                        }
+                        else {
+                            Console.Write("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->");
+                            for(int m = 0; m < path.Count; ++m)
+                                Console.Write(path[m] + "->");
+                            Console.WriteLine();
+                            for (int k = 0; k < path.Count - 1; ++k)
+                            {
+                                dist += graph.getWeight(path[k], path[k + 1]);
+                            }
+                            total_dist = dist + graph.getWeight(i, path[0]);
+                            distances[i, j] = total_dist;
+                            total_dist = dist = 0;
+                            path.Clear();
+                        }
+                    }
+                }
+            }
             return distances;
         }
 
