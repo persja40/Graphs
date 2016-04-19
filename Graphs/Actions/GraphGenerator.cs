@@ -167,11 +167,10 @@ namespace Graphs.Actions
                 {
                     if (f.GetConnection(k, p))
                         ret.MakeConnection(k, p, r.Next(minWeight, maxWeight + 1));
-                    /*else
+                    else
                     {
                         ret.setWeight(k, p, int.MaxValue);
                     }
-                    */
                 }
             }
             return ret;
