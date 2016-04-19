@@ -98,14 +98,14 @@ namespace Graphs.Actions
             var startNode = rows[0][0];
             foreach(var node in rows[1])
             {
-                connectNodes(startNode, node, int.MaxValue);
+                connectNodes(startNode, node, int.MaxValue - 10000);
             }
 
             var endNode = rows[rows.Count - 1][0];
 
             foreach (var node in rows[rows.Count - 2])
             {
-                connectNodes(node, endNode, int.MaxValue);
+                connectNodes(node, endNode, int.MaxValue - 10000);
             }
         }
 
