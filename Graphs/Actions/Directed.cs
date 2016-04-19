@@ -378,12 +378,13 @@ namespace Graphs.Actions
             int nodes = graph.NodesNr;
             int[,] distances = new int[nodes, nodes];
             int w = 0;
+            int big = 100;
 
             for (int i = 0; i < nodes; ++i)
             {
                 for (int j = 0; j < nodes; ++j)
                 {
-                    distances[i, j] = int.MaxValue;
+                    distances[i, j] = big;
                     if (graph.GetConnection(i, j))
                     {
                         distances[i, j] = graph.getWeight(i, j);
@@ -399,7 +400,7 @@ namespace Graphs.Actions
                     for (int j = 0; j < nodes; ++j)
                     {
                         if (k == i || k == j || i == j) continue;
-                        if ((distances[i, k] == int.MaxValue) || (distances[k, j] == int.MaxValue))
+                        if ((distances[i, k] == big) || (distances[k, j] == big))
                             continue;
                         w = distances[i, k] + distances[k, j];
                         if (distances[i, j] > w)
@@ -424,6 +425,7 @@ namespace Graphs.Actions
             List<int> path = new List<int>();
             int total_dist = 0;
             int dist = 0;
+            int big = 100;
 
 
             for (int i = 0; i < nodes; ++i)
@@ -433,7 +435,7 @@ namespace Graphs.Actions
                     if (i == j)
                         distances[i, j] = 0;
                     else
-                        distances[i, j] = int.MaxValue; ;
+                        distances[i, j] = big;
                 }
 
             }
@@ -447,7 +449,7 @@ namespace Graphs.Actions
                     {
                         path = PathFinding.Dijkstra(graph, i, j);
                         /*Pomocnicze wypisanie sciezek*/
-
+                        Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
                         if (path.Count == 0)
                         {
                             Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " nie istnieje.");
@@ -457,6 +459,9 @@ namespace Graphs.Actions
                         {
                             distances[i, j] = graph.getWeight(i, path[0]); // jesli sciezka zawiera jeden wierzcholek to odleglosc == waga(i, id)
                             Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->" + path[0]);
+                            path.Clear();
+                            Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
+
                         }
                         else {
                             Console.Write("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->");
@@ -471,6 +476,7 @@ namespace Graphs.Actions
                             distances[i, j] = total_dist;
                             total_dist = dist = 0;
                             path.Clear();
+                            Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
                         }
                     }
                 }
