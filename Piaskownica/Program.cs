@@ -32,7 +32,8 @@ namespace Piaskownica
             */
 
 
-            List<int> degrees = new List<int>() { 4, 3, 5, 3, 3, 3, 3 };
+            //List<int> degrees = new List<int>() { 4, 3, 5, 3, 3, 3, 3 };
+            List<int> degrees = new List<int>() { 3, 3, 2, 2, 2 };
             GraphMatrix g = Misc.Construct(degrees);
             GraphMatrix graph = Misc.CreateBiggestCoherent(g);
             DirectedGraphMatrix cgraph = GraphGenerator.CreateDirectional(graph);
