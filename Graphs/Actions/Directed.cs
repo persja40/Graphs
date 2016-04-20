@@ -297,8 +297,9 @@ namespace Graphs.Actions
         {
             //DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g);
             int nodes = graph.NodesNr;
-            int[,] distances = new int[nodes, nodes];
+            //int[,] distances = new int[nodes, nodes];
             int[] d = new int[nodes];
+            const int INF = int.MaxValue - 10000;
 
             int q = nodes + 1;
             int[,] new_connect = new int[q, q];
@@ -307,9 +308,9 @@ namespace Graphs.Actions
                 for (int j = 0; j < nodes; ++j)
                 {
                     new_connect[i, j] = graph.getConnect(i, j);
-                    distances[i, j] = int.MaxValue;
+                    //distances[i, j] = INF;
                 }
-                distances[i, i] = 0;
+                //distances[i, i] = 0;
             }
 
             DirectedGraphMatrix dgraph = new DirectedGraphMatrix(q, new_connect);
@@ -317,7 +318,7 @@ namespace Graphs.Actions
             for (int i = 0; i < q - 1; ++i)
             {
                 dgraph.MakeConnection(q - 1, i, 0);
-                dgraph.setWeight(i, q - 1, int.MaxValue);
+                dgraph.setWeight(i, q - 1, INF);
                 for (int j = 0; j < q - 1; ++j)
                 {
                     dgraph.setWeight(i, j, graph.getWeight(i, j));
@@ -329,7 +330,15 @@ namespace Graphs.Actions
             for (int i = 0; i < nodes; ++i)
             {
                 bellman.Add(BellmanFord(dgraph, q - 1, i));
+                Console.WriteLine((q - 1) + ", " + i + " :bellman.Count = " + bellman[i].Count);
                 d[i] = pathWeight(dgraph, bellman[i]);
+                Console.WriteLine("Dlugosc sciezki pomiedzy q, " + i + "to: " + d[i]);
+                Console.WriteLine("Sciezka pomiedzy: " + (q - 1) + ", " + i + " to: ");
+                for (int m = 0; m < bellman[i].Count; ++m)
+                {
+                    Console.Write((bellman[i])[m] + "->");
+                }
+                Console.WriteLine();
             }
 
             for (int i = 0; i < q - 1; ++i)
@@ -362,9 +371,9 @@ namespace Graphs.Actions
                 }
             }
 
-            distances = distancesDirectedMatrix(lgraph);
-
-            return distances;
+            //return distancesDirectedMatrix(lgraph);
+            return FloydWarshall(graph);
+            //return distances;
         }
 
 
@@ -378,13 +387,13 @@ namespace Graphs.Actions
             int nodes = graph.NodesNr;
             int[,] distances = new int[nodes, nodes];
             int w = 0;
-            int big = 100;
+            const int INF = int.MaxValue - 10000;
 
             for (int i = 0; i < nodes; ++i)
             {
                 for (int j = 0; j < nodes; ++j)
                 {
-                    distances[i, j] = big;
+                    distances[i, j] = INF;
                     if (graph.GetConnection(i, j))
                     {
                         distances[i, j] = graph.getWeight(i, j);
@@ -400,7 +409,7 @@ namespace Graphs.Actions
                     for (int j = 0; j < nodes; ++j)
                     {
                         if (k == i || k == j || i == j) continue;
-                        if ((distances[i, k] == big) || (distances[k, j] == big))
+                        if ((distances[i, k] == INF) || (distances[k, j] == INF))
                             continue;
                         w = distances[i, k] + distances[k, j];
                         if (distances[i, j] > w)
@@ -425,7 +434,7 @@ namespace Graphs.Actions
             List<int> path = new List<int>();
             int total_dist = 0;
             int dist = 0;
-            int big = 100;
+            const int INF = int.MaxValue - 10000;
 
 
             for (int i = 0; i < nodes; ++i)
@@ -435,7 +444,7 @@ namespace Graphs.Actions
                     if (i == j)
                         distances[i, j] = 0;
                     else
-                        distances[i, j] = big;
+                        distances[i, j] = INF;
                 }
 
             }
@@ -449,25 +458,25 @@ namespace Graphs.Actions
                     {
                         path = PathFinding.Dijkstra(graph, i, j);
                         /*Pomocnicze wypisanie sciezek*/
-                        Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
+                        //Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
                         if (path.Count == 0)
                         {
-                            Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " nie istnieje.");
+                            //Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " nie istnieje.");
                             continue; // jesli nie ma sciezki to pozostaje int.MaxValue
                         }
                         else if (path.Count == 1)
                         {
                             distances[i, j] = graph.getWeight(i, path[0]); // jesli sciezka zawiera jeden wierzcholek to odleglosc == waga(i, id)
-                            Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->" + path[0]);
+                            //Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->" + path[0]);
                             path.Clear();
-                            Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
+                            //Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
 
                         }
                         else {
-                            Console.Write("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->");
-                            for(int m = 0; m < path.Count; ++m)
-                                Console.Write(path[m] + "->");
-                            Console.WriteLine();
+                            //Console.Write("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->");
+                            //for(int m = 0; m < path.Count; ++m)
+                            //Console.Write(path[m] + "->");
+                            //Console.WriteLine();
                             for (int k = 0; k < path.Count - 1; ++k)
                             {
                                 dist += graph.getWeight(path[k], path[k + 1]);
@@ -476,7 +485,7 @@ namespace Graphs.Actions
                             distances[i, j] = total_dist;
                             total_dist = dist = 0;
                             path.Clear();
-                            Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
+                            //Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
                         }
                     }
                 }
