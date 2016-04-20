@@ -95,20 +95,24 @@ namespace Graphs.Actions
         {
             Random r = new Random();
             GraphMatrixInc temp = Converter.ConvertToMatrixInc(Converter.ConvertToList(gr));
+            int xxx = 0;
             do
             {
                 int[] q = new int[2];
                 int[] w = new int[2];
+                
                 for (int i = 0; i < x; i++)
                 {
                     q[0] = q[1] = w[0] = w[1] = -1;
                     int a;
                     int b;
+                    int xx = 0;
                     do
                     {
                         a = r.Next(temp.ConnectNr);
                         b = r.Next(temp.ConnectNr);
-                    } while (a == b);//find connections to swap
+                        ++xx;
+                    } while (a == b && xx < 10000);//find connections to swap
                     for (int j = 0; j < temp.NodesNr; j++)
                     {
                         if (temp.GetConnectionArray(j, a))
@@ -129,7 +133,7 @@ namespace Graphs.Actions
                     temp.MakeConnection(q[0], w[1], a);
                     temp.MakeConnection(q[1], w[0], b);
                 }
-            } while (Converter.ConvertToMatrix(temp).Equals(gr));
+            } while (Converter.ConvertToMatrix(temp).Equals(gr) && ++xxx < 500);
             return Converter.ConvertToMatrix(temp);
         }
         /// <summary>
@@ -163,11 +167,6 @@ namespace Graphs.Actions
                 {
                     if (f.GetConnection(k, p))
                         ret.MakeConnection(k, p, r.Next(minWeight, maxWeight + 1));
-                    /*else
-                    {
-                        ret.setWeight(k, p, int.MaxValue);
-                    }
-                    */
                 }
             }
             return ret;
@@ -229,5 +228,6 @@ namespace Graphs.Actions
             }
             return tree;
         }
+
     }
 }

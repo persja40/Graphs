@@ -6,6 +6,7 @@ using Graphs.ViewModels;
 using Graphs.Windows.Generators;
 using Graphs.Windows.Project2;
 using Graphs.Windows.Project3;
+using Graphs.Windows.Project5;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace Graphs
                 Instance = this;
 
             InitializeComponent();
-            Project4(null, null);
+
 
             Graph = GraphGenerator.generatorRegular(2);
 
@@ -67,10 +68,14 @@ namespace Graphs
         {
            if(VM.ShowWeights)
             {
-                var dialog = new SelectWeightWindow();
-                dialog.ShowDialog();
                 int node1 = lineVM.StartNode;
                 int node2 = lineVM.EndNode;
+
+                var dialog = new SelectWeightWindow();
+                dialog.Weight = Graph.getWeight(node1, node2);
+
+                dialog.ShowDialog();
+               
                 int weight = dialog.Weight;
 
                 Graph.setWeight(node1, node2, weight);
@@ -240,6 +245,8 @@ namespace Graphs
                 //    "After = " + (double)(after / 1000.0));
             }
 
+            GraphRenderer.Displayer = new CircleDisplayer();
+
         }
 
         private void ListChanged(object sender, RoutedEventArgs args)
@@ -266,12 +273,15 @@ namespace Graphs
 
             }
 
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void CreateCoherentGraph(object sender, RoutedEventArgs e)
         {
             Graph.Set(Actions.Misc.CreateBiggestCoherent(Graph));
             Graph.OnChange();
+
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void CreateNew(object sender, RoutedEventArgs e)
@@ -279,6 +289,8 @@ namespace Graphs
             GraphMatrix newGraph = new GraphMatrix(1);
             Graph.Set(newGraph);
             Graph.OnChange();
+
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void SaveGraph(object sender, RoutedEventArgs e)
@@ -340,6 +352,7 @@ namespace Graphs
                 SaveLoadWindowHelper.SaveCurrentDialogDirectory(dlg.InitialDirectory);
             }
             Graph.OnChange();
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void ExitApplication(object sender, RoutedEventArgs e)
@@ -383,6 +396,7 @@ namespace Graphs
         {
             Graph.Set(GraphGenerator.Randomize(Graph));
             Graph.OnChange();
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void CreateEuler(object sender, RoutedEventArgs e)
@@ -393,6 +407,7 @@ namespace Graphs
 
             Graph.Set(EulerGraph.RandEulerGraph(nodes));
             Graph.OnChange();
+            GraphRenderer.Displayer = new CircleDisplayer();
 
         }
 
@@ -426,6 +441,7 @@ namespace Graphs
 
             Graph.Set(GraphGenerator.generatorRegular(nodeDegree, nodes));
             Graph.OnChange();
+            GraphRenderer.Displayer = new CircleDisplayer();
         }
 
         private void CreateRandomWeights(object sender, RoutedEventArgs e)
@@ -503,7 +519,29 @@ namespace Graphs
         {
             Graph.Set(GraphGenerator.Prim(Graph));
             Graph.OnChange();
-            
+            GraphRenderer.Displayer = new CircleDisplayer();
+
+        }
+
+        private void GenerateFlowNetwork(object sender, RoutedEventArgs args)
+        {
+            var w = new CreateFlowNetworkWindow();
+            try
+            {
+                w.ShowDialog();
+                Graph.Clear();
+                Graph.Set(w.Generate());
+                Graph.OnChange();
+            }
+            catch (Exception e)
+            {
+                MessageBoxResult result = MessageBox.Show("Coś poszło nie tak"
+                    + System.Environment.NewLine
+                    + e.Message
+                    );
+            }
+
+            GraphRenderer.Displayer = new ColumnDisplayer();
         }
     }
 }

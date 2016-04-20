@@ -228,6 +228,7 @@ namespace Graphs.Actions
                     else
                     {
                         path = PathFinding.Dijkstra(graph, i, j);
+                        if (path.Count == 0) continue;
                         if (path.Count == 1) distances[i, j] = distances[j, i] = graph.getWeight(i, path[0]);
                         else {
                             for (int k = 0; k < path.Count - 1; ++k)
