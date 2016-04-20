@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Graphs.Data;
 using Graphs.Actions;
+using System.IO;
 
 namespace Piaskownica
 {
@@ -12,14 +13,15 @@ namespace Piaskownica
     {
         static void Main(string[] args)
         {
-            int x = 6;
-            int y = 4;
+            //int x = 6;
+            //int y = 4;
             //GraphMatrix e = GraphGenerator.generatorGER(7,10);
             //GraphMatrix w =  EulerGraph.RandEulerGraph(13);
             //GraphMatrix q = GraphGenerator.Randomize(w);
             //e = GraphGenerator.CreateRandomWeights(e);
             // DirectedGraphMatrix w = GraphGenerator.CreateDirect(e);
             //w = GraphGenerator.CreateRandomDirectedWeights(w);
+            /*
             Percolation w = new Percolation(7, 0.5);
             for (int i = 0; i < w.size; i++)
             {
@@ -28,8 +30,37 @@ namespace Piaskownica
                 Console.WriteLine();
             }
             Console.WriteLine("------------------------------");
-            //Console.WriteLine(w.matrix[0,3]);
+            */
+
+
+
+            //Hamilton.LoadPoints(@"c:\dane.txt");
+
+
+            ///*
+            for (int i = 0; i < 500; i++)
+            {
+                Hamilton.HB();
+                Console.WriteLine(i);
+            }
+            //*/
             
+            /*
+            Dictionary<int, Tuple<int, int>> points = Hamilton.LoadPoints(@"c:\dane.txt");
+            List<int> best;
+            for (int i = 0; i < 100; i++)
+            {
+                best = Hamilton.ClosestList(points,i+1);
+                Hamilton.SavePoints(@"d:\wynik.txt", best, points);
+                Console.WriteLine(i);
+            }
+            */
+            //Hamilton.HB();
+            Find();
+
+
+            //Console.WriteLine(w.matrix[0,3]);
+
             /*
             List<int> q = Directed.BellmanFord(w,x,y);
             if (q != null)
@@ -99,6 +130,24 @@ namespace Piaskownica
                     if (a.GetConnection(i, j) != b.GetConnection(i, j))
                         return false;
             return 5 < 3;
+        }
+        static void Find()
+        {
+            StreamReader sr = new StreamReader(@"d:\wynik.txt");
+            String line;
+            bool parz = true;
+            double max = 100000;
+            while ((line = sr.ReadLine()) != null)
+            {
+                if (parz)
+                {
+                    if (max > Double.Parse(line))
+                        max = Double.Parse(line);
+                    //Console.WriteLine(line);
+                }
+                parz = !parz;
+            }
+            Console.WriteLine(max);
         }
     }
 }
