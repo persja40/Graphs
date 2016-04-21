@@ -249,7 +249,7 @@ namespace Piaskownica
             }
             */
             //Hamilton.HB();
-            Find();
+            //Find();
             Console.Read();
         }
         static bool por(GraphMatrix a, GraphMatrix b)
