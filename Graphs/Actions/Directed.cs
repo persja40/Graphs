@@ -295,85 +295,101 @@ namespace Graphs.Actions
 
         public static int[,] Johnson(DirectedGraphMatrix graph)
         {
-            //DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g);
-            int nodes = graph.NodesNr;
-            //int[,] distances = new int[nodes, nodes];
-            int[] d = new int[nodes];
-            const int INF = int.MaxValue - 10000;
-
-            int q = nodes + 1;
-            int[,] new_connect = new int[q, q];
-            for (int i = 0; i < nodes; ++i)
+            try
             {
-                for (int j = 0; j < nodes; ++j)
+                //DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g);
+                int nodes = graph.NodesNr;
+                int[,] distances = new int[nodes, nodes];
+                int[] d = new int[nodes];
+                const int INF = int.MaxValue - 10000;
+                int[,] wagi = new int[nodes, nodes];
+
+               
+
+                int q = nodes + 1;
+                int[,] new_connect = new int[q, q];
+                for (int i = 0; i < nodes; ++i)
                 {
-                    new_connect[i, j] = graph.getConnect(i, j);
-                    //distances[i, j] = INF;
-                }
-                //distances[i, i] = 0;
-            }
-
-            DirectedGraphMatrix dgraph = new DirectedGraphMatrix(q, new_connect);
-
-            for (int i = 0; i < q - 1; ++i)
-            {
-                dgraph.MakeConnection(q - 1, i, 0);
-                dgraph.setWeight(i, q - 1, INF);
-                for (int j = 0; j < q - 1; ++j)
-                {
-                    dgraph.setWeight(i, j, graph.getWeight(i, j));
-                }
-            }
-
-            List<List<int>> bellman = new List<List<int>>();
-
-            for (int i = 0; i < nodes; ++i)
-            {
-                bellman.Add(BellmanFord(dgraph, q - 1, i));
-                Console.WriteLine((q - 1) + ", " + i + " :bellman.Count = " + bellman[i].Count);
-                d[i] = pathWeight(dgraph, bellman[i]);
-                Console.WriteLine("Dlugosc sciezki pomiedzy q, " + i + "to: " + d[i]);
-                Console.WriteLine("Sciezka pomiedzy: " + (q - 1) + ", " + i + " to: ");
-                for (int m = 0; m < bellman[i].Count; ++m)
-                {
-                    Console.Write((bellman[i])[m] + "->");
-                }
-                Console.WriteLine();
-            }
-
-            for (int i = 0; i < q - 1; ++i)
-            {
-                for (int j = 0; j < q - 1; ++j)
-                {
-                    if (dgraph.GetConnection(i, j))
+                    for (int j = 0; j < nodes; ++j)
                     {
-                        dgraph.setWeight(i, j, dgraph.getWeight(i, j) + d[i] - d[j]);
+                        new_connect[i, j] = graph.getConnect(i, j);
+                        //distances[i, j] = INF;
+                        wagi[i, j] = graph.getWeight(i, j);
+                    }
+                    //distances[i, i] = 0;
+                }
+
+                DirectedGraphMatrix dgraph = new DirectedGraphMatrix(q, new_connect);
+
+                for (int i = 0; i < q - 1; ++i)
+                {
+                    dgraph.MakeConnection(q - 1, i, 0);
+                    dgraph.setWeight(i, q - 1, INF);
+                    for (int j = 0; j < q - 1; ++j)
+                    {
+                        dgraph.setWeight(i, j, graph.getWeight(i, j));
                     }
                 }
-            }
 
-            int[,] last_connect = new int[nodes, nodes];
-            for (int i = 0; i < nodes; ++i)
-            {
-                for (int j = 0; j < nodes; ++j)
+                List<List<int>> bellman = new List<List<int>>();
+
+                for (int i = 0; i < nodes; ++i)
                 {
-                    last_connect[i, j] = dgraph.getConnect(i, j);
+                    bellman.Add(BellmanFord(dgraph, q - 1, i));
+                    //Console.WriteLine((q - 1) + ", " + i + " :bellman.Count = " + bellman[i].Count);
+                    d[i] = pathWeight(dgraph, bellman[i]);
+                    /*Console.WriteLine("Dlugosc sciezki pomiedzy q, " + i + "to: " + d[i]);
+                    Console.WriteLine("Sciezka pomiedzy: " + (q - 1) + ", " + i + " to: ");
+                    for (int m = 0; m < bellman[i].Count; ++m)
+                    {
+                        Console.Write((bellman[i])[m] + "->");
+                    }
+                    Console.WriteLine();
+                    */
+                    if (ujemnyCykl(graph, wagi))
+                        throw new Exception("Algorytm Johnsona zostal zatrzymany.");
                 }
-            }
 
-            DirectedGraphMatrix lgraph = new DirectedGraphMatrix(nodes, last_connect);
-
-            for (int i = 0; i < nodes; ++i)
-            {
-                for (int j = 0; j < nodes; ++j)
+                for (int i = 0; i < q - 1; ++i)
                 {
-                    lgraph.setWeight(i, j, dgraph.getWeight(i, j));
+                    for (int j = 0; j < q - 1; ++j)
+                    {
+                        if (dgraph.GetConnection(i, j))
+                        {
+                            dgraph.setWeight(i, j, dgraph.getWeight(i, j) + d[i] - d[j]);
+                        }
+                    }
                 }
-            }
 
-            //return distancesDirectedMatrix(lgraph);
-                                                                                                                                                            return FloydWarshall(graph);
-            //return distances;
+                int[,] last_connect = new int[nodes, nodes];
+                for (int i = 0; i < nodes; ++i)
+                {
+                    for (int j = 0; j < nodes; ++j)
+                    {
+                        last_connect[i, j] = dgraph.getConnect(i, j);
+                    }
+                }
+
+                DirectedGraphMatrix lgraph = new DirectedGraphMatrix(nodes, last_connect);
+
+                for (int i = 0; i < nodes; ++i)
+                {
+                    for (int j = 0; j < nodes; ++j)
+                    {
+                        lgraph.setWeight(i, j, dgraph.getWeight(i, j));
+                    }
+                }
+
+                distances = distancesDirectedMatrix(lgraph);
+                                                                                                                                                                                                                                                distances = FloydWarshall(graph);
+                return distances;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new int[5, 5];
+            }
+            
         }
 
 
