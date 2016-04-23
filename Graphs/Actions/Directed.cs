@@ -289,7 +289,8 @@ namespace Graphs.Actions
         /// <summary>
         /// Implementacja algorytmu Johnsona, korzysta z algorytmow Bellmana-Forda i Dijkstry
         /// </summary>
-        /// <param name="g"></param> obiekt DirectedGraphMatrix, stworzony np metoda CreateDirectional(GraphMatrix g)
+        /// <param name="g"></param> Musi to byc graf skierowany ktory ma juz randomowe wagi i musi byc on spojny(WAŻNE)!!!!
+        /// Mozna np stworzyc graf skierowany, wydobyc z niego skladowa maksymalnie spojna i nadać jej randomowe wagi
         /// <returns></returns> Macierz odleglosci miedzy wszystkimi wierzcholkami
 
 
@@ -297,14 +298,11 @@ namespace Graphs.Actions
         {
             try
             {
-                //DirectedGraphMatrix graph = GraphGenerator.CreateRandomDirectedWeights(g);
                 int nodes = graph.NodesNr;
                 int[,] distances = new int[nodes, nodes];
                 int[] d = new int[nodes];
                 const int INF = int.MaxValue - 10000;
                 int[,] wagi = new int[nodes, nodes];
-
-               
 
                 int q = nodes + 1;
                 int[,] new_connect = new int[q, q];
@@ -313,10 +311,8 @@ namespace Graphs.Actions
                     for (int j = 0; j < nodes; ++j)
                     {
                         new_connect[i, j] = graph.getConnect(i, j);
-                        //distances[i, j] = INF;
                         wagi[i, j] = graph.getWeight(i, j);
                     }
-                    //distances[i, i] = 0;
                 }
 
                 DirectedGraphMatrix dgraph = new DirectedGraphMatrix(q, new_connect);
@@ -336,16 +332,7 @@ namespace Graphs.Actions
                 for (int i = 0; i < nodes; ++i)
                 {
                     bellman.Add(BellmanFord(dgraph, q - 1, i));
-                    //Console.WriteLine((q - 1) + ", " + i + " :bellman.Count = " + bellman[i].Count);
                     d[i] = pathWeight(dgraph, bellman[i]);
-                    /*Console.WriteLine("Dlugosc sciezki pomiedzy q, " + i + "to: " + d[i]);
-                    Console.WriteLine("Sciezka pomiedzy: " + (q - 1) + ", " + i + " to: ");
-                    for (int m = 0; m < bellman[i].Count; ++m)
-                    {
-                        Console.Write((bellman[i])[m] + "->");
-                    }
-                    Console.WriteLine();
-                    */
                     if (ujemnyCykl(graph, wagi))
                         throw new Exception("Algorytm Johnsona zostal zatrzymany.");
                 }
@@ -381,12 +368,18 @@ namespace Graphs.Actions
                 }
 
                 distances = distancesDirectedMatrix(lgraph);
-                                                                                                                                                                                                                                                distances = FloydWarshall(graph);
+                for(int i = 0; i < nodes; ++i)
+                {
+                    for(int j = 0; j < nodes; ++j)
+                    {
+                        distances[i, j] = distances[i, j] - d[i] + d[j];
+                    }
+                }
                 return distances;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Algorytm Johnsona zatrzymany z powodu ujemnego cyklu w grafie.");
                 return new int[5, 5];
             }
             
@@ -396,8 +389,8 @@ namespace Graphs.Actions
         /// <summary>
         /// Implementacja algorytmu Floyda-Warshalla
         /// </summary>
-        /// <param name="g"></param> obiekt DirectedGraphMatrix, stworzony np metoda CreateDirectional(GraphMatrix g)
-        /// <returns></returns> Macierz odleglosci miedzy wszystkimi wierzcholkami, jezeli nie wystepuje sciezka pomiedzy i,j to distances[i, j] = int.MaxValue
+        /// <param name="g"></param> Graf ktory jest spojny. Ten algorytm dziala takze dla grafow niespojnych w przeciwienstwie do johnsona
+        /// <returns></returns> Macierz odleglosci miedzy wszystkimi wierzcholkami
         public static int[,] FloydWarshall(DirectedGraphMatrix graph)
         {
             int nodes = graph.NodesNr;
@@ -444,7 +437,6 @@ namespace Graphs.Actions
         /// <returns></returns> distances - Macierz odleglosci miedzy wszystkimi parami wierzcholkow
         public static int[,] distancesDirectedMatrix(DirectedGraphMatrix graph)
         {
-            //DirectedGraphMatrix graph = Directedmaxspojny(from);
             int nodes = graph.NodesNr;
             int[,] distances = new int[nodes, nodes];
             List<int> path = new List<int>();
@@ -473,26 +465,19 @@ namespace Graphs.Actions
                     else
                     {
                         path = PathFinding.Dijkstra(graph, i, j);
-                        /*Pomocnicze wypisanie sciezek*/
-                        //Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
+
                         if (path.Count == 0)
                         {
-                            //Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " nie istnieje.");
-                            continue; // jesli nie ma sciezki to pozostaje int.MaxValue
+                            continue; 
                         }
                         else if (path.Count == 1)
                         {
-                            distances[i, j] = graph.getWeight(i, path[0]); // jesli sciezka zawiera jeden wierzcholek to odleglosc == waga(i, id)
-                            //Console.WriteLine("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->" + path[0]);
+                            distances[i, j] = graph.getWeight(i, path[0]); 
+                           
                             path.Clear();
-                            //Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
 
                         }
                         else {
-                            //Console.Write("Sciezka pomiedzy: " + i + ", " + j + " to: " + i + "->");
-                            //for(int m = 0; m < path.Count; ++m)
-                            //Console.Write(path[m] + "->");
-                            //Console.WriteLine();
                             for (int k = 0; k < path.Count - 1; ++k)
                             {
                                 dist += graph.getWeight(path[k], path[k + 1]);
@@ -501,7 +486,6 @@ namespace Graphs.Actions
                             distances[i, j] = total_dist;
                             total_dist = dist = 0;
                             path.Clear();
-                            //Console.WriteLine(i + ", " + j + " :path.Count = " + path.Count);
                         }
                     }
                 }

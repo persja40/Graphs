@@ -20,54 +20,23 @@ namespace Piaskownica
                 Console.WriteLine(i);
             }
             */
-            // List<int> degrees = new List<int>() { 4, 3, 5, 3, 3, 2, };
-            List<int> degrees = new List<int>() { 3, 3, 2, 2, 2 };
-            GraphMatrix g = Misc.Construct(degrees);
-            GraphMatrix graph = Misc.CreateBiggestCoherent(g);
-            DirectedGraphMatrix cgraph = GraphGenerator.CreateDirectional(graph);
-            DirectedGraphMatrix dgraph = GraphGenerator.CreateRandomDirectedWeights(cgraph);
+            // List<int> degrees = new List<int>() { 4, 4, 4, 4, 4, 2};
+            //List<int> degrees = new List<int>() { 3, 3, 2, 2, 2 };
+
+            GraphMatrix g = GraphGenerator.generatorGER(8, 11);
+            //GraphMatrix graph = Misc.CreateBiggestCoherent(g);
+            DirectedGraphMatrix cgraph = GraphGenerator.CreateDirectional(g);
+            DirectedGraphMatrix spojny = Directed.Directedmaxspojny(cgraph);
+            DirectedGraphMatrix dgraph = GraphGenerator.CreateRandomDirectedWeights(spojny);
+            
 
             int nodes = dgraph.NodesNr;
             int[,] floyd = new int[nodes, nodes];
             int[,] johnson = new int[nodes, nodes];
 
-            
 
-            int[,] tab = new int[8, 8];
-            tab[0, 2] = 1;
-            tab[0, 4] = 1;
-            tab[1, 2] = 1;
-            tab[2, 0] = 1;
-            tab[3, 1] = 1;
-            tab[3, 5] = 1;
-            tab[4, 7] = 1;
-            tab[7, 6] = 1;
-            DirectedGraphMatrix test = new DirectedGraphMatrix(8, tab);
-            test.setWeight(0, 2, 3);
-            test.setWeight(0, 4, 9);
-            test.setWeight(1, 2, 5);
-            test.setWeight(2, 0, 9);
-            test.setWeight(3, 1, 3);
-            test.setWeight(3, 5, 2);
-            test.setWeight(4, 7, 1);
-            test.setWeight(7, 6, 2);
-
-            int[,] tab1 = new int[4, 4];
-            tab1[0, 1] = 1;
-            tab1[0, 2] = 1;
-            tab1[0, 3] = 1;
-            tab1[1, 2] = 1;
-            tab1[2, 3] = 1;
-            DirectedGraphMatrix test1 = new DirectedGraphMatrix(4, tab1);
-            test1.setWeight(0, 1, -5);
-            test1.setWeight(0, 2, 2);
-            test1.setWeight(0, 3, 3);
-            test1.setWeight(1, 2, 4);
-            test1.setWeight(2, 3, 1);
-
-
-            floyd = Directed.FloydWarshall(test1);
-            johnson = Directed.Johnson(test1);
+            floyd = Directed.FloydWarshall(dgraph);
+            johnson = Directed.Johnson(dgraph);
 
             // DirectedGraphMatrix g1 = Directed.Directedmaxspojny(dgraph);
             // DirectedGraphMatrix ngraph = GraphGenerator.CreateRandomDirectedWeights(g1);
@@ -77,9 +46,9 @@ namespace Piaskownica
 
             Console.WriteLine("---------------FloydWarshall---------------");
 
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < nodes; ++i)
             {
-                for (int j = 0; j < 4; ++j)
+                for (int j = 0; j < nodes; ++j)
                 {
                     Console.Write(floyd[i, j] + " | ");
                 }
@@ -88,9 +57,9 @@ namespace Piaskownica
             Console.WriteLine("-------------------------------------------");
 
             Console.WriteLine("---------------Johnson---------------");
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < nodes; ++i)
             {
-                for (int j = 0; j < 4; ++j)
+                for (int j = 0; j < nodes; ++j)
                 {
                     Console.Write(johnson[i, j] + " | ");
                 }
@@ -152,22 +121,22 @@ namespace Piaskownica
             Console.WriteLine("---------------------------------------------");
             */
             Console.WriteLine("---------------ConnectionsMatrix---------------");
-            for (int k = 0; k < 4; ++k)
+            for (int k = 0; k < nodes; ++k)
             {
-                for (int l = 0; l < 4; ++l)
+                for (int l = 0; l < nodes; ++l)
                 {
-                    Console.Write(test1.getConnect(k, l) + " | ");
+                    Console.Write(dgraph.getConnect(k, l) + " | ");
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("---------------------------------------------");
 
             Console.WriteLine("---------------WeightsMatrix---------------");
-            for (int k = 0; k < 4; ++k)
+            for (int k = 0; k < nodes; ++k)
             {
-                for (int l = 0; l < 4; ++l)
+                for (int l = 0; l < nodes; ++l)
                 {
-                    Console.Write(test1.getWeight(k, l) + " | ");
+                    Console.Write(dgraph.getWeight(k, l) + " | ");
                 }
                 Console.WriteLine();
             }
