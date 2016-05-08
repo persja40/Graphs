@@ -23,27 +23,92 @@ namespace Piaskownica
             // List<int> degrees = new List<int>() { 4, 4, 4, 4, 4, 2};
             //List<int> degrees = new List<int>() { 3, 3, 2, 2, 2 };
 
-            GraphMatrix g = GraphGenerator.generatorGER(8, 11);
+           // GraphMatrix g = GraphGenerator.generatorGER(8, 11);
             //GraphMatrix graph = Misc.CreateBiggestCoherent(g);
-            DirectedGraphMatrix cgraph = GraphGenerator.CreateDirectional(g);
-            DirectedGraphMatrix spojny = Directed.Directedmaxspojny(cgraph);
-            DirectedGraphMatrix dgraph = GraphGenerator.CreateRandomDirectedWeights(spojny);
-            
+           // DirectedGraphMatrix cgraph = GraphGenerator.CreateDirectional(g);
+           // DirectedGraphMatrix spojny = Directed.Directedmaxspojny(cgraph);
+           // DirectedGraphMatrix dgraph = GraphGenerator.CreateRandomDirectedWeights(spojny);
 
-            int nodes = dgraph.NodesNr;
-            int[,] floyd = new int[nodes, nodes];
-            int[,] johnson = new int[nodes, nodes];
+            int[,] con = new int[7, 7];
+            con[0, 1] = 1;
+            con[0, 4] = 1;
+            con[1, 2] = 1;
+            con[1, 3] = 1;
+            con[2, 3] = 1;
+            con[2, 6] = 1;
+            con[3, 5] = 1;
+            con[3, 6] = 1;
+            con[4, 3] = 1;
+            con[4, 5] = 1;
+            con[5, 6] = 1;
+
+            //con[0, 1] = 1;
+
+            DirectedGraphMatrix siec = new DirectedGraphMatrix(7, con);
+
+            siec.setWeight(0, 1, 9);
+            siec.setWeight(0, 4, 9);
+            siec.setWeight(1, 2, 7);
+            siec.setWeight(1, 3, 3);
+            siec.setWeight(2, 3, 4);
+            siec.setWeight(2, 6, 6);
+            siec.setWeight(3, 5, 2);
+            siec.setWeight(3, 6, 9);
+            siec.setWeight(4, 3, 3);
+            siec.setWeight(4, 5, 6);
+            siec.setWeight(5, 6, 8);
+            /*
+            Console.WriteLine("---------------getWeight---------------");
+
+            for (int i = 0; i < 7; ++i)
+            {
+                for (int j = 0; j < 7; ++j)
+                {
+                    Console.Write(siec.getWeight(i, j) + " | ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("-------------------------------------------");
+            */
+
+            MaxFlow1 maxflow = new MaxFlow1(siec);
+            int max = maxflow.findMaxFlow(siec);
+            Console.WriteLine("MaxFlow: " + max);
+
+           // int nodes = dgraph.NodesNr;
+            //int[,] floyd = new int[nodes, nodes];
+            //int[,] johnson = new int[nodes, nodes];
 
 
-            floyd = Directed.FloydWarshall(dgraph);
-            johnson = Directed.Johnson(dgraph);
+            //floyd = Directed.FloydWarshall(dgraph);
+           // johnson = Directed.Johnson(dgraph);
+           /*
+            LinkedList<int> list = new LinkedList<int>();
+            list.AddLast(1); list.AddLast(2); list.AddLast(3); list.AddLast(4); list.AddLast(5); list.AddLast(6); list.AddLast(7);
 
+            int first = list.First();
+            int last = list.Last();
+
+            Console.WriteLine("First:" +  first);
+            Console.WriteLine("Last:" + last);
+            list.AddLast(24);
+            Console.WriteLine("Last: " + list.Last() + "\nlist.Count " + list.Count);
+            list.RemoveFirst();
+            Console.WriteLine("First: " + list.First() + "\nlist.Count " + list.Count);
+
+            List<int> temp = new List<int>();
+            temp.Add(1); temp.Add(2); temp.Add(3); temp.Add(4); temp.Add(5); temp.Add(6); temp.Add(7);
+            temp.RemoveAt(temp.Count - 1);
+            Console.WriteLine("Last: " + temp.Last());
+            temp.Add(23);
+            Console.WriteLine("Last: " + temp.Last() + "\ntemp.Count " + temp.Count);
+            */
             // DirectedGraphMatrix g1 = Directed.Directedmaxspojny(dgraph);
             // DirectedGraphMatrix ngraph = GraphGenerator.CreateRandomDirectedWeights(g1);
 
             //int[,] distances = new int[nodes, nodes];
             //distances = Directed.distancesDirectedMatrix(dgraph);
-
+            /*
             Console.WriteLine("---------------FloydWarshall---------------");
 
             for (int i = 0; i < nodes; ++i)
@@ -66,7 +131,7 @@ namespace Piaskownica
                 Console.WriteLine();
             }
             Console.WriteLine("--------------------------------------");
-
+            */
             /*
             List<int> lista = new List<int>();
             lista = PathFinding.Dijkstra(dgraph, 2, 5);
@@ -119,7 +184,7 @@ namespace Piaskownica
                 Console.WriteLine();
             }
             Console.WriteLine("---------------------------------------------");
-            */
+            
             Console.WriteLine("---------------ConnectionsMatrix---------------");
             for (int k = 0; k < nodes; ++k)
             {
@@ -141,7 +206,7 @@ namespace Piaskownica
                 Console.WriteLine();
             }
             Console.WriteLine("---------------------------------------------");
-
+            */
             
 
             /*

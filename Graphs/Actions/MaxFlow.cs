@@ -1,18 +1,18 @@
-﻿using Graphs.Data;
-using Graphs.Extensions;
-using Graphs.Misc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Graphs.Actions;
+using Graphs.Misc;
+using Graphs.Data;
 
 
 namespace Graphs.Actions
 {
     public class MaxFlow
     {
-        public MaxFlow(GraphMatrix g)
+        public MaxFlow(DiretcedGraphMatrix g)
         {
             int nodes = g.nodesNr;
             FlowMatrix = new int[nodes, nodes];
@@ -26,7 +26,7 @@ namespace Graphs.Actions
             }
         }
 
-        public int findMaxFlow(GraphMatrix g)
+        public int findMaxFlow(DirectedGraphMatrix g)
         {
             int size = g.nodesNr;
             int max;

@@ -72,6 +72,7 @@
     <Compile Include="Actions\Hamilton.cs" />
     <Compile Include="Actions\IDirectedDisplayer.cs" />
     <Compile Include="Actions\IDisplayer.cs" />
+    <Compile Include="Actions\MaxFlow1.cs" />
     <Compile Include="Actions\Misc.cs" />
     <Compile Include="Actions\PathFinding.cs" />
     <Compile Include="Actions\RandomNetworkGraphCreator.cs" />
