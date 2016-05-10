@@ -1,0 +1,31 @@
+﻿<Window x:Class="Graphs.Windows.Project6.PrePercolationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Graphs.Windows.Project6"
+        mc:Ignorable="d"
+        Title="PrePercolationWindow" Width="300"
+        SizeToContent="Height"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label>Rozmiar</Label>
+        <TextBox Grid.Column="1" x:Name="Size" Text="{Binding Nodes}"></TextBox>
+
+        <Label Grid.Row="1">Prawdopobieństwo Node'a</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NodePropability" Text="{Binding Prop}"></TextBox>
+        <Label Grid.Row="1" Grid.Column="1" DockPanel.Dock="Right" HorizontalAlignment="Right">%</Label>
+
+        <Button Click="Generate" Grid.Row="2" Grid.Column="1">Generuj</Button>
+    </Grid>
+</Window>

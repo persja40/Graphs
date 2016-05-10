@@ -65,6 +65,9 @@
             <MenuItem Header="Projekt5">
                 <MenuItem Header="Generate flow network" Click="GenerateFlowNetwork"/>
             </MenuItem>
+            <MenuItem Header="Projekt6">
+                <MenuItem Header="Perkolacja" Click="Percolation"/>
+            </MenuItem>
             <MenuItem Header="_Widok">
                 <MenuItem Header="Regenerate graph view" IsCheckable="True" IsChecked="{Binding RegenerateGraphView}" Checked="OnRederTurnOn" Unchecked="OnRederTurnOff"  />
                 <MenuItem Header="Regenerate matrix" IsCheckable="True" IsChecked="{Binding RegenerateMatrix}" />

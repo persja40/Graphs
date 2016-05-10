@@ -23,11 +23,20 @@ namespace Piaskownica
             // List<int> degrees = new List<int>() { 4, 4, 4, 4, 4, 2};
             //List<int> degrees = new List<int>() { 3, 3, 2, 2, 2 };
 
-           // GraphMatrix g = GraphGenerator.generatorGER(8, 11);
+            // GraphMatrix g = GraphGenerator.generatorGER(8, 11);
             //GraphMatrix graph = Misc.CreateBiggestCoherent(g);
-           // DirectedGraphMatrix cgraph = GraphGenerator.CreateDirectional(g);
-           // DirectedGraphMatrix spojny = Directed.Directedmaxspojny(cgraph);
-           // DirectedGraphMatrix dgraph = GraphGenerator.CreateRandomDirectedWeights(spojny);
+            // DirectedGraphMatrix cgraph = GraphGenerator.CreateDirectional(g);
+            // DirectedGraphMatrix spojny = Directed.Directedmaxspojny(cgraph);
+            // DirectedGraphMatrix dgraph = GraphGenerator.CreateRandomDirectedWeights(spojny);
+
+            Percolation w = new Percolation(7, 0.5);
+            for (int i = 0; i < w.size; i++)
+            {
+                for (int j = 0; j < w.size; j++)
+                    Console.Write(w.matrix[i, j] + " | ");
+                Console.WriteLine();
+            }
+
 
             int[,] con = new int[7, 7];
             con[0, 1] = 1;

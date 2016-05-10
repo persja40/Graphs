@@ -79,6 +79,7 @@
     <Compile Include="Authors.xaml.cs">
       <DependentUpon>Authors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\Colors.cs" />
     <Compile Include="Data\Edge.cs" />
     <Compile Include="Data\BasesAndInterfaces\GraphBase.cs" />
     <Compile Include="Data\GraphList.cs" />
@@ -97,6 +98,11 @@
     <Compile Include="Data\BasesAndInterfaces\IGraphMatrix.cs" />
     <Compile Include="Data\BasesAndInterfaces\IGraphMatrixInc.cs" />
     <Compile Include="Data\Percolation.cs" />
+    <Compile Include="UserControls\Square.xaml.cs">
+      <DependentUpon>Square.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PerlocationViewModel.cs" />
+    <Compile Include="ViewModels\SquareViewModel.cs" />
     <Compile Include="DirectedWindow.xaml.cs">
       <DependentUpon>DirectedWindow.xaml</DependentUpon>
     </Compile>
@@ -196,6 +202,12 @@
     <Compile Include="Windows\Project5\CreateFlowNetworkWindow.xaml.cs">
       <DependentUpon>CreateFlowNetworkWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Project6\PercolationWindow.xaml.cs">
+      <DependentUpon>PercolationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Project6\PrePercolationWindow.xaml.cs">
+      <DependentUpon>PrePercolationWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Authors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -268,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\Square.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -309,6 +325,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Project5\CreateFlowNetworkWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Project6\PercolationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Project6\PrePercolationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

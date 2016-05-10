@@ -7,6 +7,7 @@ using Graphs.Windows.Generators;
 using Graphs.Windows.Project2;
 using Graphs.Windows.Project3;
 using Graphs.Windows.Project5;
+using Graphs.Windows.Project6;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,8 @@ namespace Graphs
                 Instance = this;
 
             InitializeComponent();
+
+            
 
 
             Graph = GraphGenerator.generatorRegular(2);
@@ -542,6 +545,11 @@ namespace Graphs
             }
 
             GraphRenderer.Displayer = new ColumnDisplayer();
+        }
+
+        private void Percolation(object sender, RoutedEventArgs e)
+        {
+            new PrePercolationWindow().ShowDialog();
         }
     }
 }

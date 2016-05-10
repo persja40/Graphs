@@ -155,6 +155,8 @@ namespace Graphs
             int startNode = dialog.StartNode - 1;
             int endNode = dialog.EndNode - 1;
 
+            
+
             List<int> path = Directed.BellmanFord(Graph, startNode, endNode);
             
             string message = "Znaleziona sciezka : " + Environment.NewLine;
@@ -214,6 +216,153 @@ namespace Graphs
             string message = "";
             foreach (var node in sorted)
                 message += (node + 1) + Environment.NewLine;
+
+            MessageBox.Show(message);
+        }
+
+        private void Johnson(object sender, RoutedEventArgs e)
+        {
+            var john = Directed.Johnson(Graph);
+
+            var message = "";
+
+            for (int y = 0; y < Graph.NodesNr; ++y)
+            {
+                for (int x = 0; x < Graph.NodesNr; ++x)
+                {
+                    if (john[y, x] < 20000000)
+                    {
+                        message += john[y, x];
+                        if (john[y, x] < 10)
+                            message += " ";
+                        if (john[y, x] < 100)
+                            message += " ";
+                        message += " ";
+                    }
+                    else
+                    {
+                        message += " -  ";
+                    }
+                }
+                message += Environment.NewLine;
+            }
+
+            MessageBox.Show(message);
+        }
+
+        private void Floyd(object sender, RoutedEventArgs e)
+        {
+            var john = Directed.FloydWarshall(Graph);
+
+            var message = "";
+
+            for (int y = 0; y < Graph.NodesNr; ++y)
+            {
+                for (int x = 0; x < Graph.NodesNr; ++x)
+                {
+                    if (john[y, x] < 20000000)
+                    {
+                        message += john[y, x];
+                        if (john[y, x] < 10)
+                            message += " ";
+                        if (john[y, x] < 100)
+                            message += " ";
+                        message += " ";
+                    }
+                    else
+                    {
+                        message += " -  ";
+                    }
+                }
+                message += Environment.NewLine;
+            }
+
+            MessageBox.Show(message);
+        }
+
+        private void ShowSilne(object sender, RoutedEventArgs e)
+        {
+            var cycles = Directed.spojne(Graph);
+
+            var message = "Znalazłem takie silne spojne skladowe : ";
+            foreach (var cycle in cycles)
+            {
+                message += Environment.NewLine;
+                foreach (var node in cycle)
+                {
+                    message += (node + 1) + " ";
+                }
+            }
+
+            MessageBox.Show(message);
+        }
+
+        private void ShowCycles(object sender, RoutedEventArgs e)
+        {
+            var cycles = Directed.circuts(Graph);
+
+            var message = "Znalazłem takie cykle : ";
+            foreach(var cycle in cycles)
+            {
+                message += Environment.NewLine;
+                foreach (var node in cycle)
+                {
+                    message += (node+1) + " ";
+                }
+            }
+
+            MessageBox.Show(message);
+        }
+
+        private void UjemneCykle(object sender, RoutedEventArgs e)
+        {
+            var test = Directed.ujemnyCykl(Graph, Graph.weights);
+
+            MessageBox.Show(test ? "Jest ujemny cykl" : "Nie ma ujemnego cyklu");
+        }
+
+        private void MaxSpojna(object sender, RoutedEventArgs e)
+        {
+            Graph.Set(Directed.Directedmaxspojny(Graph));
+            Graph.OnChange();
+        }
+
+        private void BFDistance(object sender, RoutedEventArgs e)
+        { 
+
+            var message = "";
+
+            for (int y = 0; y < Graph.NodesNr; ++y)
+            {
+                for (int x = 0; x < Graph.NodesNr; ++x)
+                {
+                    var distList = Directed.BellmanFord(Graph, x, y);
+                    if(distList == null)
+                    {
+                        message += " -  ";
+                        continue;
+                    }
+                    var dist = 0;
+                    for(int i = 1; i < distList.Count;++i)
+                    {
+                        dist += Graph.getWeight(distList[i - 1], distList[i]);
+                    }
+                    if (dist < 20000000)
+                    {
+                        message += dist;
+                        if (dist < 10)
+                            message += " ";
+                        if (dist < 100)
+                            message += " ";
+                        message += " ";
+                    }
+                    else
+                    {
+                        message += " -  ";
+                    }
+                }
+                message += Environment.NewLine;
+            }
 
             MessageBox.Show(message);
         }

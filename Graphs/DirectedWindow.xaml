@@ -19,11 +19,14 @@
                 <MenuItem Header="_G(n, p)" Name="SecondGeneratorMenuItem" Click="GenerateGraph"/>
             </MenuItem>
             <MenuItem Header="DiGrafy">
-                <MenuItem Header="Wypisz cykle" />
-                <MenuItem Header="Wypisz silnie spójne składowe" />
+                <MenuItem Header="Wypisz cykle" Click="ShowCycles"/>
+                <MenuItem Header="Wypisz silnie spójne składowe" Click="ShowSilne" />
+                <MenuItem Header="NajwiekszaSpojna" Click="MaxSpojna" />
                 <MenuItem Header="Bellman-Ford" Click="BellmanFord" />
-                <MenuItem Header="Sprawdź czy zawiera ujemne cykle" />
-                <MenuItem Header="Johnson-Floyd" />
+                <MenuItem Header="Odleglosci BF" Click="BFDistance" />
+                <MenuItem Header="Sprawdź czy zawiera ujemne cykle" Click="UjemneCykle" />
+                <MenuItem Header="Johnson" Click="Johnson" />
+                <MenuItem Header="Floyd-Warshall" Click="Floyd" />
             </MenuItem>
             <MenuItem Header="Acykliczne">
                 <MenuItem Header="Stwórz losowy acykliczny" Click="CreateAcyclic"/>

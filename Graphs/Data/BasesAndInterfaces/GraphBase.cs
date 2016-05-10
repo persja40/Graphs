@@ -142,7 +142,7 @@ namespace Graphs.Data
 
         
 
-        protected int[,] weights;
+        public int[,] weights;
 
 
         public List<int> Columns { get; set; } = new List<int>();
