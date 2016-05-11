@@ -80,6 +80,15 @@ namespace Graphs.Data
                             }
                         }
                     }
+
+            //najwiekszy klaster
+            var tab = new int[size * size];
+            for (int i = 0; i < size; i++)
+                for (int j = 0; j < size; j++)
+                        tab[matrix[i, j]] += matrix[i, j]!=0 ? 1 : 0;
+
+            max = new Tuple<int, int>(Array.IndexOf(tab,tab.Max()), tab.Max());
+
             /*
             //rozwiklywanie labeli
             for (int i = 0; i < size; i++)
@@ -100,5 +109,7 @@ namespace Graphs.Data
         public int[] array;
         public int[,] matrix;
         public int size;
+        // Para( nr labela, ilosc wystapien )
+        public Tuple<int,int> max;
     }
 }

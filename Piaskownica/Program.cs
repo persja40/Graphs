@@ -28,7 +28,7 @@ namespace Piaskownica
             // DirectedGraphMatrix cgraph = GraphGenerator.CreateDirectional(g);
             // DirectedGraphMatrix spojny = Directed.Directedmaxspojny(cgraph);
             // DirectedGraphMatrix dgraph = GraphGenerator.CreateRandomDirectedWeights(spojny);
-
+            /*
             Percolation w = new Percolation(7, 0.5);
             for (int i = 0; i < w.size; i++)
             {
@@ -66,7 +66,7 @@ namespace Piaskownica
             siec.setWeight(4, 3, 3);
             siec.setWeight(4, 5, 6);
             siec.setWeight(5, 6, 8);
-            /*
+            
             Console.WriteLine("---------------getWeight---------------");
 
             for (int i = 0; i < 7; ++i)
@@ -78,40 +78,40 @@ namespace Piaskownica
                 Console.WriteLine();
             }
             Console.WriteLine("-------------------------------------------");
-            */
+            
 
             MaxFlow1 maxflow = new MaxFlow1(siec);
             int max = maxflow.findMaxFlow(siec);
             Console.WriteLine("MaxFlow: " + max);
-
-           // int nodes = dgraph.NodesNr;
+            */
+            // int nodes = dgraph.NodesNr;
             //int[,] floyd = new int[nodes, nodes];
             //int[,] johnson = new int[nodes, nodes];
 
 
             //floyd = Directed.FloydWarshall(dgraph);
-           // johnson = Directed.Johnson(dgraph);
-           /*
-            LinkedList<int> list = new LinkedList<int>();
-            list.AddLast(1); list.AddLast(2); list.AddLast(3); list.AddLast(4); list.AddLast(5); list.AddLast(6); list.AddLast(7);
+            // johnson = Directed.Johnson(dgraph);
+            /*
+             LinkedList<int> list = new LinkedList<int>();
+             list.AddLast(1); list.AddLast(2); list.AddLast(3); list.AddLast(4); list.AddLast(5); list.AddLast(6); list.AddLast(7);
 
-            int first = list.First();
-            int last = list.Last();
+             int first = list.First();
+             int last = list.Last();
 
-            Console.WriteLine("First:" +  first);
-            Console.WriteLine("Last:" + last);
-            list.AddLast(24);
-            Console.WriteLine("Last: " + list.Last() + "\nlist.Count " + list.Count);
-            list.RemoveFirst();
-            Console.WriteLine("First: " + list.First() + "\nlist.Count " + list.Count);
+             Console.WriteLine("First:" +  first);
+             Console.WriteLine("Last:" + last);
+             list.AddLast(24);
+             Console.WriteLine("Last: " + list.Last() + "\nlist.Count " + list.Count);
+             list.RemoveFirst();
+             Console.WriteLine("First: " + list.First() + "\nlist.Count " + list.Count);
 
-            List<int> temp = new List<int>();
-            temp.Add(1); temp.Add(2); temp.Add(3); temp.Add(4); temp.Add(5); temp.Add(6); temp.Add(7);
-            temp.RemoveAt(temp.Count - 1);
-            Console.WriteLine("Last: " + temp.Last());
-            temp.Add(23);
-            Console.WriteLine("Last: " + temp.Last() + "\ntemp.Count " + temp.Count);
-            */
+             List<int> temp = new List<int>();
+             temp.Add(1); temp.Add(2); temp.Add(3); temp.Add(4); temp.Add(5); temp.Add(6); temp.Add(7);
+             temp.RemoveAt(temp.Count - 1);
+             Console.WriteLine("Last: " + temp.Last());
+             temp.Add(23);
+             Console.WriteLine("Last: " + temp.Last() + "\ntemp.Count " + temp.Count);
+             */
             // DirectedGraphMatrix g1 = Directed.Directedmaxspojny(dgraph);
             // DirectedGraphMatrix ngraph = GraphGenerator.CreateRandomDirectedWeights(g1);
 
@@ -216,7 +216,7 @@ namespace Piaskownica
             }
             Console.WriteLine("---------------------------------------------");
             */
-            
+
 
             /*
             List<int> lista = new List<int>();
@@ -330,6 +330,14 @@ namespace Piaskownica
             */
             //Hamilton.HB();
             //Find();
+            Percolation w = new Percolation(7, 0.5);
+            for (int i = 0; i < w.size; i++)
+            {
+                for (int j = 0; j < w.size; j++)
+                    Console.Write(w.matrix[i, j] + " | ");
+                Console.WriteLine();
+            }
+            Console.WriteLine(w.max.Item1 + " wystepuje " + w.max.Item2);
             Console.Read();
         }
         static bool por(GraphMatrix a, GraphMatrix b)

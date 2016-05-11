@@ -61,8 +61,14 @@ namespace Graphs.Actions
                         map[con[j].Item2] = new Tuple<int, int>(map[con[j].Item1].Item1 + con[j].Item3, con[j].Item1);
                 }
 
-            List<int> path = new List<int>();
+            //sprawdzenie czy istnieje cykl ujemny
+            //jesli wykona sie warunek istnieje ujemny 
+            for (int j = 0; j < con.Count; j++)
+                if (map[con[j].Item2].Item1 > map[con[j].Item1].Item1 + con[j].Item3)//relaksacja
+                    return null;//jesli relaksacja jest możliwa po V-1 przejściach istnieje cykl ujemny
 
+            //sciezka wynikowa
+            List<int> path = new List<int>();
             recBellman(map, path, start, finish);//sciezke otrzymamy od konca
             if (path.Count == 1)//brak sciezki
                 return null;
