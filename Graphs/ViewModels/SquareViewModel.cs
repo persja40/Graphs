@@ -20,6 +20,11 @@ namespace Graphs.ViewModels
             }
         }
 
+        public override string ToString()
+        {
+            return Number.ToString();
+        }
+
         public SquareViewModel() { }
 
         public SquareViewModel(int number)

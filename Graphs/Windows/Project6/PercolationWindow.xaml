@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Graphs.Windows.Project6"
         mc:Ignorable="d"
-        Title="PercolationWindow" Height="800" Width="640">
+        Title="PercolationWindow" Height="400" Width="400">
     <Grid Name="PerGrid">
         
     </Grid>

@@ -6,6 +6,7 @@ using Graphs.Windows.Project3;
 using Graphs.Windows.Project4;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,7 +79,53 @@ namespace Graphs
 
         private void onGraphChange()
         {
-            
+            prepareMatrix();
+            prepareGraphList();
+            prepareMatrixInc();
+        }
+        private void prepareMatrixInc()
+        {
+            MatrixIncViewModel vm = new MatrixIncViewModel(Graph.NodesNr, Graph.ConnectionCount);
+
+            var matrixInc = Converter.ConvertToSMatrixInc(Converter.ConvertToSList(Graph));
+            for (int connection = 0; connection < matrixInc.ConnectNr; ++connection)
+                for (int node = 0; node < matrixInc.NodesNr; ++node)
+                {
+                    vm.Connections[node, connection] = matrixInc.GetConnectionArray(node, connection) ? 1 : 0;
+                }
+
+            MatrixIncControl.DataContext = vm;
+        }
+
+        private void prepareMatrix()
+        {
+            MatrixViewModel vm = new MatrixViewModel(Graph.NodesNr);
+
+            for (int y = vm.NodeCount - 1; y >= 0; --y)
+                for (int x = 0; x < vm.NodeCount; ++x)
+                {
+                    vm.Connections[x, y] = Graph.GetConnection(x, y) ? Graph.getWeight(x, y) : 0;
+                }
+
+            MatrixControl.DataContext = vm;
+        }
+
+        private void prepareGraphList()
+        {
+            var vm = GraphListControl.DataContext as GraphListViewModel;
+            vm.Items.Clear();
+            var graphList = Converter.ConvertToSList(Graph);
+
+            for (int i = 0; i < graphList.NodesNr; ++i)
+            {
+                var connections = new ObservableCollection<int>(graphList.GetConnections(i));
+                var nodeVM = new GraphListItemViewModel()
+                {
+                    ConnectedNodes = connections,
+                    NodeNumber = i
+                };
+                vm.Items.Add(nodeVM);
+            }
         }
 
         private void GraphControlResize(object sender, SizeChangedEventArgs e)
@@ -304,6 +351,10 @@ namespace Graphs
             var message = "Znalazłem takie cykle : ";
             foreach(var cycle in cycles)
             {
+                //for (int i = 1; i < cycle.Count; ++i)
+                //{
+                //    if(Graph.GetConnection(cycle[i-1], cycle))
+                //}
                 message += Environment.NewLine;
                 foreach (var node in cycle)
                 {

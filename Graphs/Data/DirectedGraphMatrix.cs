@@ -57,7 +57,17 @@ namespace Graphs.Data
         {
             get
             {
-                throw new NotImplementedException();
+                var connections = 0;
+                for(int node1 = 0; node1 < NodesNr; ++node1)
+                {
+                    for(int node2 = 0; node2 < NodesNr;++node2)
+                    {
+                        if (GetConnection(node1, node2))
+                            connections++;
+                    }
+                }
+
+                return connections;
 
             }
         }

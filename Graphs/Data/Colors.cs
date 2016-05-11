@@ -12,7 +12,6 @@ namespace Graphs.Data
         public static Color[] Values = new Color[]
         {
             Colors.White,
-            Colors.Red,
             Colors.Blue,
             Colors.Green,
             Colors.Yellow,
