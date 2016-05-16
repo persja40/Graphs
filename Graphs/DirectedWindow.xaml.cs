@@ -496,7 +496,7 @@ namespace Graphs
             for(int y = 0; y < Graph.NodesNr; ++y)
                 for(int x = 0;x < Graph.NodesNr; ++x)
                 {
-                    Graph.Current[x, y] = current[y, x];
+                    Graph.Current[x, y] = current[x, y];
                 }
 
             Renderer.Displayer = new DirectedColumnFlowDisplayer();
@@ -509,6 +509,7 @@ namespace Graphs
                 for (int x = 0; x < Graph.NodesNr; ++x)
                 {
                     if(Graph.getWeight(x,y) < 1000000)
+                        if(Graph.GetConnection(x, y))
                     Graph.setWeight(x, y, 1);
                 }
 
