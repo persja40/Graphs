@@ -215,6 +215,39 @@ namespace Graphs
             MessageBox.Show(message);
         }
 
+        private void BellmanFordStart(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Dijkstra(true);
+
+
+            dialog.ShowDialog();
+
+            int startNode = dialog.StartNode - 1;
+
+            string message = "";
+
+            for(int i = 0;i < Graph.NodesNr;++i)
+            {
+                if (i == startNode)
+                    continue;
+                List<int> path = Directed.BellmanFord(Graph, startNode, i);
+
+                message += string.Format("Node {0} : ", i + 1);
+                if (path != null)
+                {
+                    path.ForEach(n => message += (n + 1) + " ");
+                }
+                else
+                {
+                    message += "brak sciezki";
+                }
+
+                message += Environment.NewLine;
+            }
+
+            MessageBox.Show(message);
+        }
+
         private void CreateAcyclic(object sender, RoutedEventArgs arg)
         {
             var w = new CreateAcycligGraphWindow();
@@ -269,29 +302,37 @@ namespace Graphs
 
         private void Johnson(object sender, RoutedEventArgs e)
         {
-            var john = Directed.Johnson(Graph);
-
             var message = "";
-
-            for (int y = 0; y < Graph.NodesNr; ++y)
+            try
             {
-                for (int x = 0; x < Graph.NodesNr; ++x)
+                var john = Directed.Johnson(Graph);
+
+
+
+                for (int y = 0; y < Graph.NodesNr; ++y)
                 {
-                    if (john[y, x] < 20000000)
+                    for (int x = 0; x < Graph.NodesNr; ++x)
                     {
-                        message += john[y, x];
-                        if (john[y, x] < 10)
+                        if (john[y, x] < 20000000)
+                        {
+                            message += john[y, x];
+                            if (john[y, x] < 10)
+                                message += " ";
+                            if (john[y, x] < 100)
+                                message += " ";
                             message += " ";
-                        if (john[y, x] < 100)
-                            message += " ";
-                        message += " ";
+                        }
+                        else
+                        {
+                            message += " -  ";
+                        }
                     }
-                    else
-                    {
-                        message += " -  ";
-                    }
+                    message += Environment.NewLine;
                 }
-                message += Environment.NewLine;
+            }
+            catch(Exception)
+            {
+                message = "Wykryto ujemny cykl (Sprawdzony za pomoca zewnetrznej metody)";
             }
 
             MessageBox.Show(message);

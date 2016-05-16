@@ -23,6 +23,7 @@
                 <MenuItem Header="Wypisz silnie spójne składowe" Click="ShowSilne" />
                 <MenuItem Header="NajwiekszaSpojna" Click="MaxSpojna" />
                 <MenuItem Header="Bellman-Ford" Click="BellmanFord" />
+                <MenuItem Header="Bellman-Ford Only Start" Click="BellmanFordStart" />
                 <MenuItem Header="Odleglosci BF" Click="BFDistance" />
                 <MenuItem Header="Sprawdź czy zawiera ujemne cykle" Click="UjemneCykle" />
                 <MenuItem Header="Johnson" Click="Johnson" />

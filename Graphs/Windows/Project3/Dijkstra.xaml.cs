@@ -30,6 +30,12 @@ namespace Graphs.Windows.Project3
             DataContext = this;
         }
 
+        public Dijkstra(bool hideEndNode = true) : this()
+        {
+            if (hideEndNode)
+                EndNodePanel.Visibility = Visibility.Collapsed;
+        }
+
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
             this.Close();

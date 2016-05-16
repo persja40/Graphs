@@ -19,7 +19,7 @@
             <TextBox DockPanel.Dock="left" Name="StartNodeTextBox" Text="{Binding StartNode}"></TextBox>
         </DockPanel>
 
-        <DockPanel Grid.Row="1">
+        <DockPanel Name="EndNodePanel"  Grid.Row="1">
             <Label DockPanel.Dock="Left" MinWidth="75">End Node :</Label>
             <TextBox DockPanel.Dock="left" Name="EndNodeTextBox" Text="{Binding EndNode}"></TextBox>
         </DockPanel>
