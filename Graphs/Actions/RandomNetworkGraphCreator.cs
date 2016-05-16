@@ -22,7 +22,7 @@ namespace Graphs.Actions
         Random rand = new Random();
 
 
-        public GraphMatrix Generate()
+        public DirectedGraphMatrix Generate()
         {
             resetStaticSettings();
 
@@ -39,9 +39,9 @@ namespace Graphs.Actions
             Node.Reset();
         }
 
-        private GraphMatrix createGraphFromRows(List<Row> rows)
+        private DirectedGraphMatrix createGraphFromRows(List<Row> rows)
         {
-            GraphMatrix graph = new GraphMatrix(Node.Indexer);
+            DirectedGraphMatrix graph = new DirectedGraphMatrix(Node.Indexer);
 
             for (int i = 0; i < rows.Count; ++i)
             {
@@ -152,7 +152,7 @@ namespace Graphs.Actions
             var neighbourNode = nextRow.SelectRandom();
             if (!node.IsConnectedTo(neighbourNode))
             {
-                connectNodes(node, neighbourNode, rand.Next(0, 11));
+                connectNodes(node, neighbourNode, rand.Next(1, 11));
             }
         }
 
@@ -170,7 +170,7 @@ namespace Graphs.Actions
             var neighbourNode = previousRow.SelectRandom();
             if (!node.IsConnectedTo(neighbourNode))
             {
-                connectNodes(neighbourNode, node, rand.Next(0, 11));
+                connectNodes(neighbourNode, node, rand.Next(1, 11));
             }
         }
 

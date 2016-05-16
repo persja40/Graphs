@@ -14,6 +14,7 @@ namespace Graphs.Data
             nodesNr = nodes;
             connect = new int[nodesNr, nodesNr];
             weights = new int[nodesNr, nodesNr];
+            Current = new int[nodesNr, nodesNr];
         }
 
         public override void setWeight(int n1, int n2, int val)
@@ -37,6 +38,7 @@ namespace Graphs.Data
         {
             connect[node1, node2] = 0;
             weights[node1, node2] = 0;
+            Current[node1, node2] = 0;
 
             if (OnChange != null)
                 OnChange();
@@ -46,11 +48,17 @@ namespace Graphs.Data
         {
             connect[node1, node2] = 1;
             weights[node1, node2] = weight;
+            Current[node1, node2] = 0;
         }
 
         public override bool GetConnection(int node1, int node2)
         {
             return connect[node1, node2] >= 1;
+        }
+
+        public int GetCurrent(int startNode, int endNode)
+        {
+            return Current[startNode, endNode];
         }
 
         public override int ConnectionCount
@@ -74,11 +82,19 @@ namespace Graphs.Data
 
         public void Set(DirectedGraphMatrix other)
         {
+            Current = new int[other.nodesNr, other.nodesNr];
             base.Set(other);
             Columns = other.Columns;
+            for (int y = 0; y < NodesNr; ++y)
+                for (int x = 0; x < NodesNr; ++x)
+                {
+                    other.Current[x, y] = Current[x, y];
+                }
         }
 
+        public int[,] Current;
 
-        
+
+
     }
 }

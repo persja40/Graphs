@@ -14,7 +14,7 @@ namespace Graphs.Actions
     {
         internal DirectedGraphMatrix _graph;
         IDirectedDisplayer _displayer = new DirectedCircleDisplayer();
-        public IDirectedDisplayer Displayer { get { return _displayer; } set { _displayer = value; Render(); _displayer = new DirectedCircleDisplayer(); } }
+        public IDirectedDisplayer Displayer { get { return _displayer; } set { _displayer = value; Render(); } }
         public DirectedGraphMatrix Graph
         {
             get

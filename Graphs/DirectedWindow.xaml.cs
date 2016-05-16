@@ -4,6 +4,7 @@ using Graphs.ViewModels;
 using Graphs.Windows.Generators;
 using Graphs.Windows.Project3;
 using Graphs.Windows.Project4;
+using Graphs.Windows.Project5;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -79,8 +80,11 @@ namespace Graphs
 
         private void onGraphChange()
         {
+            if(VM.RegenerateMatrix)
             prepareMatrix();
+            if(VM.RegenerateList)
             prepareGraphList();
+            if(VM.RegenerateMatrixInc)
             prepareMatrixInc();
         }
         private void prepareMatrixInc()
@@ -180,6 +184,7 @@ namespace Graphs
 
             Graph.Set(GraphGenerator.CreateRandomDirectedWeights(Graph));
             Graph.OnChange();
+            Renderer.Displayer = new DirectedCircleDisplayer();
 
         }
 
@@ -417,6 +422,7 @@ namespace Graphs
         {
             Graph.Set(Directed.Directedmaxspojny(Graph));
             Graph.OnChange();
+            Renderer.Displayer = new DirectedCircleDisplayer();
         }
 
         private void BFDistance(object sender, RoutedEventArgs e)
@@ -457,6 +463,55 @@ namespace Graphs
             }
 
             MessageBox.Show(message);
+        }
+
+        private void GenerateFlowNetwork(object sender, RoutedEventArgs args)
+        {
+            var w = new CreateFlowNetworkWindow();
+            try
+            {
+                w.ShowDialog();
+                Graph.Clear();
+                Graph.Set(w.Generate());
+                Graph.OnChange();
+            }
+            catch (Exception e)
+            {
+                MessageBoxResult result = MessageBox.Show("Coś poszło nie tak"
+                    + System.Environment.NewLine
+                    + e.Message
+                    );
+            }
+
+            Renderer.Displayer = new DirectedColumnDisplayer();
+        }
+
+        private void MaxFlow(object sender, RoutedEventArgs args)
+        {
+            MaxFlow1 mf = new MaxFlow1(Graph);
+            string message = string.Format("Maxymalny przeplyw to {0}", mf.findMaxFlow(Graph));
+
+            var current = mf.getFlowMatrix();
+
+            for(int y = 0; y < Graph.NodesNr; ++y)
+                for(int x = 0;x < Graph.NodesNr; ++x)
+                {
+                    Graph.Current[x, y] = current[y, x];
+                }
+
+            Renderer.Displayer = new DirectedColumnFlowDisplayer();
+            MessageBox.Show(message);
+        }
+
+        private void ResetWeight(object sender, RoutedEventArgs e)
+        {
+            for (int y = 0; y < Graph.NodesNr; ++y)
+                for (int x = 0; x < Graph.NodesNr; ++x)
+                {
+                    Graph.setWeight(x, y, 1);
+                }
+
+            Renderer.Displayer = Renderer.Displayer;
         }
     }
 }

@@ -526,26 +526,7 @@ namespace Graphs
 
         }
 
-        private void GenerateFlowNetwork(object sender, RoutedEventArgs args)
-        {
-            var w = new CreateFlowNetworkWindow();
-            try
-            {
-                w.ShowDialog();
-                Graph.Clear();
-                Graph.Set(w.Generate());
-                Graph.OnChange();
-            }
-            catch (Exception e)
-            {
-                MessageBoxResult result = MessageBox.Show("Coś poszło nie tak"
-                    + System.Environment.NewLine
-                    + e.Message
-                    );
-            }
 
-            GraphRenderer.Displayer = new ColumnDisplayer();
-        }
 
         private void Percolation(object sender, RoutedEventArgs e)
         {

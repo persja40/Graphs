@@ -8,9 +8,8 @@ using System.Windows.Media;
 
 namespace Graphs.Actions
 {
-    public class DirectedColumnDisplayer : IDirectedDisplayer
+    class DirectedColumnFlowDisplayer : IDirectedDisplayer
     {
-
         public void Display(DirectionalGraphRenderer renderer)
         {
             if (renderer.DirectedWindowVM.RegenerateGraphView == false)
@@ -40,7 +39,7 @@ namespace Graphs.Actions
             }
 
 
-            for (int y = 0; y < renderer.Graph.NodesNr; ++y)                                                                                                               
+            for (int y = 0; y < renderer.Graph.NodesNr; ++y)
                 for (int x = 0; x < renderer.Graph.NodesNr; ++x)
                 {
                     if (renderer.Graph.GetConnection(y, x) == false)
@@ -59,7 +58,6 @@ namespace Graphs.Actions
                     double x2 = r + (renderer.GraphControl.ActualWidth - 2 * r) * (double)(renderer.Graph.Columns[x]) / (double)(renderer.Graph.ColumnsCount());
                     double y2 = r + (renderer.GraphControl.ActualHeight - 2 * r) * ratio2;
 
-
                     int maxFlow = 0;
                     foreach (var flow in renderer.Graph.weights)
                     {
@@ -76,9 +74,9 @@ namespace Graphs.Actions
                     if (flowRatio <= 1.1)
                         flowColor = Color.FromRgb((byte)0, (byte)0, (byte)(flowRatio * 255));
 
-                    int thickness = 15;
+                    int thickness = 25;
                     if (flowRatio <= 1.1)
-                        thickness = (int)abc;
+                        thickness = (int)abc * 2;
 
                     LineViewModel lineVM = new LineViewModel()
                     {
@@ -89,11 +87,43 @@ namespace Graphs.Actions
                         StartNode = y,
                         EndNode = x,
                         //Color = flowColor,
+                        Thickness = thickness
+                    };
+                   // vm.Connections.Add(lineVM);
+
+
+                    maxFlow = 0;
+                    foreach (var flow in renderer.Graph.Current)
+                    {
+                        if (flow > maxFlow)
+                            maxFlow = flow;
+                    }
+
+                    abc = (float)renderer.Graph.GetCurrent(x, y);
+
+                    flowRatio = (abc / (float)maxFlow);
+                    flowColor = Colors.Green;
+                    if (flowRatio <= 1.1)
+                        flowColor = Color.FromRgb((byte)0, (byte)0,  (byte)(155 +  flowRatio * 100));
+
+                    thickness = 15;
+                    if (flowRatio <= 1.1)
+                        thickness = (int)abc * 2;
+
+                    lineVM = new LineViewModel()
+                    {
+                        X1 = x1,
+                        Y1 = y1,
+                        X2 = x2,
+                        Y2 = y2,
+                        StartNode = y,
+                        EndNode = x,
+                        Color = flowColor,
                         Hint = string.Format("Flow {0}", abc),
                         Thickness = thickness
                     };
-
                     vm.Connections.Add(lineVM);
+
                     double a = (y2 - y1) / (x2 - x1);
                     double b = y2 / (a * x2);
                     double length = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
@@ -102,6 +132,12 @@ namespace Graphs.Actions
                     double ratio = newLength / length;
                     double newX = x1 + (x2 - x1) * ratio;
                     double newY = y1 + (y2 - y1) * ratio;
+
+
+                    
+
+
+
 
                     TriangleViewModel triangleVm = new TriangleViewModel()
                     {

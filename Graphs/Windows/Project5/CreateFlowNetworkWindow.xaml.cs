@@ -31,7 +31,7 @@ namespace Graphs.Windows.Project5
             Close();
         }
 
-        public GraphMatrix Generate()
+        public DirectedGraphMatrix Generate()
         {
             RandomNetworkGraphCreator generator = new RandomNetworkGraphCreator();
 

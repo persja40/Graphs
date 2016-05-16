@@ -65,6 +65,7 @@
     <Compile Include="Actions\Directed.cs" />
     <Compile Include="Actions\DirectedCircleDisplayer.cs" />
     <Compile Include="Actions\DirectedColumnDisplayer.cs" />
+    <Compile Include="Actions\DirectedColumnFlowDisplayer.cs" />
     <Compile Include="Actions\DirectionalGraphRenderer.cs" />
     <Compile Include="Actions\EulerGraph.cs" />
     <Compile Include="Actions\GraphGenerator.cs" />

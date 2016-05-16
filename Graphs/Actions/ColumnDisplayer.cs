@@ -8,11 +8,11 @@ using System.Windows.Media;
 
 namespace Graphs.Actions
 {
-    public class ColumnDisplayer : IDisplayer
+    public class ColumnDisplayer : IDirectedDisplayer
     {
-        public void Display(GraphRenderer R)
+        public void Display(DirectionalGraphRenderer R)
         {
-            if (R.mainWindowVM.RegenerateGraphView == false)
+            if (R.DirectedWindowVM.RegenerateGraphView == false)
                 return;
             GraphViewModel vm = new GraphViewModel();
             double r = Math.Sqrt(Math.Pow(R.GraphControl.ActualHeight, 1.8) + Math.Pow(R.GraphControl.ActualWidth, 1.8)) / 20;
@@ -76,7 +76,7 @@ namespace Graphs.Actions
 
                     int weight = R.Graph.getWeight(x, y);
                     byte redBrightness = 0;
-                    if (R.mainWindowVM.ShowWeights)
+                    if (R.DirectedWindowVM.ShowWeights)
                     {
                         redBrightness = (byte)((double)weight / (double)R.Graph.MaxWeight * 255.0);
                     }

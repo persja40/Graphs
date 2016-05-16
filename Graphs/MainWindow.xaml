@@ -60,10 +60,7 @@
                 <MenuItem Header="Graph minmax centre" Click="GraphMinMaxCentre" />
                 <MenuItem Header="Minimum spanning tree" Click="SpanningTree" />
             </MenuItem>
-            <MenuItem Header="Projekt4" Click="Project4">
-            </MenuItem>
-            <MenuItem Header="Projekt5">
-                <MenuItem Header="Generate flow network" Click="GenerateFlowNetwork"/>
+            <MenuItem Header="Projekt 4 i 5" Click="Project4">
             </MenuItem>
             <MenuItem Header="Projekt6">
                 <MenuItem Header="Perkolacja" Click="Percolation"/>
