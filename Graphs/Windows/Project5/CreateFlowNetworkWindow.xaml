@@ -16,8 +16,10 @@
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" Name="Row1"/>
+            <RowDefinition Height="auto" Name="Row2"/>
+            <RowDefinition Height="auto" Name="Row3"/>
+            <RowDefinition Height="auto" Name="Row4"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label>Liczba warstw</Label>
@@ -26,7 +28,13 @@
         <Label Grid.Row="1">Prawdopobieństwo Node'a</Label>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="NodePropability">50</TextBox>
         <Label Grid.Row="1" Grid.Column="1" DockPanel.Dock="Right" HorizontalAlignment="Right">%</Label>
-        
-        <Button Click="Generate" Grid.Row="2" Grid.Column="1">Generuj</Button>
+
+        <Label Grid.Row="2">Ilośc Node'ów lewo</Label>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="NodeCountLeft">3</TextBox>
+
+        <Label Grid.Row="3">Ilośc Node'ów prawo</Label>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="NodeCountRight">4</TextBox>
+
+        <Button Click="Generate" Grid.Row="4" Grid.Column="1">Generuj</Button>
     </Grid>
 </Window>

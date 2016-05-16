@@ -503,6 +503,29 @@ namespace Graphs
             MessageBox.Show(message);
         }
 
+        private void Skojarzenia(object sender, RoutedEventArgs args)
+        {
+            var w = new CreateFlowNetworkWindow(true);
+            try
+            {
+                w.ShowDialog();
+                Graph.Clear();
+                Graph.Set(w.GenerateSkojarzenie());
+                Graph.OnChange();
+
+
+            }
+            catch (Exception e)
+            {
+                MessageBoxResult result = MessageBox.Show("Coś poszło nie tak"
+                    + System.Environment.NewLine
+                    + e.Message
+                    );
+            }
+
+            Renderer.Displayer = new DirectedColumnSkojarzeniaDisplayer();
+        }
+
         private void ResetWeight(object sender, RoutedEventArgs e)
         {
             for (int y = 0; y < Graph.NodesNr; ++y)
@@ -515,5 +538,26 @@ namespace Graphs
 
             Renderer.Displayer = Renderer.Displayer;
         }
+
+        private void CircleDisplayer(object sender, RoutedEventArgs e)
+        {
+            Renderer.Displayer = new DirectedCircleDisplayer();
+        }
+
+        private void ColumnDisplayer(object sender, RoutedEventArgs e)
+        {
+            Renderer.Displayer = new DirectedColumnDisplayer();
+        }
+
+        private void FlowDisplayer(object sender, RoutedEventArgs e)
+        {
+            Renderer.Displayer = new DirectedColumnFlowDisplayer();
+        }
+
+        private void SkojarzeniaDisplayer(object sender, RoutedEventArgs e)
+        {
+            Renderer.Displayer = new DirectedColumnSkojarzeniaDisplayer();
+        }
+
     }
 }

@@ -15,6 +15,10 @@ namespace Graphs.Actions
         public int RowCount { get; set; }
         public double NodePropability { get; set; }
 
+        public int MinimumNodePerRowLeft { get; set; } = 2;
+        public int MinimumNodePerRowRight { get; set; } = 2;
+        public bool NoRandoms { get; set; } = false;
+
         /// <summary>
         /// startnode, endNode, flow
         /// </summary>
@@ -77,7 +81,7 @@ namespace Graphs.Actions
                 List<Row> longRows = createLongRowList(rows, i);
                 tryToConnectNode(row, nextRow, previousRouw, longRows);
             }
-
+            if(NoRandoms == false)
             for(int i = 0;i < (rows.Count - 2) * 2;) //dodanie 2N krawedzi w sposob losowy
             {
                 var weight = rand.Next(1, 11);
@@ -181,7 +185,11 @@ namespace Graphs.Actions
             for(int i = 1; i < rows.Count - 1;++i)
             {
                 var row = rows[i];
-                while (row.Count <= 2)
+                while (
+                    (i == 1 && row.Count <= MinimumNodePerRowLeft) ||
+                    (i == 2 && row.Count <= MinimumNodePerRowRight) ||
+                    row.Count <= 2)
+
                     row.Add(new Node()); //must be at least 1 node per row.
 
                 for (int j = 0; j <= RowCount - 4; ++j)

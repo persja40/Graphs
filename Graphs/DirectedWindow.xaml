@@ -32,10 +32,12 @@
             <MenuItem Header="Acykliczne">
                 <MenuItem Header="Stwórz losowy acykliczny" Click="CreateAcyclic"/>
                 <MenuItem Header="Sortowanie topologiczne" Click="TopologicSorting"/>
+                
             </MenuItem>
             <MenuItem Header="Flow network">
                 <MenuItem Header="Generate flow network" Click="GenerateFlowNetwork"/>
                 <MenuItem Header="MaxFlow" Click="MaxFlow"/>
+                <MenuItem Header="Skojarzenia" Click="Skojarzenia"/>
                 
             </MenuItem>
             <MenuItem Header="Test">
@@ -48,6 +50,12 @@
                 <MenuItem Header="Regenerate incidency matrix" IsCheckable="True" IsChecked="{Binding RegenerateMatrixInc}" />
                 <MenuItem Header="Regenerate list" IsCheckable="True" IsChecked="{Binding RegenerateList}" />
                 <MenuItem Header="Show weights" IsCheckable="True" IsChecked="{Binding ShowWeights}" />
+            </MenuItem>
+            <MenuItem Header="Displayer">
+                <MenuItem Header="Circle" Click="CircleDisplayer"/>
+                <MenuItem Header="Column" Click="ColumnDisplayer"/>
+                <MenuItem Header="Flow" Click="FlowDisplayer"/>
+                <MenuItem Header="Skojarzenia" Click="SkojarzeniaDisplayer"/>
             </MenuItem>
         </Menu>
         <Grid DockPanel.Dock="Top">

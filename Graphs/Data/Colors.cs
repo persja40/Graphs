@@ -41,6 +41,14 @@ namespace Graphs.Data
             return Randoms[index].Value;
         }
 
+        public static Color GetColor(int number)
+        {
+            if (number < Values.Count())
+                return Values[number];
+            else
+               return Random(number);
+        }
+
         public static  List<Color?> Randoms { get; set; } = new List<Color?>();
     }
 }
