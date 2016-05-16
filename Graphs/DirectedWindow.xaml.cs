@@ -508,6 +508,7 @@ namespace Graphs
             for (int y = 0; y < Graph.NodesNr; ++y)
                 for (int x = 0; x < Graph.NodesNr; ++x)
                 {
+                    if(Graph.getWeight(x,y) < 1000000)
                     Graph.setWeight(x, y, 1);
                 }
 
