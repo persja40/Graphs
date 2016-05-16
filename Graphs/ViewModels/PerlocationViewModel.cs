@@ -30,42 +30,33 @@ namespace Graphs.ViewModels
                     for (; i < numbers.Count; ++i)
                         if (Squares[x, y].Number == numbers.ElementAt(i))
                             break;
-                    if(i != 0)
-                    Squares[x, y].Number = i + 1;
+
+                    Squares[x, y].Number = i;
                 }
 
-            List<int> count = new List<int>();
-            for (int i = 0; i < numbers.Count + 1; ++i)
-            {
-                count.Add(0);
-            }
+            Dictionary<int, int> /*number, count*/ count = new Dictionary<int, int>();
             for (int y = 0; y < Size; ++y)
                 for (int x = 0; x < Size; ++x)
                 {
                     int number = Squares[x, y].Number;
                     if (number == 0)
                         continue;
+
+                    if (count.ContainsKey(number) == false)
+                        count.Add(number, 0);
+
                     count[number]++;
                 }
 
-            int max = count.Max();
-            int index = 0;
-            for (int i = 1; i < count.Count; ++i)
-            {
-                if (count[i] == max)
-                {
-                    index = i;
-                    break;
-                }
-            }
+            var max = count.Where(x => x.Value == count.Values.Max());
 
             for (int y = 0; y < Size; ++y)
                 for (int x = 0; x < Size; ++x)
                 {
-                    if (Squares[x, y].Number == index)
+                    int number = Squares[x, y].Number;
+                    if (max.Where(pair => pair.Key == number).Count() > 0)
                     {
                         Squares[x, y].Color = Colors.Red;
-                        Squares[x, y].Number = 1;
                     }
                 }
         }
